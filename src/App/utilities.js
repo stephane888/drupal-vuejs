@@ -13,16 +13,38 @@ const utilities = {
       "Content-Type": "application/json",
     };
     if (configCustom) {
-      for (const i in configCustom) {
-        configs.append(configCustom[i].name, configCustom[i].value);
-      }
+      configs = this.mergeHeaders(configCustom, configs);
     }
     return config.post(config.baseURl + url, datas, {
       headers: configs,
     });
   },
-  get(url) {
-    return config.get(config.baseURl + url);
+  /**
+   * get datas;
+   */
+  async get(url, configCustom = null) {
+    const Token = await session.getToken();
+    var configs = {
+      "X-CSRF-Token": Token,
+      "Content-Type": "application/json",
+    };
+    if (configCustom) {
+      configs = this.mergeHeaders(configCustom, configs);
+    }
+    return config.get(config.baseURl + url, {
+      headers: configs,
+    });
+  },
+  /**
+   *
+   */
+  mergeHeaders(configCustom, configs) {
+    if (configCustom) {
+      for (const i in configCustom) {
+        configs.append(configCustom[i].name, configCustom[i].value);
+      }
+    }
+    return configs;
   },
 };
 export default utilities;

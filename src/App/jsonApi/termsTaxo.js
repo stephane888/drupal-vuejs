@@ -1,20 +1,37 @@
 import utilities from "../utilities.js";
 import Confs from "./Confs.js";
+import buildFilter from "./buildFilter.js";
 class termsTaxo {
   constructor(vid) {
     this.vid = vid;
     //
-    this.url = Confs.baseURl + "/taxonomy_term" + this.vid;
+    this.url = Confs.baseURl + "/taxonomy_term/" + this.vid;
     this.terms = [];
   }
   /**
    * Recupere les terms
    */
   get() {
-    return new Promise(() => {
+    return new Promise((resolv) => {
       utilities.get(this.url, Confs.headers).then((resp) => {
         this.terms = resp.data;
+        resolv(resp.data);
       });
+    });
+  }
+  /**
+   * Recupere les terms
+   */
+  getSearch(search) {
+    const filter = new buildFilter();
+    filter.addFilter("name", "STARTS_WITH", search);
+    return new Promise((resolv) => {
+      utilities
+        .get(this.url + "?" + filter.query, Confs.headers)
+        .then((resp) => {
+          this.terms = resp.data;
+          resolv(resp.data);
+        });
     });
   }
   /**

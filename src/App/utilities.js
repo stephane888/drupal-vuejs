@@ -41,7 +41,7 @@ const utilities = {
   mergeHeaders(configCustom, configs) {
     if (configCustom) {
       for (const i in configCustom) {
-        configs.append(configCustom[i].name, configCustom[i].value);
+        configs[i] = configCustom[i];
       }
     }
     return configs;

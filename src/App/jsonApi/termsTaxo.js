@@ -24,7 +24,7 @@ class termsTaxo {
    */
   getSearch(search) {
     const filter = new buildFilter();
-    filter.addFilter("name", "STARTS_WITH", search);
+    filter.addFilter("name", "CONTAINS", search);
     return new Promise((resolv) => {
       utilities
         .get(this.url + "?" + filter.query, Confs.headers)

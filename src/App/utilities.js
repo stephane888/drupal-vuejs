@@ -2,6 +2,7 @@ import session from "./session";
 import config from "../config";
 
 const utilities = {
+  baseURl: config.baseURl,
   /**
    * configCustom[{name:"",value:""}]
    */

@@ -1,35 +1,44 @@
 import utilities from "../utilities";
 import InputBootstrap from "./InputBootstrap";
-import Vue from "vue";
 /**
  * Permet de formater les champs drupal avec les equivalence bootstrap vuejs.
  */
 class formatField {
-  constructor(entity, bundle, vm = null) {
+  constructor(entity, bundle) {
     this.entity = entity;
     this.bundle = bundle;
-    InputBootstrap.vue = vm ? vm : new Vue({});
     // ---------
   }
   /**
    * Retoune les champs convertie en utilisant les composants bootstrap-vuejs.
    * @returns Array []
    */
-  format() {
-    var fields = this.getFields();
+  async format() {
+    var fields = await this.getFields();
+
     return new Promise((resolv, reject) => {
       if (fields.data && fields.data.fields) {
+        InputBootstrap.modelsFields = this.buildModel(fields.data.fields);
         const formatFields = [];
         for (const i in fields.data.fields) {
           formatFields.push({
-            props: {},
+            ref: i,
+            props: {
+              name: {
+                type: String,
+                default: fields.data.fields[i].name,
+              },
+            },
             render(createElement) {
               var renderField = [];
               switch (fields.data.fields[i].type) {
                 case "string":
-                  //utilities.modelsFields[i] = "";
                   renderField.push(
-                    InputBootstrap.string(createElement, fields.data.fields[i])
+                    InputBootstrap.string(
+                      createElement,
+                      fields.data.fields[i],
+                      InputBootstrap.modelsFields[i]
+                    )
                   );
                   break;
               }
@@ -37,7 +46,10 @@ class formatField {
             },
           });
         }
-        resolv(formatFields);
+        resolv({
+          templates: formatFields,
+          models: InputBootstrap.modelsFields,
+        });
       } else {
         reject("Aucune donnée disponible");
       }
@@ -55,6 +67,17 @@ class formatField {
     }
     url += "/" + this.bundle;
     return utilities.get(url);
+  }
+  /**
+   * - Cet object permet de rendre les elements de l'object ecoutable.
+   *   on creer tous les champs, puis on initialise InputBootstrap.modelsFields avec tous les champs. Decette facon vuejs peut ecouter les MAJ de champs.
+   */
+  buildModel(fields) {
+    const models = {};
+    for (const i in fields) {
+      if (fields[i].type) models[i] = [];
+    }
+    return models;
   }
 }
 

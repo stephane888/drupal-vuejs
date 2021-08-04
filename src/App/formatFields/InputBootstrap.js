@@ -1,5 +1,4 @@
 export default {
-  vue: "", //represente instance this de vue.
   modelsFields: {},
   /**
    * La valeur par defaut peut etre definit via defaultValue, lors de la consctruction, ou definit dans <component.
@@ -9,24 +8,31 @@ export default {
    * @param {*} defaultValue
    * @returns
    */
-  string(h, field, defaultValue = null) {
-    var vm = this.vue;
-    const input = h("b-form-input", {
-      props: {
-        type: "text",
-        value: defaultValue,
-        b_input: {
-          type: Object,
-          required: true,
-        },
-      },
-      on: {
-        input: function (e) {
-          vm.$emit("ev_select_project", e);
-          console.log(" Vue instance : ", vm.$emit);
-        },
-      },
+  string(h, field, defaultValue = []) {
+    if (defaultValue.length === 0) {
+      defaultValue.push({ value: "" });
+    }
+    const inputs = [];
+    defaultValue.forEach((el) => {
+      inputs.push(
+        h("b-form-input", {
+          props: {
+            type: "text",
+            value: el.value,
+            b_input: {
+              type: Object,
+              required: true,
+            },
+          },
+          on: {
+            input: function (e) {
+              el.value = e;
+            },
+          },
+        })
+      );
     });
+
     const formG = h(
       "b-form-group",
       {
@@ -34,25 +40,9 @@ export default {
           label: field.label_value,
           description: field.description,
         },
-        on: {
-          ev_select_project: function (e) {
-            alert("ffffffffff");
-            vm.$emit("binput", e);
-            console.log("binput : ", e);
-          },
-          onBinput: function (e) {
-            vm.$emit("binput--", e);
-            console.log(" Vue instance : ", vm);
-          },
-        },
-        onBinput: function (e) {
-          vm.$emit("binput--", e);
-          console.log(" Vue instance : ", vm);
-        },
       },
-      [input]
+      inputs
     );
-    //return { form: formG, value: defaultValue };
     return formG;
   },
 };

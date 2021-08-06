@@ -229,7 +229,9 @@ export default {
     };
   },
   methods: {
-    loginFacebook() {},
+    loginFacebook() {
+      //
+    },
     getFields() {
       const fds = new drupalFormFields("user", "user");
       fds.format().then((resp) => {

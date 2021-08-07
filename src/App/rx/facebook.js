@@ -2,7 +2,7 @@
 export default {
   user: {},
   FB: null,
-  appId: "",
+  appId: "215214177170922",
   scope: "public_profile, email",
   version: "v11.0",
   openPopup() {
@@ -24,8 +24,8 @@ export default {
     console.log("Déconnetion réussi", resp);
   },
   statusChangeCallback(r) {
-    console.log("status", r);
     this.user = r;
+    console.log("status", this.user);
   },
   getUserStatus() {
     var self = this;
@@ -54,6 +54,7 @@ export default {
               cookie: true,
               xfbml: true,
               version: self.version,
+              statue: false,
             });
             console.log("Chargement du JS facebook");
             self.getUserStatus();

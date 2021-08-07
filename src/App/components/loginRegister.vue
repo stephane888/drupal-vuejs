@@ -192,7 +192,6 @@
           </div>
         </div>
       </transition>
-      <div @click="logOut"><a href="#">logOut</a></div>
     </div>
   </ValidationObserver>
 </template>

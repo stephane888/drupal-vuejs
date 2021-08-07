@@ -1,18 +1,35 @@
-const FB = window.fbAsyncInit;
+//const FB = window.Fb;
 export default {
   user: {},
+  FB: null,
+  appId: "",
+  scope: "public_profile, email",
+  version: "v11.0",
   openPopup() {
     var self = this;
-    FB.login(function (resp) {
-      self.statusChangeCallback(resp);
+    console.log("fb", this.FB);
+    window.FB.login(
+      function (resp) {
+        self.statusChangeCallback(resp);
+      },
+      { scope: self.scope, return_scopes: true }
+    );
+  },
+  logOut() {
+    window.FB.logout(function (res) {
+      this.onLogOut(res);
     });
   },
+  onLogOut(resp) {
+    console.log("Déconnetion réussi", resp);
+  },
   statusChangeCallback(r) {
+    console.log("status", r);
     this.user = r;
   },
   getUserStatus() {
     var self = this;
-    FB.getLoginStatus(function (response) {
+    window.FB.getLoginStatus(function (response) {
       self.statusChangeCallback(response);
     });
   },
@@ -29,14 +46,25 @@ export default {
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
       js.onload = function () {
-        FB.init({
-          appId: "344690973822888",
-          cookie: true,
-          xfbml: true,
-          version: "v11.0",
-        });
-        console.log("Chargement du JS facebook");
-        self.getUserStatus();
+        function checkFB() {
+          if (window.FB) {
+            self.FB = window.FB;
+            self.FB.init({
+              appId: self.appId,
+              cookie: true,
+              xfbml: true,
+              version: self.version,
+            });
+            console.log("Chargement du JS facebook");
+            self.getUserStatus();
+          } else {
+            console.log("ass");
+            setTimeout(() => {
+              checkFB();
+            }, 900);
+          }
+        }
+        checkFB();
       };
     };
     f(document, "script", "facebook-jssdk");

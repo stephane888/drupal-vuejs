@@ -17,7 +17,7 @@
                 <span class="btn-login__icon icon-facebook"></span>
                 <i class="btn-login__text"> Facebook </i>
               </div>
-              <div class="btn-login btn-login--google">
+              <div class="btn-login btn-login--google" @click="loginGoogle">
                 <i class="btn-login__icon icon-google-circles"></i>
                 <span class="btn-login__text"> Google </span>
               </div>
@@ -58,6 +58,7 @@
             <!-- -->
           </div>
         </div>
+
         <div
           class="block-center"
           v-if="stepe === 'setPassword'"
@@ -105,6 +106,7 @@
             </div>
           </div>
         </div>
+
         <!-- Register -->
         <div class="block-center" v-if="stepe === 'register'" :key="'register'">
           <div class="content-center">
@@ -190,6 +192,7 @@
           </div>
         </div>
       </transition>
+      <div @click="logOut"><a href="#">logOut</a></div>
     </div>
   </ValidationObserver>
 </template>
@@ -199,6 +202,8 @@ import utilities from "../utilities";
 import drupalFormFields from "../formatFields/formatFieldsBootstrap";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import "./vee-validate-custom";
+import rxFacebook from "../rx/facebook";
+import rxGoogle from "../rx/google.js";
 export default {
   name: "LoginRegister",
   props: {
@@ -228,9 +233,19 @@ export default {
       models: {},
     };
   },
+  mounted() {
+    rxFacebook.chargement();
+    rxGoogle.loadGapi();
+  },
   methods: {
     loginFacebook() {
-      //
+      rxFacebook.openPopup();
+    },
+    loginGoogle() {
+      rxGoogle.initLogin();
+    },
+    logOut() {
+      rxFacebook.logOut();
     },
     getFields() {
       const fds = new drupalFormFields("user", "user");

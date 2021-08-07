@@ -27,7 +27,7 @@ export default {
         self.gapi.auth2
           .init({
             client_id: self.client_id,
-            //scope: self.scope,
+            scope: self.scope,
           })
           .then(
             function (res) {

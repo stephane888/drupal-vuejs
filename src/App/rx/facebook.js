@@ -11,8 +11,8 @@ export default {
     window.FB.login(
       function (resp) {
         self.statusChangeCallback(resp);
-      }
-      // { scope: self.scope, return_scopes: true }
+      },
+      { scope: self.scope, return_scopes: true }
     );
   },
   logOut() {

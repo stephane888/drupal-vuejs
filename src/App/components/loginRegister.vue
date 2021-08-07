@@ -9,7 +9,7 @@
         >
           <div class="content-center">
             <a class="content-center__img" href="/">
-              <img :src="urlLogo" alt="" />
+              <img :src="baseURl + urlLogo" alt="" />
             </a>
             Connectez vous avec
             <div class="content-center__btn-column">
@@ -197,6 +197,7 @@
 </template>
 <script>
 import config from "./config";
+import configGlobal from "../../config.js";
 import utilities from "../utilities";
 import drupalFormFields from "../formatFields/formatFieldsBootstrap";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
@@ -230,6 +231,7 @@ export default {
       stepe: "checkstatus",
       templates: [],
       models: {},
+      baseURl: configGlobal.baseURl,
     };
   },
   mounted() {

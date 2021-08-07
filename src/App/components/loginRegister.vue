@@ -234,6 +234,7 @@ export default {
     };
   },
   mounted() {
+    rxFacebook.appId = 889256191665205;
     rxFacebook.chargement();
     rxGoogle.loadGapi();
   },

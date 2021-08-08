@@ -11,6 +11,7 @@ export default {
       first: "Suivant",
       connect: "Connexion",
       register: "S'inscrire",
+      final: "terminée",
     },
     devisCreateUser:
       "Votre compte a été creer sur <a href='/'> lesroisdelareno.fr </a>. <br> <strong> Bien vouloir verifier votre boite mail afin de valider votre compte </strong>",

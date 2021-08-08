@@ -2,15 +2,17 @@
 export default {
   user: {},
   FB: null,
-  appId: "215214177170922",
+  appId: "",
   scope: "public_profile, email",
   version: "v11.0",
+  /**
+   * Ouverture de la boite de dislogue, facebook.
+   */
   openPopup() {
     var self = this;
-    console.log("fb", this.FB);
     window.FB.login(
-      function (resp) {
-        self.statusChangeCallback(resp);
+      (resp) => {
+        this.statusChangeCallback(resp, true);
       },
       { scope: self.scope, return_scopes: true }
     );
@@ -23,8 +25,17 @@ export default {
   onLogOut(resp) {
     console.log("Déconnetion réussi", resp);
   },
-  statusChangeCallback(r) {
+  /**
+   * Permet de definir les informations de base et emet un evenement
+   * $event 'wbu-fb-status-change'
+   * @param {*} r
+   */
+  statusChangeCallback(r, getInfoUser = false) {
     this.user = r;
+    if (getInfoUser) {
+      var event = new CustomEvent("wbu-fb-status-change");
+      document.dispatchEvent(event);
+    }
     console.log("status", this.user);
   },
   getUserStatus() {

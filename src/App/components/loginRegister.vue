@@ -11,15 +11,17 @@
             <a class="content-center__img" href="/">
               <img :src="baseURl + urlLogo" alt="" />
             </a>
-            Connectez vous avec
+            <p>Connectez vous avec</p>
             <div class="content-center__btn-column">
               <div class="btn-login btn-login--facebook" @click="loginFacebook">
                 <span class="btn-login__icon icon-facebook"></span>
                 <i class="btn-login__text"> Facebook </i>
+                <svgWaiting v-if="waiting === 'facebook'"></svgWaiting>
               </div>
               <div class="btn-login btn-login--google" @click="loginGoogle">
                 <i class="btn-login__icon icon-google-circles"></i>
                 <span class="btn-login__text"> Google </span>
+                <svgWaiting v-if="waiting === 'google'"></svgWaiting>
               </div>
             </div>
             <strong class="d-block"> Ou </strong>
@@ -55,10 +57,52 @@
                 <svgWaiting v-if="waiting === 'wait'"></svgWaiting>
               </div>
             </div>
-            <!-- -->
           </div>
         </div>
+        <!-- Apres une connexion rx, on demande les informations supplementaires. -->
+        <div
+          class="block-center"
+          v-if="stepe === 'final-register'"
+          :key="'checkstatus'"
+        >
+          <div class="content-center">
+            <a class="content-center__img" href="/">
+              <img :src="baseURl + urlLogo" alt="" />
+            </a>
+            <p>Finaliser votre connexion</p>
+            <ValidationProvider
+              v-for="(temp, i) in templates"
+              :key="i"
+              class="content-center__input"
+              v-slot="v"
+              :ref="temp.ref"
+            >
+              <component :is="temp"></component>
+              <div class="text-danger text-small">
+                <small
+                  v-for="(error, ii) in v.errors"
+                  :key="ii"
+                  class="d-block"
+                >
+                  {{ error }}
+                </small>
+              </div>
+            </ValidationProvider>
 
+            <div class="content-center__btn">
+              <div
+                class="btn-login btn-login--connexion"
+                @click="finalRegister"
+              >
+                <span class="btn-login__text">
+                  {{ messages.submit.final }}
+                </span>
+                <svgWaiting v-if="waiting == 'wait'"></svgWaiting>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- -->
         <div
           class="block-center"
           v-if="stepe === 'setPassword'"
@@ -236,19 +280,53 @@ export default {
   },
   mounted() {
     rxFacebook.appId = 889256191665205;
+    this.TryToLoginWithFacebook();
     rxFacebook.chargement();
     rxGoogle.loadGapi();
   },
   methods: {
+    /**
+     * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
+     */
+    TryToLoginWithFacebook() {
+      document.addEventListener(
+        "wbu-fb-status-change",
+        () => {
+          console.log("TryToLoginWithFacebook");
+          this.getFields();
+          utilities
+            .post("/login-rx-vuejs/facebook-check", rxFacebook.user)
+            .then((resp) => {
+              console.log("TryToLoginWithFacebook resp : ", resp);
+              if (
+                resp.reponse &&
+                resp.reponse.config.url !== resp.reponse.request.responseURL
+              ) {
+                window.location.assign(resp.reponse.request.responseURL);
+              }
+              // il faut s'assurer que les données sont ok.
+              else if (resp.data) {
+                if (resp.data.createuser) {
+                  this.stepe = "final-register";
+                }
+              }
+            });
+        },
+        false
+      );
+    },
     loginFacebook() {
+      this.waiting = "facebook";
       rxFacebook.openPopup();
     },
-    loginGoogle() {
-      rxGoogle.initLogin();
-    },
-    logOut() {
+    logOutFacebook() {
       rxFacebook.logOut();
     },
+    loginGoogle() {
+      this.waiting = "google";
+      rxGoogle.initLogin();
+    },
+
     getFields() {
       const fds = new drupalFormFields("user", "user");
       fds.format().then((resp) => {
@@ -300,6 +378,25 @@ export default {
             this.waiting = "error";
           });
       else this.waiting = "";
+    },
+    finalRegister() {
+      this.waiting = "wait";
+      console.log(" finalRegister : ", this.models);
+      utilities
+        .post("/login-rx-vuejs/facebook-login", {
+          fields: this.models,
+          facebook: rxFacebook.user,
+        })
+        .then((resp) => {
+          console.log(resp);
+          this.waiting = "";
+          if (
+            resp.reponse &&
+            resp.reponse.config.url !== resp.reponse.request.responseURL
+          ) {
+            window.location.assign(resp.reponse.request.responseURL);
+          }
+        });
     },
     Register() {
       this.waiting = "wait";

@@ -53570,12 +53570,12 @@ var BootstrapVue = /*#__PURE__*/{
  // Default export is the BootstrapVue plugin
 
 /* harmony default export */ var esm = (BootstrapVue);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"9de210be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/loginRegister.vue?vue&type=template&id=20083d11&
-var loginRegistervue_type_template_id_20083d11_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ValidationObserver',{ref:"formValidate"},[_c('div',{staticClass:"login-page"},[_c('transition',{attrs:{"name":"customslide"}},[(_vm.stepe === 'checkstatus')?_c('div',{key:'checkstatus',staticClass:"block-center"},[_c('div',{staticClass:"content-center"},[_c('a',{staticClass:"content-center__img",attrs:{"href":"/"}},[_c('img',{attrs:{"src":_vm.baseURl + _vm.urlLogo,"alt":""}})]),_c('p',[_vm._v("Connectez vous avec")]),_c('div',{staticClass:"content-center__btn-column"},[_c('div',{staticClass:"btn-login btn-login--facebook",on:{"click":_vm.loginFacebook}},[_c('span',{staticClass:"btn-login__icon icon-facebook"}),_c('i',{staticClass:"btn-login__text"},[_vm._v(" Facebook ")]),(_vm.waiting === 'facebook')?_c('svgWaiting'):_vm._e()],1),_c('div',{staticClass:"btn-login btn-login--google",on:{"click":_vm.loginGoogle}},[_c('i',{staticClass:"btn-login__icon icon-google-circles"}),_c('span',{staticClass:"btn-login__text"},[_vm._v(" Google ")]),(_vm.waiting === 'google')?_c('svgWaiting'):_vm._e()],1)]),_c('strong',{staticClass:"d-block"},[_vm._v(" Ou ")]),_c('hr',{staticClass:"diviseur"}),_c('h3',{staticClass:"content-center__title"},[_vm._v(_vm._s(_vm.messages.log_email))]),_c('div',{staticClass:"form-group content-center__input"},[_c('ValidationProvider',{attrs:{"name":"name","rules":"required"},scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.login_check),expression:"login_check"}],staticClass:"form-control",attrs:{"type":"text","name":"name"},domProps:{"value":(_vm.login_check)},on:{"input":function($event){if($event.target.composing){ return; }_vm.login_check=$event.target.value}}}),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,false,2271490516)})],1),_c('div',{staticClass:"content-center__btn"},[_c('div',{staticClass:"btn-login btn-login--connexion",on:{"click":_vm.checkUserStatus}},[_c('span',{staticClass:"btn-login__text"},[_vm._v(" "+_vm._s(_vm.messages.submit.first)+" ")]),(_vm.waiting === 'wait')?_c('svgWaiting'):_vm._e()],1)])])]):_vm._e(),(_vm.stepe === 'final-register')?_c('div',{key:'checkstatus',staticClass:"block-center"},[_c('div',{staticClass:"content-center"},[_c('a',{staticClass:"content-center__img",attrs:{"href":"/"}},[_c('img',{attrs:{"src":_vm.baseURl + _vm.urlLogo,"alt":""}})]),_c('p',[_vm._v("Finaliser votre connexion")]),_vm._l((_vm.templates),function(temp,i){return _c('ValidationProvider',{key:i,ref:temp.ref,refInFor:true,staticClass:"content-center__input",scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c(temp,{tag:"component"}),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,true)})}),_c('div',{staticClass:"content-center__btn"},[_c('div',{staticClass:"btn-login btn-login--connexion",on:{"click":_vm.finalRegister}},[_c('span',{staticClass:"btn-login__text"},[_vm._v(" "+_vm._s(_vm.messages.submit.final)+" ")]),(_vm.waiting == 'wait')?_c('svgWaiting'):_vm._e()],1)])],2)]):_vm._e(),(_vm.stepe === 'setPassword')?_c('div',{key:'setPassword',staticClass:"block-center"},[_c('div',{staticClass:"content-center"},[_c('a',{staticClass:"content-center__img",attrs:{"href":"/"}},[_c('img',{attrs:{"src":_vm.urlLogo,"alt":""}})]),_c('h3',{staticClass:"content-center__title"},[_vm._v(_vm._s(_vm.messages.pass))]),_c('div',{staticClass:"form-group content-center__input"},[_c('ValidationProvider',{ref:"refPass",attrs:{"name":"pass","rules":"required"},scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],staticClass:"form-control",attrs:{"type":"password","name":"pass"},domProps:{"value":(_vm.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}}),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,false,1164253440)})],1),_c('a',{staticClass:"content-center__forgot-pass",attrs:{"href":"/user/password"}},[_vm._v(" Mot de passe oublié ? ")]),_c('div',{staticClass:"content-center__btn"},[_c('div',{staticClass:"btn-login btn-login--connexion",on:{"click":_vm.Login}},[_c('span',{staticClass:"btn-login__text"},[_vm._v(" "+_vm._s(_vm.messages.submit.connect)+" ")]),(_vm.waiting == 'wait')?_c('svgWaiting'):_vm._e()],1)])])]):_vm._e(),(_vm.stepe === 'register')?_c('div',{key:'register',staticClass:"block-center"},[_c('div',{staticClass:"content-center"},[_c('a',{staticClass:"content-center__img",attrs:{"href":"/"}},[_c('img',{attrs:{"src":_vm.urlLogo,"alt":""}})]),_c('h3',{staticClass:"content-center__title"},[_vm._v(_vm._s(_vm.messages.login))]),_c('div',{staticClass:"form-group content-center__input"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.login_check),expression:"login_check"}],staticClass:"form-control",attrs:{"type":"text","readonly":"true","name":"name"},domProps:{"value":(_vm.login_check)},on:{"input":function($event){if($event.target.composing){ return; }_vm.login_check=$event.target.value}}})]),(_vm.showPassword)?_c('h3',{staticClass:"content-center__title"},[_vm._v(" "+_vm._s(_vm.messages.pass)+" ")]):_vm._e(),(_vm.showPassword)?_c('div',{staticClass:"form-group content-center__input"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],staticClass:"form-control",attrs:{"type":"password","name":"pass"},domProps:{"value":(_vm.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}})]):_vm._e(),_c('h3',{staticClass:"content-center__title"},[_vm._v(_vm._s(_vm.messages.mail))]),_c('ValidationProvider',{ref:"mail",staticClass:"d-block w-100",attrs:{"name":"mail","rules":"required"},scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c('div',{staticClass:"form-group content-center__input"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.mail),expression:"mail"}],staticClass:"form-control",attrs:{"type":"mail","name":"mail"},domProps:{"value":(_vm.mail)},on:{"input":function($event){if($event.target.composing){ return; }_vm.mail=$event.target.value}}})]),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,false,620003705)}),_vm._l((_vm.templates),function(temp,i){return _c('ValidationProvider',{key:i,ref:temp.ref,refInFor:true,staticClass:"content-center__input",scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c(temp,{tag:"component"}),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,true)})}),_c('div',{staticClass:"content-center__btn"},[_c('div',{staticClass:"btn-login btn-login--connexion",on:{"click":_vm.Register}},[_c('span',{staticClass:"btn-login__text"},[_vm._v(" "+_vm._s(_vm.messages.submit.register)+" ")]),(_vm.waiting == 'wait')?_c('svgWaiting'):_vm._e()],1)])],2)]):_vm._e()])],1)])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"9de210be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/App/components/loginRegister.vue?vue&type=template&id=4857d09e&
+var loginRegistervue_type_template_id_4857d09e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('ValidationObserver',{ref:"formValidate",attrs:{"tag":"form"}},[_c('div',{staticClass:"login-page"},[_c('transition',{attrs:{"name":"customslide"}},[(_vm.stepe === 'checkstatus')?_c('div',{key:'checkstatus',staticClass:"block-center"},[_c('div',{staticClass:"content-center"},[_c('a',{staticClass:"content-center__img",attrs:{"href":"/"}},[_c('img',{attrs:{"src":_vm.baseURl + _vm.urlLogo,"alt":""}})]),_c('p',[_vm._v("Connectez vous avec")]),_c('div',{staticClass:"content-center__btn-column"},[_c('div',{staticClass:"btn-login btn-login--google",on:{"click":_vm.loginGoogle}},[_c('i',{staticClass:"btn-login__icon icon-google-circles"}),_c('span',{staticClass:"btn-login__text"},[_vm._v(" Google ")]),(_vm.waiting === 'google')?_c('svgWaiting'):_vm._e()],1),_c('div',{staticClass:"btn-login btn-login--facebook",on:{"click":_vm.loginFacebook}},[_c('span',{staticClass:"btn-login__icon icon-facebook"}),_c('i',{staticClass:"btn-login__text"},[_vm._v(" Facebook ")]),(_vm.waiting === 'facebook')?_c('svgWaiting'):_vm._e()],1)]),_c('strong',{staticClass:"d-block"},[_vm._v(" Ou ")]),_c('hr',{staticClass:"diviseur"}),_c('h3',{staticClass:"content-center__title"},[_vm._v(_vm._s(_vm.messages.log_email))]),_c('div',{staticClass:"form-group content-center__input"},[_c('ValidationProvider',{attrs:{"name":"name","rules":"required"},scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.login_check),expression:"login_check"}],staticClass:"form-control",attrs:{"type":"text","name":"name"},domProps:{"value":(_vm.login_check)},on:{"input":function($event){if($event.target.composing){ return; }_vm.login_check=$event.target.value}}}),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,false,2271490516)})],1),_c('div',{staticClass:"content-center__btn"},[_c('div',{staticClass:"btn-login btn-login--connexion",on:{"click":_vm.checkUserStatus}},[_c('span',{staticClass:"btn-login__text"},[_vm._v(" "+_vm._s(_vm.messages.submit.first)+" ")]),(_vm.waiting === 'wait')?_c('svgWaiting'):_vm._e()],1)])])]):_vm._e(),(_vm.stepe === 'final-fb-register' || _vm.stepe === 'final-gl-register')?_c('div',{key:'checkstatus',staticClass:"block-center"},[_c('div',{staticClass:"content-center"},[_c('a',{staticClass:"content-center__img",attrs:{"href":"/"}},[_c('img',{attrs:{"src":_vm.baseURl + _vm.urlLogo,"alt":""}})]),_c('p',[_vm._v("Finaliser votre connexion")]),_vm._l((_vm.templates),function(temp,i){return _c('ValidationProvider',{key:i,ref:temp.ref,refInFor:true,staticClass:"content-center__input",scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c(temp,{tag:"component"}),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,true)})}),_c('div',{staticClass:"content-center__btn"},[_c('div',{staticClass:"btn-login btn-login--connexion",on:{"click":_vm.finalRegister}},[_c('span',{staticClass:"btn-login__text"},[_vm._v(" "+_vm._s(_vm.messages.submit.final)+" ")]),(_vm.waiting == 'wait')?_c('svgWaiting'):_vm._e()],1)])],2)]):_vm._e(),(_vm.stepe === 'setPassword')?_c('div',{key:'setPassword',staticClass:"block-center"},[_c('div',{staticClass:"content-center"},[_c('a',{staticClass:"content-center__img",attrs:{"href":"/"}},[_c('img',{attrs:{"src":_vm.urlLogo,"alt":""}})]),_c('h3',{staticClass:"content-center__title"},[_vm._v(_vm._s(_vm.messages.pass))]),_c('div',{staticClass:"form-group content-center__input"},[_c('ValidationProvider',{ref:"refPass",attrs:{"name":"pass","rules":"required"},scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],staticClass:"form-control",attrs:{"type":"password","name":"pass"},domProps:{"value":(_vm.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}}),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,false,1164253440)})],1),_c('a',{staticClass:"content-center__forgot-pass",attrs:{"href":"/user/password"}},[_vm._v(" Mot de passe oublié ? ")]),_c('div',{staticClass:"content-center__btn"},[_c('div',{staticClass:"btn-login btn-login--connexion",on:{"click":_vm.Login}},[_c('span',{staticClass:"btn-login__text"},[_vm._v(" "+_vm._s(_vm.messages.submit.connect)+" ")]),(_vm.waiting == 'wait')?_c('svgWaiting'):_vm._e()],1)])])]):_vm._e(),(_vm.stepe === 'register')?_c('div',{key:'register',staticClass:"block-center"},[_c('div',{staticClass:"content-center"},[_c('a',{staticClass:"content-center__img",attrs:{"href":"/"}},[_c('img',{attrs:{"src":_vm.urlLogo,"alt":""}})]),_c('h3',{staticClass:"content-center__title"},[_vm._v(_vm._s(_vm.messages.login))]),_c('div',{staticClass:"form-group content-center__input"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.login_check),expression:"login_check"}],staticClass:"form-control",attrs:{"type":"text","readonly":"true","name":"name"},domProps:{"value":(_vm.login_check)},on:{"input":function($event){if($event.target.composing){ return; }_vm.login_check=$event.target.value}}})]),(_vm.showPassword)?_c('h3',{staticClass:"content-center__title"},[_vm._v(" "+_vm._s(_vm.messages.pass)+" ")]):_vm._e(),(_vm.showPassword)?_c('div',{staticClass:"form-group content-center__input"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.password),expression:"password"}],staticClass:"form-control",attrs:{"type":"password","name":"pass"},domProps:{"value":(_vm.password)},on:{"input":function($event){if($event.target.composing){ return; }_vm.password=$event.target.value}}})]):_vm._e(),_c('h3',{staticClass:"content-center__title"},[_vm._v(_vm._s(_vm.messages.mail))]),_c('ValidationProvider',{ref:"mail",staticClass:"d-block w-100",attrs:{"name":"mail","rules":"required"},scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c('div',{staticClass:"form-group content-center__input"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.mail),expression:"mail"}],staticClass:"form-control",attrs:{"type":"mail","name":"mail"},domProps:{"value":(_vm.mail)},on:{"input":function($event){if($event.target.composing){ return; }_vm.mail=$event.target.value}}})]),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,false,620003705)}),_vm._l((_vm.templates),function(temp,i){return _c('ValidationProvider',{key:i,ref:temp.ref,refInFor:true,staticClass:"content-center__input",scopedSlots:_vm._u([{key:"default",fn:function(v){return [_c(temp,{tag:"component"}),_c('div',{staticClass:"text-danger text-small"},_vm._l((v.errors),function(error,ii){return _c('small',{key:ii,staticClass:"d-block"},[_vm._v(" "+_vm._s(error)+" ")])}),0)]}}],null,true)})}),_c('div',{staticClass:"content-center__btn"},[_c('div',{staticClass:"btn-login btn-login--connexion",on:{"click":_vm.Register}},[_c('span',{staticClass:"btn-login__text"},[_vm._v(" "+_vm._s(_vm.messages.submit.register)+" ")]),(_vm.waiting == 'wait')?_c('svgWaiting'):_vm._e()],1)])],2)]):_vm._e()])],1)])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/App/components/loginRegister.vue?vue&type=template&id=20083d11&
+// CONCATENATED MODULE: ./src/App/components/loginRegister.vue?vue&type=template&id=4857d09e&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
 var es_object_to_string = __webpack_require__("d3b7");
@@ -63288,7 +63288,7 @@ var rules_validate = function (value, params) {
     var regex = new RegExp("^-?\\d+\\" + (separators[separator] || '.') + "\\d" + regexPart + "$");
     return Array.isArray(value) ? value.every(function (val) { return regex.test(String(val)); }) : regex.test(String(value));
 };
-var params = [
+var rules_params = [
     {
         name: 'decimals',
         default: 0
@@ -63300,7 +63300,7 @@ var params = [
 ];
 var rules_double = {
     validate: rules_validate,
-    params: params
+    params: rules_params
 };
 
 
@@ -63374,46 +63374,39 @@ extend("alpha", numeric); //export default extend;
   },
   chargement: function chargement() {
     var self = this;
+    var head = document.getElementsByTagName("head")[0];
+    var js = document.createElement("script");
+    head.appendChild(js);
+    js.id = "facebook-jssdk-021"; // js.addEventListener("load", () => {
+    //   console.log("Chargement du JS FACEBOOK END;");
+    // });
+    //
 
-    var f = function f(d, s, id) {
-      var js,
-          fjs = d.getElementsByTagName(s)[0];
-
-      if (d.getElementById(id)) {
-        return;
+    js.onload = function () {
+      function checkFB() {
+        if (window.FB) {
+          self.FB = window.FB;
+          self.FB.init({
+            appId: self.appId,
+            cookie: true,
+            xfbml: true,
+            version: self.version,
+            statue: false
+          });
+          console.log("Chargement du JS facebook");
+          self.getUserStatus();
+        } else {
+          console.log("facebook not load");
+          setTimeout(function () {
+            checkFB();
+          }, 900);
+        }
       }
 
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-
-      js.onload = function () {
-        function checkFB() {
-          if (window.FB) {
-            self.FB = window.FB;
-            self.FB.init({
-              appId: self.appId,
-              cookie: true,
-              xfbml: true,
-              version: self.version,
-              statue: false
-            });
-            console.log("Chargement du JS facebook");
-            self.getUserStatus();
-          } else {
-            console.log("ass");
-            setTimeout(function () {
-              checkFB();
-            }, 900);
-          }
-        }
-
-        checkFB();
-      };
+      checkFB();
     };
 
-    f(document, "script", "facebook-jssdk");
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
   }
 });
 /*
@@ -63454,9 +63447,11 @@ window.fbAsyncInit = function () {
     var head = document.getElementsByTagName("head")[0];
     var gapi = document.createElement("script");
     head.appendChild(gapi);
-    gapi.id = "gapi-jsgo";
-    gapi.setAttribute("async", "");
-    gapi.setAttribute("defer", "");
+    gapi.id = "gapi-jsgo"; //gapi.setAttribute("async", "");
+    //gapi.setAttribute("defer", "");
+    // gapi.addEventListener("load", () => {
+    //   console.log("Chargement du JS Google END;");
+    // });
 
     gapi.onload = function () {
       _this.initGoogleApi();
@@ -63482,8 +63477,10 @@ window.fbAsyncInit = function () {
           self.onFaillure(error);
         });
       });
+      console.log("Chargement du JS Google");
     } else {
-      console.log("ass");
+      console.log("Google not load");
+      nbr++;
       setTimeout(function () {
         _this2.initGoogleApi();
       }, 900);
@@ -63516,9 +63513,11 @@ window.fbAsyncInit = function () {
       email: profile.getEmail()
     };
     console.log("user", this.user);
+    var event = new CustomEvent("wbu-gl-status-change");
+    document.dispatchEvent(event);
   },
-  onSuccess: function onSuccess(resp) {
-    console.log("Initialisation de l'app réussi", resp);
+  onSuccess: function onSuccess(r) {
+    console.log("Initialisation de l'app réussi", r);
   },
   onFaillure: function onFaillure(resp) {
     console.log("Échec de l'opération", resp);
@@ -63821,7 +63820,14 @@ window.fbAsyncInit = function () {
   mounted: function mounted() {
     facebook.appId = 889256191665205;
     this.TryToLoginWithFacebook();
-    facebook.chargement();
+    facebook.chargement(); //
+
+    this.TryToLoginWithGoogle(); // rxGoogle.client_id =
+    //   "1076442032003-82nt70v46plap18r8fgkofblm8d3lkng.apps.googleusercontent.com";
+    // rxGoogle.client_id =
+    //   "801794942375-5pn2dblmroi4ml8dqmtife9u68rpjvs7.apps.googleusercontent.com";
+
+    google.client_id = "90673796165-fndv3eu9tog6b9g5p8camiueffcfdc8p.apps.googleusercontent.com";
     google.loadGapi();
   },
   methods: {
@@ -63844,7 +63850,33 @@ window.fbAsyncInit = function () {
           } // il faut s'assurer que les données sont ok.
           else if (resp.data) {
             if (resp.data.createuser) {
-              _this.stepe = "final-register";
+              _this.stepe = "final-fb-register";
+            }
+          }
+        });
+      }, false);
+    },
+
+    /**
+     * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
+     */
+    TryToLoginWithGoogle: function TryToLoginWithGoogle() {
+      var _this2 = this;
+
+      document.addEventListener("wbu-gl-status-change", function () {
+        console.log("TryToLoginWithGoogle");
+
+        _this2.getFields();
+
+        App_utilities.post("/login-rx-vuejs/google-check", google.user).then(function (resp) {
+          console.log("TryToLoginWithGoogle resp : ", resp);
+
+          if (resp.reponse && resp.reponse.config.url !== resp.reponse.request.responseURL) {
+            window.location.assign(resp.reponse.request.responseURL);
+          } // Il faut s'assurer que les données sont ok.
+          else if (resp.data) {
+            if (resp.data.createuser) {
+              _this2.stepe = "final-gl-register";
             }
           }
         });
@@ -63862,16 +63894,16 @@ window.fbAsyncInit = function () {
       google.initLogin();
     },
     getFields: function getFields() {
-      var _this2 = this;
+      var _this3 = this;
 
       var fds = new formatFieldsBootstrap("user", "user");
       fds.format().then(function (resp) {
-        _this2.templates = resp.templates;
-        _this2.models = resp.models;
+        _this3.templates = resp.templates;
+        _this3.models = resp.models;
       });
     },
     checkUserStatus: function checkUserStatus() {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
         var url, test;
@@ -63879,25 +63911,25 @@ window.fbAsyncInit = function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this3.waiting = "wait";
+                _this4.waiting = "wait";
                 url = "/login-rx-vuejs/check-user-status";
                 _context.next = 4;
-                return _this3.$refs.formValidate.validate();
+                return _this4.$refs.formValidate.validate();
 
               case 4:
                 test = _context.sent;
                 if (test) App_utilities.post(url, {
                   name: [{
-                    value: _this3.login_check
+                    value: _this4.login_check
                   }]
                 }).then(function (resp) {
-                  _this3.waiting = "";
-                  if (resp.data) _this3.stepe = "setPassword";else {
-                    _this3.getFields();
+                  _this4.waiting = "";
+                  if (resp.data) _this4.stepe = "setPassword";else {
+                    _this4.getFields();
 
-                    _this3.stepe = "register";
+                    _this4.stepe = "register";
                   }
-                });else _this3.waiting = "";
+                });else _this4.waiting = "";
 
               case 6:
               case "end":
@@ -63908,7 +63940,7 @@ window.fbAsyncInit = function () {
       }))();
     },
     Login: function Login() {
-      var _this4 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
         var url, test;
@@ -63916,23 +63948,23 @@ window.fbAsyncInit = function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this4.waiting = "wait";
+                _this5.waiting = "wait";
                 url = "/login-rx-vuejs/user-connexion";
                 _context2.next = 4;
-                return _this4.$refs.formValidate.validate();
+                return _this5.$refs.formValidate.validate();
 
               case 4:
                 test = _context2.sent;
                 if (test) App_utilities.post(url, {
                   name: [{
-                    value: _this4.login_check
+                    value: _this5.login_check
                   }],
                   password: [{
-                    value: _this4.password
+                    value: _this5.password
                   }]
                 }).then(function (resp) {
-                  _this4.waiting = "";
-                  if (resp) _this4.stepe = "setPassword";
+                  _this5.waiting = "";
+                  if (resp) _this5.stepe = "setPassword";
 
                   if (resp.reponse && resp.reponse.config.url !== resp.reponse.request.responseURL) {
                     window.location.assign(resp.reponse.request.responseURL);
@@ -63940,10 +63972,10 @@ window.fbAsyncInit = function () {
                     console.log("Redirection par defaut ", resp.reponse.request);
                   }
                 })["catch"](function (e) {
-                  _this4.$refs.refPass.setErrors([e.error.statusText]);
+                  _this5.$refs.refPass.setErrors([e.error.statusText]);
 
-                  _this4.waiting = "error";
-                });else _this4.waiting = "";
+                  _this5.waiting = "error";
+                });else _this5.waiting = "";
 
               case 6:
               case "end":
@@ -63954,24 +63986,56 @@ window.fbAsyncInit = function () {
       }))();
     },
     finalRegister: function finalRegister() {
-      var _this5 = this;
+      var _this6 = this;
 
-      this.waiting = "wait";
-      console.log(" finalRegister : ", this.models);
-      App_utilities.post("/login-rx-vuejs/facebook-login", {
-        fields: this.models,
-        facebook: facebook.user
-      }).then(function (resp) {
-        console.log(resp);
-        _this5.waiting = "";
+      return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+        var params, url, test;
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this6.waiting = "wait";
+                params = {};
+                url = "";
 
-        if (resp.reponse && resp.reponse.config.url !== resp.reponse.request.responseURL) {
-          window.location.assign(resp.reponse.request.responseURL);
-        }
-      });
+                if (_this6.stepe === "final-gl-register") {
+                  url = "/login-rx-vuejs/google-login";
+                  params = {
+                    fields: _this6.models,
+                    google: google.user
+                  };
+                } else if (_this6.stepe === "final-fb-register") {
+                  url = "/login-rx-vuejs/facebook-login";
+                  params = {
+                    fields: _this6.models,
+                    facebook: facebook.user
+                  };
+                }
+
+                _context3.next = 6;
+                return _this6.$refs.formValidate.validate();
+
+              case 6:
+                test = _context3.sent;
+                if (test) App_utilities.post(url, params).then(function (resp) {
+                  console.log(resp);
+                  _this6.waiting = "";
+
+                  if (resp.reponse && resp.reponse.config.url !== resp.reponse.request.responseURL) {
+                    window.location.assign(resp.reponse.request.responseURL);
+                  }
+                });
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     },
     Register: function Register() {
-      var _this6 = this;
+      var _this7 = this;
 
       this.waiting = "wait";
       this.$set(this.models, "name", [{
@@ -63986,8 +64050,8 @@ window.fbAsyncInit = function () {
       var url = "/fr/user/register?_format=json";
       App_utilities.post(url, this.models).then(function (resp) {
         console.log("resp : ", resp);
-        _this6.waiting = "";
-        components_config.modalSuccess(components_config.msgCreate([_this6.messages.devisCreateUser]), {
+        _this7.waiting = "";
+        components_config.modalSuccess(components_config.msgCreate([_this7.messages.devisCreateUser]), {
           title: "Votre compte a été crré",
           footerClass: "d-none",
           headerBgVariant: "success",
@@ -63997,20 +64061,20 @@ window.fbAsyncInit = function () {
           window.location.assign("/");
         }, 5000);
       })["catch"](function (e) {
-        _this6.waiting = "";
+        _this7.waiting = "";
         console.log("catch : ", e);
 
         if (e.error && e.error.data && e.error.data.errors) {
           var errors = e.error.data.errors;
-          console.log(" this.$refs : ", _this6.$refs);
+          console.log(" this.$refs : ", _this7.$refs);
           errors.forEach(function (error) {
             var field = error.split(":");
             console.log("field : ", field);
 
-            if (_this6.$refs[field[0]]) {
-              if (_this6.$refs[field[0]][0]) {
-                _this6.$refs[field[0]][0].setErrors([field[1]]);
-              } else _this6.$refs[field[0]].setErrors([field[1]]);
+            if (_this7.$refs[field[0]]) {
+              if (_this7.$refs[field[0]][0]) {
+                _this7.$refs[field[0]][0].setErrors([field[1]]);
+              } else _this7.$refs[field[0]].setErrors([field[1]]);
             }
           });
         }
@@ -64034,7 +64098,7 @@ var loginRegistervue_type_style_index_0_lang_scss_ = __webpack_require__("f073")
 
 var loginRegister_component = Object(componentNormalizer["a" /* default */])(
   components_loginRegistervue_type_script_lang_js_,
-  loginRegistervue_type_template_id_20083d11_render,
+  loginRegistervue_type_template_id_4857d09e_render,
   staticRenderFns,
   false,
   null,
@@ -64055,11 +64119,11 @@ var loginRegister_tag = "#appLoginRegister";
 var eltTag = document.querySelector(loginRegister_tag);
 new external_commonjs_vue_commonjs2_vue_root_Vue_default.a({
   render: function render(h) {
-    return h(loginRegister, {
+    return h("div", {}, [h(loginRegister, {
       props: {
         urlLogo: eltTag.getAttribute("drupalLogo")
       }
-    });
+    })]);
   }
 }).$mount(loginRegister_tag);
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib-no-default.js

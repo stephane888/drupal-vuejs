@@ -46,40 +46,37 @@ export default {
   },
   chargement() {
     var self = this;
-    const f = (d, s, id) => {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-      js.onload = function () {
-        function checkFB() {
-          if (window.FB) {
-            self.FB = window.FB;
-            self.FB.init({
-              appId: self.appId,
-              cookie: true,
-              xfbml: true,
-              version: self.version,
-              statue: false,
-            });
-            console.log("Chargement du JS facebook");
-            self.getUserStatus();
-          } else {
-            console.log("ass");
-            setTimeout(() => {
-              checkFB();
-            }, 900);
-          }
+    var head = document.getElementsByTagName("head")[0];
+    var js = document.createElement("script");
+    head.appendChild(js);
+    js.id = "facebook-jssdk-021";
+    // js.addEventListener("load", () => {
+    //   console.log("Chargement du JS FACEBOOK END;");
+    // });
+    //
+    js.onload = function () {
+      function checkFB() {
+        if (window.FB) {
+          self.FB = window.FB;
+          self.FB.init({
+            appId: self.appId,
+            cookie: true,
+            xfbml: true,
+            version: self.version,
+            statue: false,
+          });
+          console.log("Chargement du JS facebook");
+          self.getUserStatus();
+        } else {
+          console.log("facebook not load");
+          setTimeout(() => {
+            checkFB();
+          }, 900);
         }
-        checkFB();
-      };
+      }
+      checkFB();
     };
-    f(document, "script", "facebook-jssdk");
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
   },
 };
 

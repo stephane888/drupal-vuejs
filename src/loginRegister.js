@@ -8,10 +8,12 @@ const tag = "#appLoginRegister";
 const eltTag = document.querySelector(tag);
 new Vue({
   render: (h) => {
-    return h(loginRegister, {
-      props: {
-        urlLogo: eltTag.getAttribute("drupalLogo"),
-      },
-    });
+    return h("div", {}, [
+      h(loginRegister, {
+        props: {
+          urlLogo: eltTag.getAttribute("drupalLogo"),
+        },
+      }),
+    ]);
   },
 }).$mount(tag);

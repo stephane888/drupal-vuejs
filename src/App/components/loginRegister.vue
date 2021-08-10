@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver ref="formValidate">
+  <ValidationObserver ref="formValidate" tag="form">
     <div class="login-page">
       <transition name="customslide">
         <div
@@ -13,15 +13,15 @@
             </a>
             <p>Connectez vous avec</p>
             <div class="content-center__btn-column">
-              <div class="btn-login btn-login--facebook" @click="loginFacebook">
-                <span class="btn-login__icon icon-facebook"></span>
-                <i class="btn-login__text"> Facebook </i>
-                <svgWaiting v-if="waiting === 'facebook'"></svgWaiting>
-              </div>
               <div class="btn-login btn-login--google" @click="loginGoogle">
                 <i class="btn-login__icon icon-google-circles"></i>
                 <span class="btn-login__text"> Google </span>
                 <svgWaiting v-if="waiting === 'google'"></svgWaiting>
+              </div>
+              <div class="btn-login btn-login--facebook" @click="loginFacebook">
+                <span class="btn-login__icon icon-facebook"></span>
+                <i class="btn-login__text"> Facebook </i>
+                <svgWaiting v-if="waiting === 'facebook'"></svgWaiting>
               </div>
             </div>
             <strong class="d-block"> Ou </strong>
@@ -62,7 +62,7 @@
         <!-- Apres une connexion rx, on demande les informations supplementaires. -->
         <div
           class="block-center"
-          v-if="stepe === 'final-register'"
+          v-if="stepe === 'final-fb-register' || stepe === 'final-gl-register'"
           :key="'checkstatus'"
         >
           <div class="content-center">
@@ -282,6 +282,15 @@ export default {
     rxFacebook.appId = 889256191665205;
     this.TryToLoginWithFacebook();
     rxFacebook.chargement();
+    //
+    this.TryToLoginWithGoogle();
+
+    // rxGoogle.client_id =
+    //   "1076442032003-82nt70v46plap18r8fgkofblm8d3lkng.apps.googleusercontent.com";
+    // rxGoogle.client_id =
+    //   "801794942375-5pn2dblmroi4ml8dqmtife9u68rpjvs7.apps.googleusercontent.com";
+    rxGoogle.client_id =
+      "90673796165-fndv3eu9tog6b9g5p8camiueffcfdc8p.apps.googleusercontent.com";
     rxGoogle.loadGapi();
   },
   methods: {
@@ -307,7 +316,37 @@ export default {
               // il faut s'assurer que les données sont ok.
               else if (resp.data) {
                 if (resp.data.createuser) {
-                  this.stepe = "final-register";
+                  this.stepe = "final-fb-register";
+                }
+              }
+            });
+        },
+        false
+      );
+    },
+    /**
+     * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
+     */
+    TryToLoginWithGoogle() {
+      document.addEventListener(
+        "wbu-gl-status-change",
+        () => {
+          console.log("TryToLoginWithGoogle");
+          this.getFields();
+          utilities
+            .post("/login-rx-vuejs/google-check", rxGoogle.user)
+            .then((resp) => {
+              console.log("TryToLoginWithGoogle resp : ", resp);
+              if (
+                resp.reponse &&
+                resp.reponse.config.url !== resp.reponse.request.responseURL
+              ) {
+                window.location.assign(resp.reponse.request.responseURL);
+              }
+              // Il faut s'assurer que les données sont ok.
+              else if (resp.data) {
+                if (resp.data.createuser) {
+                  this.stepe = "final-gl-register";
                 }
               }
             });
@@ -379,15 +418,26 @@ export default {
           });
       else this.waiting = "";
     },
-    finalRegister() {
+    async finalRegister() {
       this.waiting = "wait";
-      console.log(" finalRegister : ", this.models);
-      utilities
-        .post("/login-rx-vuejs/facebook-login", {
+      var params = {};
+      var url = "";
+      if (this.stepe === "final-gl-register") {
+        url = "/login-rx-vuejs/google-login";
+        params = {
+          fields: this.models,
+          google: rxGoogle.user,
+        };
+      } else if (this.stepe === "final-fb-register") {
+        url = "/login-rx-vuejs/facebook-login";
+        params = {
           fields: this.models,
           facebook: rxFacebook.user,
-        })
-        .then((resp) => {
+        };
+      }
+      const test = await this.$refs.formValidate.validate();
+      if (test)
+        utilities.post(url, params).then((resp) => {
           console.log(resp);
           this.waiting = "";
           if (

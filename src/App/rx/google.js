@@ -10,8 +10,11 @@ export default {
     var gapi = document.createElement("script");
     head.appendChild(gapi);
     gapi.id = "gapi-jsgo";
-    gapi.setAttribute("async", "");
-    gapi.setAttribute("defer", "");
+    //gapi.setAttribute("async", "");
+    //gapi.setAttribute("defer", "");
+    // gapi.addEventListener("load", () => {
+    //   console.log("Chargement du JS Google END;");
+    // });
     gapi.onload = () => {
       this.initGoogleApi();
     };
@@ -38,8 +41,10 @@ export default {
             }
           );
       });
+      console.log("Chargement du JS Google");
     } else {
-      console.log("ass");
+      console.log("Google not load");
+      nbr++;
       setTimeout(() => {
         this.initGoogleApi();
       }, 900);
@@ -77,9 +82,11 @@ export default {
       email: profile.getEmail(),
     };
     console.log("user", this.user);
+    var event = new CustomEvent("wbu-gl-status-change");
+    document.dispatchEvent(event);
   },
-  onSuccess(resp) {
-    console.log("Initialisation de l'app réussi", resp);
+  onSuccess(r) {
+    console.log("Initialisation de l'app réussi", r);
   },
   onFaillure(resp) {
     console.log("Échec de l'opération", resp);

@@ -54,33 +54,21 @@ export default {
     var self = this;
     var gapi = self.gapi;
     var auth = gapi.auth2.getAuthInstance();
-
-    // auth
-    //   .signIn({
-    //     scope: "profile email",
-    //     prompt: "consent",
-    //     // ux_mode: "redirect",
-    //     // redirect_uri: "https://lesroisdelareno.fr",
-    //   })
-    //   .then(
-    //     function (resp) {
-    //       self.onSignIn(resp);
-    //     },
-    //     function (resp) {
-    //       self.onFaillure(resp);
-    //     }
-    //   );
-    auth.grantOfflineAccess({ prompt: "consent", scope: this.scope }).then(
-      function (resp) {
-        console.log("code", resp);
-        self.user.code = resp.code;
-        var event = new CustomEvent("wbu-gl-status-change");
-        document.dispatchEvent(event);
-      },
-      function (error) {
-        self.onFaillure(error);
-      }
-    );
+    auth
+      .signIn({
+        scope: "profile email",
+        prompt: "consent",
+        ux_mode: "redirect",
+        redirect_uri: "https://lesroisdelareno.fr/user/login",
+      })
+      .then(
+        function (resp) {
+          self.onSignIn(resp);
+        },
+        function (resp) {
+          self.onFaillure(resp);
+        }
+      );
   },
   initLogOut() {
     var auth = self.gapi.auth2.getAuthInstance();

@@ -11,7 +11,7 @@
             <a class="content-center__img" href="/">
               <img :src="baseURl + urlLogo" alt="" />
             </a>
-            <p>Connectez vous avec <span v-if="hasCode">...</span></p>
+            <p>Connectez vous avec</p>
             <div class="content-center__btn-column">
               <div class="btn-login btn-login--google" @click="loginGoogle">
                 <i class="btn-login__icon icon-google-circles"></i>
@@ -276,7 +276,6 @@ export default {
       templates: [],
       models: {},
       baseURl: configGlobal.baseURl,
-      hasCode: false,
     };
   },
   mounted() {
@@ -329,12 +328,10 @@ export default {
      * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
      */
     TryToLoginWithGoogle() {
-      var self = this;
       document.addEventListener(
         "wbu-gl-status-change",
         () => {
           console.log("TryToLoginWithGoogle");
-          self.hasCode = true;
           this.getFields();
           utilities
             .post("/login-rx-vuejs/google-check", rxGoogle.user)

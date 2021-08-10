@@ -57,6 +57,9 @@ export default {
     auth
       .signIn({
         scope: "profile email",
+        prompt: "consent",
+        ux_mode: "redirect",
+        redirect_uri: "https://lesroisdelareno.fr",
       })
       .then(
         function (resp) {

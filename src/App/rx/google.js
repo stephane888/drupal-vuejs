@@ -1,10 +1,13 @@
 //const gapi = window.gapi;
 export default {
 	user: {},
+	userLocal: {},
+	isConnected: false,
 	gapi: null,
 	api_key: "",
 	client_id: "666466407349-oanmp950m4pp4arec1fcp8okvj6so4cj.apps.googleusercontent.com",
 	scope: "email profile",
+	redirect_uri: "https://lesroisdelareno.fr/user/login",
 	loadGapi() {
 		var head = document.getElementsByTagName("head")[0];
 		var gapi = document.createElement("script");
@@ -25,7 +28,7 @@ export default {
 		var nbr = 0;
 		//var gapi = self.gapi;
 		if (window.gapi && nbr < 10) {
-			self.checkParams();
+			self.checkLocalStorage();
 			self.gapi = window.gapi;
 			self.gapi.load("auth2", () => {
 				self.gapi.auth2
@@ -37,7 +40,12 @@ export default {
 					})
 					.then(
 						function (res) {
+							self.isConnected = self.gapi.auth2.getAuthInstance().isSignedIn.get;
+							self.checkParams();
+							console.log("gapi", window.gapi);
+							//self.checkIfConnected();
 							self.onSuccess(res);
+							//self.checkLocalStorage();
 						},
 						function (error) {
 							self.onFaillure(error);
@@ -53,6 +61,36 @@ export default {
 			}, 900);
 		}
 	},
+	createSubmitForm() {
+		var self = this;
+		var external = window.open("", "external", "width=450,height=600,left=100,top=50");
+		var endPoint = "https://accounts.google.com/o/oauth2/v2/auth";
+		var doc = external.document;
+		var form = doc.createElement("form");
+		form.setAttribute("method", "GET");
+		form.setAttribute("action", endPoint);
+		form.target = "external";
+
+		var params = {
+			client_id: self.client_id,
+			redirect_uri: self.redirect_uri,
+			response_type: "token",
+			scope: "profile email",
+			include_granted_scopes: "true",
+			state: "kksa-888"
+		};
+		for (var p in params) {
+			var input = external.document.createElement("input");
+			input.setAttribute("type", "hidden");
+			input.setAttribute("name", p);
+			input.setAttribute("value", params[p]);
+			form.appendChild(input);
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+	},
+
 	oautSignIn() {
 		var self = this;
 		var endPoint = "https://accounts.google.com/o/oauth2/v2/auth";
@@ -61,7 +99,7 @@ export default {
 		form.setAttribute("action", endPoint);
 		var params = {
 			client_id: self.client_id,
-			redirect_uri: "https://lesroisdelareno.fr/user/login/",
+			redirect_uri: self.redirect_uri,
 			response_type: "token",
 			scope: "profile email",
 			include_granted_scopes: "true",
@@ -76,11 +114,36 @@ export default {
 		}
 
 		// Add form to page and submit it to open the OAuth 2.0 endpoint.
-		document.body.appendChild(form);
-		form.submit();
+		if (self.user && self.user.access_token) {
+			console.log("user", self.user);
+			var event = new CustomEvent("wbu-gl-status-change");
+			document.dispatchEvent(event);
+		} else {
+			document.body.appendChild(form);
+			form.submit();
+		}
+	},
+	openPopUp() {
+		window.open(
+			"",
+			"_blank",
+			"toolbar=yes,scrollbars=no,resizable=yes,top=50,left=100,width=500,height=600,fullscreen=no"
+		);
+	},
+	checkLocalStorage() {
+		var self = this;
+		var local = window.localStorage.getItem("user-google");
+		if (local !== null) {
+			self.userLocal = JSON.parse(local);
+			self.user = self.userLocal;
+			console.log("local", self.user);
+		} else {
+			console.log("localRien", self.UserLocal);
+		}
 	},
 	checkParams() {
 		var self = this;
+
 		//	var host = window.location.origin;
 		var fragmentString = location.hash.substring(1);
 		var params = {};
@@ -90,40 +153,34 @@ export default {
 		while ((m = regex.exec(fragmentString))) {
 			params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
 		}
+
 		if (Object.keys(params).length > 0) {
-			if (params["state"] && params["state"] == "kksa-888") {
-				//window.localStorage.setItem("user-google", JSON.stringify(params));
-				self.user = params;
+			self.isConnected = true;
+			if (params["state"] && params["state"] == "kksa-888" && self.isConnected) {
+				window.localStorage.setItem("user-google", JSON.stringify(params));
+				this.checkLocalStorage();
 				console.log("user", self.user);
 				var event = new CustomEvent("wbu-gl-status-change");
 				document.dispatchEvent(event);
 				window.history.replaceState(null, null, window.location.pathname);
+				window.close();
 			}
 		}
 	},
 
 	initLogin() {
 		var self = this;
-		var gapi = self.gapi;
-		var auth = gapi.auth2.getAuthInstance();
-		auth
-			.signIn({
-				response_type: "token",
-				state: "try_sample_request",
-				include_granted_scopes: "true",
-				scope: "profile email",
-				prompt: "consent",
-				ux_mode: "redirect",
-				redirect_uri: "http://localhost:8080/"
-			})
-			.then(
-				function (resp) {
-					self.onSignIn(resp);
-				},
-				function (resp) {
-					self.onFaillure(resp);
-				}
-			);
+		// self.isConnected = window.gapi.auth2.getAuthInstance().isSignedIn.get();
+		// console.log("connected", self.isConnected);
+		if (self.user && self.user.access_token) {
+			this.checkLocalStorage();
+			console.log("recupération du token", self.user);
+
+			var event = new CustomEvent("wbu-gl-status-change");
+			document.dispatchEvent(event);
+		} else {
+			self.createSubmitForm();
+		}
 	},
 	initLogOut() {
 		var auth = self.gapi.auth2.getAuthInstance();

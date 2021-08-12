@@ -22,7 +22,7 @@ module.exports = {
     "linebreak-style": ["warn", "unix"],
     quotes: ["warn", "double"],
     "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
-    semi: ["error", "always"],
+    semi: ["warn", "always"],
     //"comma-dangle": ["warn", "never"],
     "arrow-parens": ["warn", "as-needed"],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",

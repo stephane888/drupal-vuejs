@@ -290,7 +290,7 @@ export default {
 		},
 		loginGoogle() {
 			this.waiting = "google";
-			rxGoogle.oautSignIn();
+			rxGoogle.initLogin();
 		},
 
 		getFields() {

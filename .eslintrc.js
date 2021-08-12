@@ -18,13 +18,24 @@ module.exports = {
   //https://eslint.org/docs/rules/no-mixed-spaces-and-tabs#disallow-mixed-spaces-and-tabs-for-indentation-no-mixed-spaces-and-tabs
   rules: {
     //indent: ["error", 2, { MemberExpression: 1 }],
+    //indent: ['warn','tab'],
     "linebreak-style": ["warn", "unix"],
     quotes: ["warn", "double"],
     "no-mixed-spaces-and-tabs": ["warn", "smart-tabs"],
-    semi: ["error", "always"],
+    semi: ["warn", "always"],
     //"comma-dangle": ["warn", "never"],
-    "arrow-parens": ["warn", "always"],
+    "arrow-parens": ["warn", "as-needed"],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
+    "prettier/prettier": [
+			"warn",
+			{
+				arrowParens: "avoid",
+				trailingComma: "none",
+				useTabs: true,
+				jsxBracketSameLine: true,
+				printWidth: 100
+			}
+		]
   },
 };

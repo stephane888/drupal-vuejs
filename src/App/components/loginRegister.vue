@@ -1,7 +1,17 @@
 <template>
 	<ValidationObserver ref="formValidate" tag="form">
 		<div class="login-page">
-			<transition name="customslide">
+			<!-- le loader -->
+
+			<div
+				class="spinner-grow text-primary"
+				role="status"
+				style="width: 3rem; height: 3rem"
+				v-if="isBusy"
+			>
+				<span class="sr-only">Loading...</span>
+			</div>
+			<transition name="customslide" v-if="!isBusy">
 				<div class="block-center" v-if="stepe === 'checkstatus'" :key="'checkstatus'">
 					<div class="content-center">
 						<a class="content-center__img" href="/">
@@ -43,6 +53,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- Apres une connexion rx, on demande les informations supplementaires. -->
 				<div
 					class="block-center"
@@ -214,7 +225,8 @@ export default {
 			stepe: "checkstatus",
 			templates: [],
 			models: {},
-			baseURl: configGlobal.baseURl
+			baseURl: configGlobal.baseURl,
+			isBusy: false
 		};
 	},
 	mounted() {
@@ -223,14 +235,27 @@ export default {
 		rxFacebook.chargement();
 		//
 		this.TryToLoginWithGoogle();
-
+		rxGoogle.checkParams();
 		// rxGoogle.client_id =
 		//   "1076442032003-82nt70v46plap18r8fgkofblm8d3lkng.apps.googleusercontent.com";
 		//rxGoogle.client_id = "666466407349-oanmp950m4pp4arec1fcp8okvj6so4cj.apps.googleusercontent.com";
 		rxGoogle.client_id = "90673796165-fndv3eu9tog6b9g5p8camiueffcfdc8p.apps.googleusercontent.com";
 		rxGoogle.loadGapi();
 	},
+	computed: {},
 	methods: {
+		// isBusy() {
+		// 	var el = false;
+		// 	document.addEventListener(
+		// 		"wbu-gl-status-change",
+		// 		() => {
+		// 			el = true;
+		// 			console.log("isBusy", el);
+		// 		},
+		// 		true
+		// 	);
+		// 	return el;
+		// }
 		/**
 		 * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
 		 */
@@ -238,7 +263,9 @@ export default {
 			document.addEventListener(
 				"wbu-fb-status-change",
 				() => {
-					console.log("TryToLoginWithFacebook");
+					this.isBusy = true;
+
+					console.log("TryToLoginWithFacebook", this.isBusy);
 					this.getFields();
 					utilities.post("/login-rx-vuejs/facebook-check", rxFacebook.user).then(resp => {
 						console.log("TryToLoginWithFacebook resp : ", resp);
@@ -263,6 +290,7 @@ export default {
 			document.addEventListener(
 				"wbu-gl-status-change",
 				() => {
+					this.IsBusy();
 					console.log("TryToLoginWithGoogle");
 					this.getFields();
 					utilities.post("/login-rx-vuejs/google-check", rxGoogle.user).then(resp => {
@@ -281,6 +309,10 @@ export default {
 				false
 			);
 		},
+		IsBusy() {
+			this.isBusy = true;
+			console.log("this.isbusy", this.isBusy);
+		},
 		loginFacebook() {
 			this.waiting = "facebook";
 			rxFacebook.openPopup();
@@ -290,7 +322,7 @@ export default {
 		},
 		loginGoogle() {
 			this.waiting = "google";
-			rxGoogle.initLogin();
+			rxGoogle.typeOfLogin();
 		},
 
 		getFields() {

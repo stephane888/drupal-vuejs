@@ -8,6 +8,7 @@ export default {
 	client_id: "666466407349-oanmp950m4pp4arec1fcp8okvj6so4cj.apps.googleusercontent.com",
 	scope: "email profile",
 	redirect_uri: "https://lesroisdelareno.fr/user/login",
+	closePopUp: true,
 	loadGapi() {
 		var head = document.getElementsByTagName("head")[0];
 		var gapi = document.createElement("script");
@@ -155,32 +156,46 @@ export default {
 		}
 
 		if (Object.keys(params).length > 0) {
-			self.isConnected = true;
-			if (params["state"] && params["state"] == "kksa-888" && self.isConnected) {
-				window.localStorage.setItem("user-google", JSON.stringify(params));
+			console.log("userae", params);
+			if (params["state"] && params["state"] == "kksa-888") {
+				//	window.localStorage.setItem("user-google", JSON.stringify(params));
 				this.checkLocalStorage();
 				console.log("user", self.user);
 				var event = new CustomEvent("wbu-gl-status-change");
 				document.dispatchEvent(event);
 				window.history.replaceState(null, null, window.location.pathname);
-				window.close();
 			}
 		}
 	},
-
+	typeOfLogin(form = true) {
+		var self = this;
+		if (!form) {
+			self.createSubmitForm();
+		} else {
+			self.initLogin();
+		}
+	},
 	initLogin() {
 		var self = this;
+		var gapi = self.gapi;
 		// self.isConnected = window.gapi.auth2.getAuthInstance().isSignedIn.get();
 		// console.log("connected", self.isConnected);
-		if (self.user && self.user.access_token) {
-			this.checkLocalStorage();
-			console.log("recupération du token", self.user);
+		var auth = gapi.auth2.getAuthInstance();
+		auth
+			.signIn({
+				scope: "email profile openid",
+				response_type: "access_token",
+				state: "kksa-888",
+				ux_mode: "redirect",
+				include_granted_scopes: "true",
+				prompt: "consent",
+				redirect_uri: self.redirect_uri
+			})
+			.then(function (reponse) {
+				self.onSignIn(reponse);
 
-			var event = new CustomEvent("wbu-gl-status-change");
-			document.dispatchEvent(event);
-		} else {
-			self.createSubmitForm();
-		}
+				/*  traiter la réponse  */
+			});
 	},
 	initLogOut() {
 		var auth = self.gapi.auth2.getAuthInstance();

@@ -2,13 +2,12 @@ import session from "./session";
 import config from "../config";
 
 const utilities = {
-  baseURl: config.baseURl,
+  ...config,
   /**
    * configCustom[{name:"",value:""}]
    */
-  async post(url, datas, configCustom = null) {
+  async dPost(url, datas, configCustom = null) {
     const Token = await session.getToken();
-
     var configs = {
       "X-CSRF-Token": Token,
       "Content-Type": "application/json",
@@ -16,14 +15,14 @@ const utilities = {
     if (configCustom) {
       configs = this.mergeHeaders(configCustom, configs);
     }
-    return config.post(config.baseURl + url, datas, {
+    return this.post(url, datas, {
       headers: configs,
     });
   },
   /**
    * get datas;
    */
-  async get(url, configCustom = null) {
+  async dGet(url, configCustom = null) {
     const Token = await session.getToken();
     var configs = {
       "X-CSRF-Token": Token,
@@ -32,7 +31,7 @@ const utilities = {
     if (configCustom) {
       configs = this.mergeHeaders(configCustom, configs);
     }
-    return config.get(config.baseURl + url, {
+    return this.get(url, {
       headers: configs,
     });
   },

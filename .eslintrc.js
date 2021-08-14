@@ -27,15 +27,15 @@ module.exports = {
     "arrow-parens": ["warn", "as-needed"],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
-    "prettier/prettier": [
-			"warn",
-			{
-				arrowParens: "avoid",
-				trailingComma: "none",
-				useTabs: true,
-				jsxBracketSameLine: true,
-				printWidth: 100
-			}
-		]
+    // "prettier/prettier": [
+    // 	"warn",
+    // 	{
+    // 		arrowParens: "avoid",
+    // 		trailingComma: "none",
+    // 		useTabs: true,
+    // 		jsxBracketSameLine: true,
+    // 		printWidth: 100
+    // 	}
+    // ]
   },
 };

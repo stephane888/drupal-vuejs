@@ -84,7 +84,6 @@ export default {
     form.setAttribute("method", "GET");
     form.setAttribute("action", endPoint);
     form.target = "external";
-
     var params = {
       client_id: self.client_id,
       redirect_uri: self.redirect_uri,
@@ -100,7 +99,6 @@ export default {
       input.setAttribute("value", params[p]);
       form.appendChild(input);
     }
-
     document.body.appendChild(form);
     form.submit();
   },

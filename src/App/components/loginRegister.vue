@@ -1,8 +1,15 @@
 <template>
   <ValidationObserver ref="formValidate" tag="form">
     <div class="login-page">
+      <!-- -->
+      <div
+        class="alert w-100"
+        :class="alertType"
+        role="alert"
+        v-if="alertDisplay"
+        v-html="alertText"
+      ></div>
       <!-- le loader -->
-
       <div
         class="spinner-grow text-primary"
         role="status"
@@ -11,7 +18,7 @@
       >
         <span class="sr-only">Loading...</span>
       </div>
-      <transition name="customslide" v-if="!isBusy">
+      <transition name="customslide">
         <div
           class="block-center"
           v-if="stepe === 'checkstatus'"
@@ -19,7 +26,7 @@
         >
           <div class="content-center">
             <a class="content-center__img" href="/">
-              <img :src="baseURl + urlLogo" alt="" />
+              <img :src="urlLogo" alt="" />
             </a>
             <p>Connectez vous avec</p>
             <div class="content-center__btn-column">
@@ -78,7 +85,7 @@
         >
           <div class="content-center">
             <a class="content-center__img" href="/">
-              <img :src="baseURl + urlLogo" alt="" />
+              <img :src="urlLogo" alt="" />
             </a>
             <p>Finaliser votre connexion</p>
             <ValidationProvider
@@ -259,13 +266,13 @@ import { ValidationProvider, ValidationObserver } from "vee-validate";
 import "./vee-validate-custom";
 import rxFacebook from "../rx/facebook";
 import rxGoogle from "../rx/google.js";
+// const config = [];
+// const configGlobal = [];
+// const utilities = [];
+// const drupalFormFields = [];
 export default {
   name: "LoginRegister",
   props: {
-    urlLogo: {
-      type: String,
-      required: true,
-    },
     showPassword: {
       type: Boolean,
       default: false,
@@ -288,6 +295,10 @@ export default {
       models: {},
       baseURl: configGlobal.baseURl,
       isBusy: false,
+      alertDisplay: false,
+      alertType: "alert-danger",
+      alertText: "",
+      urlLogo: window.location.origin + "" + window.logo_current_theme,
     };
   },
   mounted() {
@@ -298,8 +309,8 @@ export default {
     this.TryToLoginWithGoogle();
     rxGoogle.checkParams();
     // rxGoogle.client_id =
-    //   "1076442032003-82nt70v46plap18r8fgkofblm8d3lkng.apps.googleusercontent.com";
-    //rxGoogle.client_id = "666466407349-oanmp950m4pp4arec1fcp8okvj6so4cj.apps.googleusercontent.com";
+    // "1076442032003-82nt70v46plap18r8fgkofblm8d3lkng.apps.googleusercontent.com";
+    // rxGoogle.client_id = "666466407349-oanmp950m4pp4arec1fcp8okvj6so4cj.apps.googleusercontent.com";
     rxGoogle.client_id =
       "90673796165-fndv3eu9tog6b9g5p8camiueffcfdc8p.apps.googleusercontent.com";
     rxGoogle.loadGapi();
@@ -314,13 +325,14 @@ export default {
         "wbu-fb-status-change",
         () => {
           this.isBusy = true;
-
-          console.log("TryToLoginWithFacebook", this.isBusy);
           this.getFields();
           utilities
             .post("/login-rx-vuejs/facebook-check", rxFacebook.user)
             .then((resp) => {
-              console.log("TryToLoginWithFacebook resp : ", resp);
+              this.isBusy = false;
+              this.alertDisplay = true;
+              this.alertType = "alert-success";
+              this.alertText = " Connexion réussie  ";
               if (
                 resp.reponse &&
                 resp.reponse.config.url !== resp.reponse.request.responseURL
@@ -328,10 +340,20 @@ export default {
                 window.location.assign(resp.reponse.request.responseURL);
               }
               // il faut s'assurer que les données sont ok.
-              else if (resp.data) {
-                if (resp.data.createuser) {
-                  this.stepe = "final-fb-register";
-                }
+              else if (resp.data && resp.data.createuser) {
+                this.stepe = "final-fb-register";
+              } else {
+                window.location.assign(window.location.origin);
+              }
+            })
+            .catch((errors) => {
+              this.isBusy = false;
+              this.isBusy = false;
+              this.alertDisplay = true;
+              this.alertType = "alert-danger";
+              this.alertText = "Erreur de connexion ";
+              if (errors.error) {
+                this.alertText = errors.error.statusText;
               }
             });
         },
@@ -351,7 +373,11 @@ export default {
           utilities
             .post("/login-rx-vuejs/google-check", rxGoogle.user)
             .then((resp) => {
-              console.log("TryToLoginWithGoogle resp : ", resp);
+              this.isBusy = false;
+              this.alertDisplay = true;
+              this.alertType = "alert-success";
+              this.alertText = " Connexion réussie  ";
+              // Si l'utilisateur est rediriger vers un autre domaine.
               if (
                 resp.reponse &&
                 resp.reponse.config.url !== resp.reponse.request.responseURL
@@ -359,10 +385,19 @@ export default {
                 window.location.assign(resp.reponse.request.responseURL);
               }
               // Il faut s'assurer que les données sont ok.
-              else if (resp.data) {
-                if (resp.data.createuser) {
-                  this.stepe = "final-gl-register";
-                }
+              else if (resp.data && resp.data.createuser) {
+                this.stepe = "final-gl-register";
+              } else {
+                window.location.assign(window.location.origin);
+              }
+            })
+            .catch((errors) => {
+              this.isBusy = false;
+              this.alertDisplay = true;
+              this.alertType = "alert-danger";
+              this.alertText = "Erreur de connexion ";
+              if (errors.error) {
+                this.alertText = errors.error.statusText;
               }
             });
         },
@@ -428,7 +463,7 @@ export default {
             ) {
               window.location.assign(resp.reponse.request.responseURL);
             } else if (resp.data) {
-              console.log("Redirection par defaut ", resp.reponse.request);
+              window.location.assign("/");
             }
           })
           .catch((e) => {
@@ -473,7 +508,7 @@ export default {
       this.$set(this.models, "mail", [{ value: this.mail }]);
       if (this.showPassword)
         this.$set(this.models, "pass", [{ value: this.password }]);
-      var url = "/fr/user/register?_format=json";
+      var url = "/user/register?_format=json";
 
       utilities
         .post(url, this.models)
@@ -490,7 +525,7 @@ export default {
             }
           );
           setTimeout(function () {
-            window.location.assign("/");
+            // window.location.assign("/");
           }, 5000);
         })
         .catch((e) => {

@@ -1,6 +1,6 @@
 import config from "../config";
 export default {
-  url_session: "/rest/session/token",
+  url_session: "/session/token",
   token: null,
   /**
    * Permet d'obtenir le token.

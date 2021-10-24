@@ -11,7 +11,7 @@ export default {
   openPopup() {
     var self = this;
     window.FB.login(
-      resp => {
+      (resp) => {
         this.statusChangeCallback(resp, true);
       },
       { scope: self.scope, return_scopes: true }

@@ -2,7 +2,7 @@
   <ValidationObserver ref="formValidate" tag="form">
     <div class="login-page">
       <!-- le loader -->
-
+      console.log('user run');
       <div
         class="spinner-grow text-primary"
         role="status"

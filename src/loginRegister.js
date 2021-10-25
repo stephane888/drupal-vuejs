@@ -1,18 +1,16 @@
-import "@babel/polyfill";
-import "mutationobserver-shim";
+//import "@babel/polyfill";
+//import "mutationobserver-shim";
 import Vue from "vue";
-import BootstrapVue from "bootstrap-vue";
+//import BootstrapVue from "bootstrap-vue";
 import loginRegister from "./App/components/loginRegister.vue";
-Vue.use(BootstrapVue);
+// Vue.use(BootstrapVue);
+// const loginRegister = [];
 const tag = "#appLoginRegister";
-const eltTag = document.querySelector(tag);
 new Vue({
   render: (h) => {
     return h("div", {}, [
       h(loginRegister, {
-        props: {
-          urlLogo: eltTag.getAttribute("drupalLogo"),
-        },
+        props: {},
       }),
     ]);
   },

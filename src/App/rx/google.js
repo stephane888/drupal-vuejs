@@ -11,6 +11,7 @@ export default {
   scope: "email profile",
   redirect_uri: "https://lesroisdelareno.fr/user/login",
   closePopUp: true,
+  modeIframe: false,
   query: {},
   loadGapi() {
     var head = document.getElementsByTagName("head")[0];
@@ -30,7 +31,7 @@ export default {
   initGoogleApi() {
     var self = this;
     var nbr = 0;
-    //var gapi = self.gapi;
+    // var gapi = self.gapi;
     if (window.gapi && nbr < 10) {
       self.checkLocalStorage();
       self.gapi = window.gapi;
@@ -59,9 +60,8 @@ export default {
             }
           );
       });
-      console.log("Chargement du JS Google");
     } else {
-      console.log("Google not load");
+      // console.log("Google not load");
       nbr++;
       setTimeout(() => {
         this.initGoogleApi();
@@ -174,12 +174,20 @@ export default {
       }
     }
   },
+  /**
+   * Permet de selectionner le mode d'ouverture du block d'authentification google.
+   * if form true (valeur par defaut), on ouvre le block d'authentification dans la fenetre encours.
+   * Si non, on ouvre dans un iframe(popup), ensuite les informations seront renvoyées vers le iframes principales.
+   *
+   * @param {*} form
+   */
   typeOfLogin(form = true) {
-    var self = this;
     if (!form) {
-      self.createSubmitForm();
+      this.createSubmitForm();
+      this.modeIframe = false;
     } else {
-      self.initLogin();
+      this.initLogin();
+      this.modeIframe = true;
     }
   },
   initLogin() {

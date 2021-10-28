@@ -20,7 +20,7 @@ const utilities = {
     });
   },
   /**
-   * get datas;
+   * Get datas;
    */
   async dGet(url, configCustom = null) {
     const Token = await session.getToken();

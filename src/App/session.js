@@ -8,7 +8,13 @@ export default {
   getToken() {
     return new Promise((resolv) => {
       if (this.token) resolv(this.token);
-      config.get(config.baseURl + this.url_session).then((resp) => {
+      console.log(
+        " Config :: ",
+        config.BaseUrl(),
+        "\n this.url_session :: ",
+        this.url_session
+      );
+      config.get(config.BaseUrl() + this.url_session).then((resp) => {
         this.token = resp.data;
         resolv(resp.data);
       });

@@ -10,7 +10,6 @@
         v-html="alertText"
       ></div>
       <!-- le loader -->
-      console.log('user run');
       <div
         class="spinner-grow text-primary"
         role="status"
@@ -258,6 +257,7 @@
     </div>
   </ValidationObserver>
 </template>
+<!-- .. -->
 <script>
 import config from "./config";
 import configGlobal from "../../config.js";
@@ -273,6 +273,9 @@ import rxGoogle from "../rx/google.js";
 // const drupalFormFields = [];
 export default {
   name: "LoginRegister",
+  /**
+   * --
+   */
   props: {
     showPassword: {
       type: Boolean,
@@ -284,6 +287,9 @@ export default {
     ValidationProvider,
     ValidationObserver,
   },
+  /**
+   * --
+   */
   data() {
     return {
       messages: config.messages,
@@ -302,6 +308,9 @@ export default {
       urlLogo: window.location.origin + "" + window.logo_current_theme,
     };
   },
+  /**
+   * --
+   */
   mounted() {
     rxFacebook.appId = 889256191665205;
     this.TryToLoginWithFacebook();
@@ -315,8 +324,9 @@ export default {
     rxGoogle.client_id =
       "90673796165-fndv3eu9tog6b9g5p8camiueffcfdc8p.apps.googleusercontent.com";
     rxGoogle.loadGapi();
+    //
+    this.getUserInfoFromFrame();
   },
-  computed: {},
   methods: {
     /**
      * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
@@ -352,7 +362,7 @@ export default {
               this.isBusy = false;
               this.alertDisplay = true;
               this.alertType = "alert-danger";
-              this.alertText = "Erreur de connexion ";
+              this.alertText = "Facebook : Erreur de connexion ";
               if (errors.error) {
                 this.alertText = errors.error.statusText;
               }
@@ -369,7 +379,7 @@ export default {
         "wbu-gl-status-change",
         () => {
           this.IsBusy();
-          console.log("TryToLoginWithGoogle :", rxGoogle.user);
+          console.log(" TryToLoginWithGoogle : ", rxGoogle.user);
           this.getFields();
           utilities
             .post("/login-rx-vuejs/google-check", rxGoogle.user)
@@ -377,8 +387,15 @@ export default {
               this.isBusy = false;
               this.alertDisplay = true;
               this.alertType = "alert-success";
-              this.alertText = " Connexion réussie  ";
-              // Si l'utilisateur est rediriger vers un autre domaine.
+              this.alertText = "Connexion réussie";
+              // --;
+              // modeIframe
+              if (!rxGoogle.modeIframe) {
+                window.top.postMessage(resp, "*");
+                window.close();
+                return;
+              }
+              // --; Si l'utilisateur est redirigé vers un autre domaine.
               if (
                 resp.reponse &&
                 resp.reponse.config.url !== resp.reponse.request.responseURL
@@ -396,10 +413,11 @@ export default {
               this.isBusy = false;
               this.alertDisplay = true;
               this.alertType = "alert-danger";
-              this.alertText = "Erreur de connexion ";
+              this.alertText = "Google : Erreur de connexion";
               if (errors.error) {
                 this.alertText = errors.error.statusText;
               }
+              console.log("error ajax ", errors);
             });
         },
         false
@@ -418,9 +436,11 @@ export default {
     },
     loginGoogle() {
       this.waiting = "google";
-      rxGoogle.typeOfLogin();
+      rxGoogle.typeOfLogin(false);
     },
-
+    /**
+     * --
+     */
     getFields() {
       const fds = new drupalFormFields("user", "user");
       fds.format().then((resp) => {
@@ -428,6 +448,9 @@ export default {
         this.models = resp.models;
       });
     },
+    /**
+     * --
+     */
     async checkUserStatus() {
       this.waiting = "wait";
       var url = "/login-rx-vuejs/check-user-status";
@@ -445,6 +468,9 @@ export default {
           });
       else this.waiting = "";
     },
+    /**
+     * --
+     */
     async Login() {
       this.waiting = "wait";
       var url = "/login-rx-vuejs/user-connexion";
@@ -473,6 +499,9 @@ export default {
           });
       else this.waiting = "";
     },
+    /**
+     * --
+     */
     async finalRegister() {
       this.waiting = "wait";
       var params = {};
@@ -503,6 +532,9 @@ export default {
           }
         });
     },
+    /**
+     * --
+     */
     Register() {
       this.waiting = "wait";
       this.$set(this.models, "name", [{ value: this.login_check }]);
@@ -510,7 +542,6 @@ export default {
       if (this.showPassword)
         this.$set(this.models, "pass", [{ value: this.password }]);
       var url = "/user/register?_format=json";
-
       utilities
         .post(url, this.models)
         .then((resp) => {
@@ -531,13 +562,13 @@ export default {
         })
         .catch((e) => {
           this.waiting = "";
-          console.log("catch : ", e);
+          //console.log("catch : ", e);
           if (e.error && e.error.data && e.error.data.errors) {
             const errors = e.error.data.errors;
-            console.log(" this.$refs : ", this.$refs);
+            //console.log(" this.$refs : ", this.$refs);
             errors.forEach((error) => {
               const field = error.split(":");
-              console.log("field : ", field);
+              // console.log(" field : ", field);
               if (this.$refs[field[0]]) {
                 if (this.$refs[field[0]][0]) {
                   this.$refs[field[0]][0].setErrors([field[1]]);
@@ -546,6 +577,18 @@ export default {
             });
           }
         });
+    },
+    /**
+     *  --
+     */
+    getUserInfoFromFrame() {
+      window.addEventListener("message", receiveMessage, false);
+      function receiveMessage(event) {
+        console.log(" ReceiveMessage : ", event);
+        if (event.origin !== window.location.origin) return;
+        // ...
+        console.log(" ReceiveMessage valid origin : ", event);
+      }
     },
   },
 };
@@ -558,11 +601,12 @@ export default {
   transform: translateX(-110%);
   position: absolute;
 }
-
+// --
 .customslide-enter {
   transform: translateX(110%);
   position: absolute;
 }
+// --
 .customslide-enter-active {
   position: absolute;
 }

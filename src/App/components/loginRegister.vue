@@ -391,8 +391,21 @@ export default {
               // --;
               // modeIframe
               if (!rxGoogle.modeIframe) {
-                //window.top.postMessage(resp, "*");
-                window.close();
+                // on verifie si on est dans la iframe.
+                if (window.top != window.parent) {
+                  if (window.top) {
+                    window.top.postMessage(
+                      "Hello kksa8888",
+                      "https://lesroisdelareno.fr"
+                    );
+                  } else {
+                    console.log("window.top nexiste pas");
+                  }
+                } else {
+                  console.log("sur la meme fenetre");
+                }
+                // window.top.postMessage(resp, "*");
+                // window.close();
                 return;
               }
               // --; Si l'utilisateur est redirigé vers un autre domaine.

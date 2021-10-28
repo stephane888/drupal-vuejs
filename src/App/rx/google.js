@@ -69,7 +69,7 @@ export default {
     }
   },
   /**
-   * Get access token
+   * Get access token with window.open
    */
   createSubmitForm() {
     var self = this;
@@ -101,6 +101,7 @@ export default {
     }
     document.body.appendChild(form);
     form.submit();
+    window.clientLogin = external;
   },
 
   oautSignIn() {
@@ -126,7 +127,7 @@ export default {
     }
     // Add form to page and submit it to open the OAuth 2.0 endpoint.
     if (self.user && self.user.access_token) {
-      console.log("user", self.user);
+      //console.log("user", self.user);
       var event = new CustomEvent("wbu-gl-status-change");
       document.dispatchEvent(event);
     } else {
@@ -182,12 +183,11 @@ export default {
    * @param {*} form
    */
   typeOfLogin(form = true) {
+    this.modeIframe = form;
     if (!form) {
       this.createSubmitForm();
-      this.modeIframe = false;
     } else {
       this.initLogin();
-      this.modeIframe = true;
     }
   },
   initLogin() {

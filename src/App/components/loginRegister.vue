@@ -392,12 +392,11 @@ export default {
               // modeIframe
               if (!rxGoogle.modeIframe) {
                 // on verifie si on est dans la iframe.
-                if (window.parent) {
-                  window.parent.postMessage(JSON.stringify(resp), "*");
-                  window.close();
-                } else {
-                  console.log("window.parent not define");
-                }
+                var event = new CustomEvent("user_is_connect", {
+                  detail: resp.data,
+                });
+                window.opener.document.dispatchEvent(event);
+                window.close();
                 return;
               }
               // --; Si l'utilisateur est redirigé vers un autre domaine.
@@ -589,13 +588,9 @@ export default {
      *  --
      */
     getUserInfoFromFrame() {
-      window.addEventListener("message", receiveMessage, false);
-      function receiveMessage(event) {
-        console.log(" ReceiveMessage : ", event);
-        if (event.origin !== window.location.origin) return;
-        // ...
-        console.log(" ReceiveMessage valid origin : ", event);
-      }
+      document.addEventListener("user_is_connect", (e) => {
+        console.log("Result event : ", e);
+      });
     },
   },
 };

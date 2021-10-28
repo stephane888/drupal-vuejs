@@ -393,7 +393,7 @@ export default {
               if (!rxGoogle.modeIframe) {
                 // on verifie si on est dans la iframe.
                 if (window.parent) {
-                  window.parent.postMessage(resp, "*");
+                  window.parent.postMessage(JSON.stringify(resp), "*");
                   window.close();
                 } else {
                   console.log("window.parent not define");

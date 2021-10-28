@@ -379,7 +379,6 @@ export default {
         "wbu-gl-status-change",
         () => {
           this.IsBusy();
-          console.log(" TryToLoginWithGoogle : ", rxGoogle.user);
           this.getFields();
           utilities
             .post("/login-rx-vuejs/google-check", rxGoogle.user)
@@ -388,10 +387,11 @@ export default {
               this.alertDisplay = true;
               this.alertType = "alert-success";
               this.alertText = "Connexion réussie";
+              console.log(" TryToLoginWithGoogle : ", resp);
               // --;
               // modeIframe
               if (!rxGoogle.modeIframe) {
-                window.top.postMessage(resp, "*");
+                //window.top.postMessage(resp, "*");
                 window.close();
                 return;
               }
@@ -417,7 +417,9 @@ export default {
               if (errors.error) {
                 this.alertText = errors.error.statusText;
               }
-              console.log("error ajax ", errors);
+              console.log(" Error ajax ", errors.error);
+              console.log(" Error ajax ", errors.code);
+              console.log(" Error ajax ", errors.stack);
             });
         },
         false

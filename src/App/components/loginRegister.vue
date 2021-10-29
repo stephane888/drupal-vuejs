@@ -30,11 +30,7 @@
             </a>
             <p>Connectez vous avec</p>
             <div class="content-center__btn-column">
-              <div class="btn-login btn-login--google" @click="loginGoogle">
-                <i class="btn-login__icon icon-google-circles"></i>
-                <span class="btn-login__text"> Google </span>
-                <svgWaiting v-if="waiting === 'google'"></svgWaiting>
-              </div>
+              <div class="mb-3" id="goole-login-tab"></div>
               <div class="btn-login btn-login--facebook" @click="loginFacebook">
                 <span class="btn-login__icon icon-facebook"></span>
                 <i class="btn-login__text"> Facebook </i>
@@ -266,7 +262,6 @@ import drupalFormFields from "../formatFields/formatFieldsBootstrap";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import "./vee-validate-custom";
 import rxFacebook from "../rx/facebook";
-import rxGoogle from "../rx/google.js";
 // const config = [];
 // const configGlobal = [];
 // const utilities = [];
@@ -315,15 +310,12 @@ export default {
     rxFacebook.appId = 889256191665205;
     this.TryToLoginWithFacebook();
     rxFacebook.chargement();
-    //
-    this.TryToLoginWithGoogle();
-    rxGoogle.checkParams();
     // rxGoogle.client_id =
     // "1076442032003-82nt70v46plap18r8fgkofblm8d3lkng.apps.googleusercontent.com";
     // rxGoogle.client_id = "666466407349-oanmp950m4pp4arec1fcp8okvj6so4cj.apps.googleusercontent.com";
-    rxGoogle.client_id =
-      "90673796165-fndv3eu9tog6b9g5p8camiueffcfdc8p.apps.googleusercontent.com";
-    rxGoogle.loadGapi();
+    // rxGoogle.client_id =
+    //   "90673796165-fndv3eu9tog6b9g5p8camiueffcfdc8p.apps.googleusercontent.com";
+    //rxGoogle.loadGapi();
     //
     this.getUserInfoFromFrame();
   },
@@ -371,64 +363,7 @@ export default {
         false
       );
     },
-    /**
-     * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
-     */
-    TryToLoginWithGoogle() {
-      document.addEventListener(
-        "wbu-gl-status-change",
-        () => {
-          this.IsBusy();
-          this.getFields();
-          utilities
-            .post("/login-rx-vuejs/google-check", rxGoogle.user)
-            .then((resp) => {
-              this.isBusy = false;
-              this.alertDisplay = true;
-              this.alertType = "alert-success";
-              this.alertText = "Connexion réussie";
-              console.log(" TryToLoginWithGoogle : ", resp);
-              // --;
-              // modeIframe
-              if (!rxGoogle.modeIframe) {
-                // on verifie si on est dans la iframe.
-                var event = new CustomEvent("user_is_connect", {
-                  detail: resp.data,
-                });
-                window.opener.document.dispatchEvent(event);
-                window.close();
-                return;
-              }
-              // --; Si l'utilisateur est redirigé vers un autre domaine.
-              if (
-                resp.reponse &&
-                resp.reponse.config.url !== resp.reponse.request.responseURL
-              ) {
-                window.location.assign(resp.reponse.request.responseURL);
-              }
-              // Il faut s'assurer que les données sont ok.
-              else if (resp.data && resp.data.createuser) {
-                this.stepe = "final-gl-register";
-              } else {
-                window.location.assign(window.location.origin);
-              }
-            })
-            .catch((errors) => {
-              this.isBusy = false;
-              this.alertDisplay = true;
-              this.alertType = "alert-danger";
-              this.alertText = "Google : Erreur de connexion";
-              if (errors.error) {
-                this.alertText = errors.error.statusText;
-              }
-              console.log(" Error ajax ", errors.error);
-              console.log(" Error ajax ", errors.code);
-              console.log(" Error ajax ", errors.stack);
-            });
-        },
-        false
-      );
-    },
+
     IsBusy() {
       this.isBusy = true;
       console.log("this.isbusy", this.isBusy);
@@ -440,10 +375,7 @@ export default {
     logOutFacebook() {
       rxFacebook.logOut();
     },
-    loginGoogle() {
-      this.waiting = "google";
-      rxGoogle.typeOfLogin(false);
-    },
+
     /**
      * --
      */
@@ -516,7 +448,7 @@ export default {
         url = "/login-rx-vuejs/google-login";
         params = {
           fields: this.models,
-          google: rxGoogle.user,
+          google: [],
         };
       } else if (this.stepe === "final-fb-register") {
         url = "/login-rx-vuejs/facebook-login";
@@ -588,9 +520,21 @@ export default {
      *  --
      */
     getUserInfoFromFrame() {
-      document.addEventListener("user_is_connect", (e) => {
-        console.log("Result event : ", e);
-      });
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: ", response);
+      }
+      window.onload = function () {
+        window.google.accounts.id.initialize({
+          client_id:
+            "513247959752-qapd9jb30pdtoh51m0h53070a2v8c4er.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+        });
+        window.google.accounts.id.renderButton(
+          document.getElementById("goole-login-tab"),
+          { theme: "outline", size: "large" } // customization attributes
+        );
+        window.google.accounts.id.prompt(); // also display the One Tap dialog
+      };
     },
   },
 };

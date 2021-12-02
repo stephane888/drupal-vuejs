@@ -30,7 +30,7 @@
             </a>
             <p>Connectez vous avec</p>
             <div class="content-center__btn-column">
-              <div class="mb-3" id="goole-login-tab"></div>
+              <logingoogle idHtml="default"></logingoogle>
               <div class="btn-login btn-login--facebook" @click="loginFacebook">
                 <span class="btn-login__icon icon-facebook"></span>
                 <i class="btn-login__text"> Facebook </i>
@@ -262,10 +262,8 @@ import drupalFormFields from "../formatFields/formatFieldsBootstrap";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import "./vee-validate-custom";
 import rxFacebook from "../rx/facebook";
-// const config = [];
-// const configGlobal = [];
-// const utilities = [];
-// const drupalFormFields = [];
+import logingoogle from "./logingoogle.vue";
+
 export default {
   name: "LoginRegister",
   /**
@@ -281,6 +279,7 @@ export default {
     svgWaiting: () => import("./svg-waiting.vue"),
     ValidationProvider,
     ValidationObserver,
+    logingoogle,
   },
   /**
    * --
@@ -310,14 +309,6 @@ export default {
     rxFacebook.appId = 889256191665205;
     this.TryToLoginWithFacebook();
     rxFacebook.chargement();
-    // rxGoogle.client_id =
-    // "1076442032003-82nt70v46plap18r8fgkofblm8d3lkng.apps.googleusercontent.com";
-    // rxGoogle.client_id = "666466407349-oanmp950m4pp4arec1fcp8okvj6so4cj.apps.googleusercontent.com";
-    // rxGoogle.client_id =
-    //   "90673796165-fndv3eu9tog6b9g5p8camiueffcfdc8p.apps.googleusercontent.com";
-    //rxGoogle.loadGapi();
-    //
-    this.getUserInfoFromFrame();
   },
   methods: {
     /**
@@ -515,26 +506,6 @@ export default {
             });
           }
         });
-    },
-    /**
-     *  --
-     */
-    getUserInfoFromFrame() {
-      function handleCredentialResponse(response) {
-        console.log("Encoded JWT ID token: ", response);
-      }
-      window.onload = function () {
-        window.google.accounts.id.initialize({
-          client_id:
-            "513247959752-qapd9jb30pdtoh51m0h53070a2v8c4er.apps.googleusercontent.com",
-          callback: handleCredentialResponse,
-        });
-        window.google.accounts.id.renderButton(
-          document.getElementById("goole-login-tab"),
-          { theme: "outline", size: "large" } // customization attributes
-        );
-        window.google.accounts.id.prompt(); // also display the One Tap dialog
-      };
     },
   },
 };

@@ -33,7 +33,6 @@ export default {
     loginRegister: () =>
       import("./App/components/loginRegister.vue").then((component) => {
         return new Promise((resolv) => {
-          alert("");
           const callback = () => {
             resolv(component);
           };

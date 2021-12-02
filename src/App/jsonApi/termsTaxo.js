@@ -35,6 +35,55 @@ class termsTaxo {
     });
   }
   /**
+   *
+   * @returns *
+   */
+  getValue(term) {
+    const filter = new buildFilter();
+    filter.addFilter("name", "=", term);
+    return new Promise((resolv) => {
+      utilities
+        .get(this.url + "?" + filter.query, Confs.headers)
+        .then((resp) => {
+          this.terms = resp.data;
+          resolv(resp.data);
+        });
+    });
+  }
+  /**
+   *
+   * @returns *
+   */
+  getValueByTid(id) {
+    const filter = new buildFilter();
+    filter.addFilter("tid", "=", id);
+    return new Promise((resolv) => {
+      utilities
+        .get(this.url + "?" + filter.query, Confs.headers)
+        .then((resp) => {
+          this.terms = resp.data;
+          resolv(resp.data);
+        });
+    });
+  }
+
+  /**
+   *
+   * @returns *
+   */
+  getValueById(id) {
+    const filter = new buildFilter();
+    filter.addFilter("id", "=", id);
+    return new Promise((resolv) => {
+      utilities
+        .get(this.url + "?" + filter.query, Confs.headers)
+        .then((resp) => {
+          this.terms = resp.data;
+          resolv(resp.data);
+        });
+    });
+  }
+  /**
    * Retourne les termes sous formes de liste d'otpions.
    */
   getOptions() {

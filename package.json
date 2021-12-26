@@ -8,7 +8,8 @@
     "lint": "vue-cli-service lint",
     "test": "echo \"Error: no test specified\" && exit 1",
     "Dev": "vue-cli-service build --mode development  --dest files --target lib --name loginRxVuejs 'src/loginRegister.js'",
-    "Prod": "vue-cli-service build --mode production  --dest files --target lib --name loginRxVuejs 'src/loginRegister.js'"
+    "Prod": "vue-cli-service build --mode production  --dest files --target lib --name loginRxVuejs 'src/loginRegister.js'",
+    "ProdSmall": "vue-cli-service build --mode production  --dest files-small --target lib --name loginRxVuejs 'src/loginRegisterSmall.js'"
   },
   "main": "index.js",
   "files": [

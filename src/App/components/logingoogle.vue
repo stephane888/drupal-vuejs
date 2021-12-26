@@ -1,5 +1,9 @@
 <template>
-  <div :id="idHtmlrender" class="buttton-google-aouth"></div>
+  <div
+    :id="idHtmlrender"
+    class="buttton-google-aouth"
+    :class="classRender"
+  ></div>
 </template>
 
 <script>
@@ -26,6 +30,12 @@ export default {
     returnUidInfo: {
       type: Boolean,
       default: false,
+    },
+    classRender: {
+      type: Array,
+      default: function () {
+        return ["mx-auto"];
+      },
     },
   },
   mounted() {
@@ -129,5 +139,6 @@ export default {
   max-width: 300px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 2rem;
 }
 </style>

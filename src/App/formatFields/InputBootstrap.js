@@ -13,9 +13,15 @@ export default {
       defaultValue.push({ value: "" });
     }
     const inputs = [];
+    // Ajout du label
+    inputs.push(
+      h("label", { class: ["d-block", "content-center__title"] }, [
+        field.label_value,
+      ])
+    );
     defaultValue.forEach((el) => {
       inputs.push(
-        h("b-form-input", {
+        h("input", {
           props: {
             type: "text",
             value: el.value,
@@ -26,20 +32,21 @@ export default {
           },
           on: {
             input: function (e) {
-              el.value = e;
+              if (e.target && e.target.value) el.value = e.target.value;
             },
           },
+          class: ["form-control"],
         })
       );
     });
+    // ajout de la description
+    inputs.push(h("small", { class: ["text-muted"] }, [field.description]));
 
     const formG = h(
-      "b-form-group",
+      "div",
       {
-        props: {
-          label: field.label_value,
-          description: field.description,
-        },
+        props: {},
+        class: ["form-group", "content-center__input"],
       },
       inputs
     );

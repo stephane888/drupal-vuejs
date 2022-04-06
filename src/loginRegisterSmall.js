@@ -1,3 +1,5 @@
+// Gere uniquement la connexion Google.
+
 import Vue from "vue";
 const tag = "#appLoginRegister";
 

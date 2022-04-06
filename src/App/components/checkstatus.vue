@@ -1,9 +1,9 @@
 <template>
   <div class="content-center">
     <a class="content-center__img" href="/">
-      <img :src="urlLogo" alt="" />
+      <img :src="urlLogo" alt="" class="img-fluid" />
     </a>
-    <p>Connectez vous avec</p>
+    <h4 class="title">Connectez vous avec</h4>
     <div class="content-center__btn-column">
       <logingoogle idHtml="default"></logingoogle>
       <div class="btn-login btn-login--facebook" @click="loginFacebook">

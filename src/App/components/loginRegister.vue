@@ -31,6 +31,14 @@
         </div>
       </transition>
     </div>
+    <div class="text-white politik-secur mx-auto text-center">
+      <p>
+        En vous inscrivant, vous acceptez nos
+        <a href="#"> Conditions d'utilisation </a>, de recevoir des emeils et
+        des MAJ de LESROISDELARENO et vous reconnaissez avoir lu notre
+        <a href="#"> Politique de confidentialité</a>
+      </p>
+    </div>
   </ValidationObserver>
 </template>
 <!-- .. -->
@@ -204,5 +212,10 @@ export default {
 // --
 .customslide-enter-active {
   position: absolute;
+}
+//
+.politik-secur {
+  font-size: 90%;
+  max-width: 400px;
 }
 </style>

@@ -1,4 +1,5 @@
 // Gere uniquement la connexion Google.
+// le fichier est diviser en deux. Fonctionne dans le cas ou l'url de base est identique avec l'application.
 
 import Vue from "vue";
 const tag = "#appLoginRegister";

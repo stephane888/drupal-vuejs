@@ -27,6 +27,8 @@
             :form="form"
             :formValidate="formValidate"
             @select-stepe="selectStepe"
+            :action_after_login="action_after_login"
+            :model_register_form="model_register_form"
           ></component>
         </div>
       </transition>
@@ -34,7 +36,7 @@
     <div class="text-white politik-secur mx-auto text-center">
       <p>
         En vous inscrivant, vous acceptez nos
-        <a href="#"> Conditions d'utilisation </a>, de recevoir des emeils et
+        <a href="#"> Conditions d'utilisation </a>, de recevoir des emails et
         des MAJ de LESROISDELARENO et vous reconnaissez avoir lu notre
         <a href="#"> Politique de confidentialité</a>
       </p>
@@ -55,6 +57,17 @@ import setPassword from "./setPassword.vue";
 import register from "./register.vue";
 
 export default {
+  props: {
+    // see config_for_all.AfterRedirect for more informations.
+    action_after_login: {
+      type: String,
+      default: "default",
+    },
+    model_register_form: {
+      type: String,
+      default: "default",
+    },
+  },
   name: "LoginRegister",
   /**
    * --

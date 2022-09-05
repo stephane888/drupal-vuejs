@@ -62,6 +62,10 @@ export default {
       type: Object,
       required: true,
     },
+    action_after_login: {
+      type: String,
+      required: true,
+    },
   },
   components: {
     svgWaiting: () => import("./svg-waiting.vue"),
@@ -92,14 +96,7 @@ export default {
             .post(url, this.form)
             .then((resp) => {
               this.waiting = "";
-              if (
-                resp.reponse &&
-                resp.reponse.config.url !== resp.reponse.request.responseURL
-              ) {
-                window.location.assign(resp.reponse.request.responseURL);
-              } else if (resp.data) {
-                window.location.assign("/");
-              }
+              config.AfterRedirect(this.action_after_login, null, resp);
             })
             .catch((e) => {
               this.$refs.refPass.setErrors([e.error.statusText]);

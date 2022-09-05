@@ -3,7 +3,7 @@ export default {
   ...utilities,
   getCurrentUser() {
     return new Promise((resolv) => {
-      this.get("/appformmanager/current-user").then((resp) => {
+      this.get("/login-rx-vuejs/current-user").then((resp) => {
         resolv(resp.data);
       });
     });

@@ -20,6 +20,7 @@ function loadScript(src) {
 }
 import rxGoogle from "../rx/google.js";
 import utilities from "../utilities";
+import config from "./config_for_all";
 export default {
   name: "logingoogle",
   props: {
@@ -36,6 +37,10 @@ export default {
       default: function () {
         return ["mx-auto"];
       },
+    },
+    action_after_login: {
+      type: String,
+      default: "default",
     },
   },
   mounted() {
@@ -93,23 +98,12 @@ export default {
             this.alertType = "alert-success";
             this.alertText = "Connexion réussie";
             this.$emit("ev_logingoogle", resp.data);
+            // Si on souhaite juste obtenir les infos concernant l'utilisateur.
             if (this.returnUidInfo) {
               resolv(resp);
               return;
             }
-            // --; Si l'utilisateur est redirigé vers un autre domaine.
-            if (
-              resp.reponse &&
-              resp.reponse.config.url !== resp.reponse.request.responseURL
-            ) {
-              window.location.assign(resp.reponse.request.responseURL);
-            }
-            // Il faut s'assurer que les données sont ok.
-            else if (resp.data && resp.data.createuser) {
-              this.stepe = "final-gl-register";
-            } else {
-              window.location.assign(window.location.origin);
-            }
+            config.AfterRedirect(this.action_after_login, null, resp);
             resolv(resp);
           })
           .catch((errors) => {

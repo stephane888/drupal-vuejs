@@ -1,7 +1,9 @@
 import Vue from "vue";
 import { AjaxToastBootStrap } from "wbuutilities";
+import config_for_all from "./config_for_all";
 const vm = new Vue();
 export default {
+  ...config_for_all,
   messages: {
     log_email: "Email ou Nom d'utilisateur",
     pass: "Mot de passe",

@@ -45,7 +45,7 @@
 <script>
 import utilities from "../utilities";
 import config from "./config";
-import { ValidationProvider } from "vee-validate";
+//import { ValidationProvider } from "vee-validate";
 
 export default {
   name: "checkstatus",
@@ -69,7 +69,7 @@ export default {
   },
   components: {
     svgWaiting: () => import("./svg-waiting.vue"),
-    ValidationProvider,
+    // ValidationProvider,
   },
   data() {
     return {

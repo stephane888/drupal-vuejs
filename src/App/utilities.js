@@ -2,12 +2,13 @@ import session from "./session";
 import config from "../config";
 
 const utilities = {
+  ...session,
   ...config,
   /**
    * configCustom[{name:"",value:""}]
    */
   async dPost(url, datas, configCustom = null) {
-    const Token = await session.getToken();
+    const Token = await this.getToken();
     var configs = {
       "X-CSRF-Token": Token,
       "Content-Type": "application/json",
@@ -23,7 +24,7 @@ const utilities = {
    * Get datas;
    */
   async dGet(url, configCustom = null) {
-    const Token = await session.getToken();
+    const Token = await this.getToken();
     var configs = {
       "X-CSRF-Token": Token,
       "Content-Type": "application/json",
@@ -35,6 +36,7 @@ const utilities = {
       headers: configs,
     });
   },
+
   /**
    *
    */

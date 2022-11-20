@@ -46,7 +46,7 @@ import rxFacebook from "../rx/facebook";
 import utilities from "../utilities";
 import config from "./config";
 import logingoogle from "./logingoogle.vue";
-import { ValidationProvider } from "vee-validate";
+//import { ValidationProvider } from "vee-validate";
 
 export default {
   name: "checkstatus",
@@ -66,7 +66,7 @@ export default {
   },
   components: {
     svgWaiting: () => import("./svg-waiting.vue"),
-    ValidationProvider,
+    //ValidationProvider,
     logingoogle,
   },
   data() {

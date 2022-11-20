@@ -70,7 +70,8 @@ class formatField {
   }
   /**
    * - Cet object permet de rendre les elements de l'object ecoutable.
-   *   on creer tous les champs, puis on initialise InputBootstrap.modelsFields avec tous les champs. Decette facon vuejs peut ecouter les MAJ de champs.
+   *   on creer tous les champs, puis on initialise InputBootstrap.modelsFields avec tous les champs.
+   *   De cette facon vuejs peut ecouter les MAJ de champs.
    */
   buildModel(fields) {
     const models = {};

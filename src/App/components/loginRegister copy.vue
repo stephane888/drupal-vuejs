@@ -51,7 +51,7 @@ import config from "./config";
 import configGlobal from "../../config.js";
 import utilities from "../utilities";
 
-//import { ValidationObserver } from "vee-validate";
+import { ValidationObserver } from "vee-validate";
 import "./vee-validate-custom";
 import rxFacebook from "../rx/facebook";
 import checkstatus from "./checkstatus.vue";
@@ -76,7 +76,7 @@ export default {
    */
 
   components: {
-    //ValidationObserver,
+    ValidationObserver,
   },
   /**
    * --

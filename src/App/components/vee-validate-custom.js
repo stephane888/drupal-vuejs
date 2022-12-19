@@ -1,3 +1,4 @@
+/*
 import { extend } from "vee-validate";
 import { required, email, alpha, numeric } from "vee-validate/dist/rules";
 // No message specified.
@@ -10,3 +11,4 @@ extend("required", {
 extend("alpha", alpha);
 extend("alpha", numeric);
 //export default extend;
+*/

@@ -107,11 +107,9 @@ export default {
    * --
    */
   mounted() {
-    alert("ff");
     rxFacebook.appId = 889256191665205;
     this.TryToLoginWithFacebook();
     rxFacebook.chargement();
-    console.log(" this.$refs.formValidate :", this.$refs.formValidate);
     this.formValidate = this.$refs.formValidate;
   },
   methods: {

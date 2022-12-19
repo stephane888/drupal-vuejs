@@ -11,7 +11,7 @@ export default {
   ...user,
   ...drupalUtile,
   /**
-   * Get datas;
+   * Recupere les données à travers une route authentifié via drupal;
    */
   async dGet(url, configCustom = null, showNotification = false) {
     const userLogin = this.loadCredential();
@@ -35,6 +35,9 @@ export default {
       showNotification
     );
   },
+  /**
+   * Enregistre les données à travers une route authentifié via drupal;
+   */
   async dPost(url, datas, configCustom = null, showNotification = true) {
     const userLogin = this.loadCredential();
     var configs = {

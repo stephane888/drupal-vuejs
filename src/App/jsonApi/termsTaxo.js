@@ -57,12 +57,15 @@ class termsTaxo {
   getValueByTid(id) {
     const filter = new buildFilter();
     filter.addFilter("tid", "=", id);
-    return new Promise((resolv) => {
+    return new Promise((resolv, reject) => {
       utilities
         .get(this.url + "?" + filter.query, Confs.headers)
         .then((resp) => {
           this.terms = resp.data;
           resolv(resp.data);
+        })
+        .catch((er) => {
+          reject(er);
         });
     });
   }

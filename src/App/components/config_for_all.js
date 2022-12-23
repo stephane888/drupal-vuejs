@@ -5,7 +5,7 @@ export default {
    * @param {String} action
    * @param {Object} resp
    */
-  AfterRedirect(action, url_redirect = null, resp = null) {
+  AfterRedirect(action = "reload", url_redirect = null, resp = null) {
     console.log("AfterRedirect action .", action);
     var stepe = null;
     /**

@@ -3,16 +3,15 @@
     <h1>Login drupal</h1>
     <loginRegister
       urlLogo="http://lesroisdelareno.kksa/themes/custom/gater/logo.png?v=1"
-    ></loginRegister>
+    >
+    </loginRegister>
     <div v-for="(template, i) in templates" :key="i" class="list-template">
       <component :is="template" @b_form_click="b_form_click"></component>
     </div>
-    <pre>
-    {{ models }}
-  </pre
-    >
+    <pre> {{ models }} </pre>
   </b-container>
 </template>
+
 <script>
 function loadScript(src) {
   return new Promise((resolv) => {
@@ -31,7 +30,7 @@ export default {
   name: "App",
   components: {
     loginRegister: () =>
-      import("./App/components/loginRegister.vue").then((component) => {
+      import("./App/components/LoginRegister.vue").then((component) => {
         return new Promise((resolv) => {
           const callback = () => {
             resolv(component);
@@ -66,6 +65,7 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
 //@import "~@/assets/scss/vendors/bootstrap-vue/index";
 </style>

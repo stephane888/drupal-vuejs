@@ -19,7 +19,6 @@ export default {
     // Reload current page.
     else if (action == "reload") {
       window.location.reload();
-      console.log("reload this page");
     }
     // Emit event when is finnish.
     else if (action == "emit_even") {

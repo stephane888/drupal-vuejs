@@ -104,7 +104,7 @@ export default {
     selectStepe(step) {
       switch (step) {
         case "checkstatus":
-          this.stepe = checkstatus;
+          this.stepe = CheckStatus;
           break;
         case "setPassword":
           this.stepe = setPassword;

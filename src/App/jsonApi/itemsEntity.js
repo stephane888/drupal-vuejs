@@ -1,12 +1,15 @@
 import utilities from "../utilities.js";
 import Confs from "./Confs.js";
 import buildFilter from "./buildFilter.js";
-class termsTaxo {
-  constructor(vid, config = null) {
-    this.vid = vid;
+class itemsEntity {
+  constructor(entity_type_id, bundle = null, config = null) {
+    this.entity_type_id = entity_type_id;
     //
-    this.url = Confs.baseURl + "/taxonomy_term/" + this.vid;
-    this.terms = [];
+    if (!bundle) {
+      bundle = entity_type_id;
+    }
+    this.url = Confs.baseURl + "/" + this.entity_type_id + "/" + bundle;
+    this.items = [];
     // en function de l'environement on doit ajouter les paramettres de bases.( notament baseUrl, TestDomain, les methodes surchargées ).
     if (config) {
       utilities = {
@@ -16,27 +19,27 @@ class termsTaxo {
     }
   }
   /**
-   * Recupere les terms
+   * Recupere les items
    */
   get() {
     return new Promise((resolv) => {
-      utilities.get(this.url, Confs.headers).then((resp) => {
-        this.terms = resp.data;
+      utilities.dGet(this.url, Confs.headers).then((resp) => {
+        this.items = resp.data;
         resolv(resp.data);
       });
     });
   }
   /**
-   * Recupere les terms
+   * Recupere les items
    */
   getSearch(search) {
     const filter = new buildFilter();
     filter.addFilter("name", "CONTAINS", search);
     return new Promise((resolv) => {
       utilities
-        .get(this.url + "?" + filter.query, Confs.headers)
+        .dGet(this.url + "?" + filter.query, Confs.headers)
         .then((resp) => {
-          this.terms = resp.data;
+          this.items = resp.data;
           resolv(resp.data);
         });
     });
@@ -50,9 +53,9 @@ class termsTaxo {
     filter.addFilter("name", "=", term);
     return new Promise((resolv) => {
       utilities
-        .get(this.url + "?" + filter.query, Confs.headers)
+        .dGet(this.url + "?" + filter.query, Confs.headers)
         .then((resp) => {
-          this.terms = resp.data;
+          this.items = resp.data;
           resolv(resp.data);
         });
     });
@@ -66,9 +69,9 @@ class termsTaxo {
     filter.addFilter("tid", "=", id);
     return new Promise((resolv, reject) => {
       utilities
-        .get(this.url + "?" + filter.query, Confs.headers)
+        .dGet(this.url + "?" + filter.query, Confs.headers)
         .then((resp) => {
-          this.terms = resp.data;
+          this.items = resp.data;
           resolv(resp.data);
         })
         .catch((er) => {
@@ -88,7 +91,7 @@ class termsTaxo {
       utilities
         .get(this.url + "?" + filter.query, Confs.headers)
         .then((resp) => {
-          this.terms = resp.data;
+          this.items = resp.data;
           resolv(resp.data);
         });
     });
@@ -98,14 +101,15 @@ class termsTaxo {
    */
   getOptions() {
     const options = [];
-    for (const i in this.terms.data) {
-      const term = this.terms.data[i];
-      options.push({
-        text: term.attributes.name,
-        value: term.attributes.drupal_internal__tid,
-      });
+    for (const i in this.items.data) {
+      const term = this.items.data[i];
+      if (term.attributes.name && term.attributes.drupal_internal__uid)
+        options.push({
+          text: term.attributes.name,
+          value: term.attributes.drupal_internal__uid,
+        });
     }
     return options;
   }
 }
-export default termsTaxo;
+export default itemsEntity;

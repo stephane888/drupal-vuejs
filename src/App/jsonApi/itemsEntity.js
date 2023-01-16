@@ -86,7 +86,17 @@ class itemsEntity {
    */
   getValueById(id) {
     const filter = new buildFilter();
-    filter.addFilter("id", "=", id);
+    let fieldId = "id";
+    switch (this.entity_type_id) {
+      case "user":
+        fieldId = "uid";
+        break;
+      case "domain":
+        fieldId = "drupal_internal__id";
+        break;
+    }
+
+    filter.addFilter(fieldId, "=", id);
     return new Promise((resolv) => {
       utilities
         .get(this.url + "?" + filter.query, Confs.headers)
@@ -103,11 +113,22 @@ class itemsEntity {
     const options = [];
     for (const i in this.items.data) {
       const term = this.items.data[i];
-      if (term.attributes.name && term.attributes.drupal_internal__uid)
+      if (this.entity_type_id == "user") {
         options.push({
           text: term.attributes.name,
           value: term.attributes.drupal_internal__uid,
         });
+      } else if (term.attributes.name) {
+        options.push({
+          text: term.attributes.name,
+          value: term.attributes.drupal_internal__id,
+        });
+      } else if (term.attributes.label) {
+        options.push({
+          text: term.attributes.label,
+          value: term.attributes.drupal_internal__id,
+        });
+      }
     }
     return options;
   }

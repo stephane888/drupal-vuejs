@@ -15,7 +15,6 @@ class formatField {
    */
   async format() {
     var fields = await this.getFields();
-
     return new Promise((resolv, reject) => {
       if (fields.data && fields.data.fields) {
         InputBootstrap.modelsFields = this.buildModel(fields.data.fields);

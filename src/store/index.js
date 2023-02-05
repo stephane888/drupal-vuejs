@@ -11,6 +11,12 @@ export default new Vuex.Store({
     },
     password: "",
     mail: "",
+    /**
+     * C'est l'application qui utilise le module qui doit charger la configuration dans un vuex.
+     * - "/login-rx-vuejs/get-configs"
+     */
+    configs_login_rx_vuejs: {},
+    model_register_form: null,
   },
   mutations: {},
   actions: {},

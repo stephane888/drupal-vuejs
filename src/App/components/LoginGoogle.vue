@@ -3,6 +3,7 @@
     :id="idHtmlrender"
     class="buttton-google-aouth"
     :class="classRender"
+    :client_google_is_define="client_google_is_define"
   ></div>
 </template>
 
@@ -21,6 +22,7 @@ function loadScript(src) {
 import rxGoogle from "../rx/google.js";
 import utilities from "../utilities";
 import config from "./config_for_all";
+import { mapState } from "vuex";
 export default {
   name: "LoginGoogle",
   props: {
@@ -44,20 +46,31 @@ export default {
     },
   },
   computed: {
+    ...mapState(["configs_login_rx_vuejs"]),
     idHtmlrender() {
       return "google-login-tab" + this.idHtml;
     },
+    client_google_is_define() {
+      if (
+        this.configs_login_rx_vuejs &&
+        this.configs_login_rx_vuejs.client_google_id
+      ) {
+        this.initGoogle();
+        return true;
+      } else return "";
+    },
   },
-  mounted() {
-    if (!window.google) {
-      loadScript("https://accounts.google.com/gsi/client").then(() => {
-        this.getUserInfoFromFrame();
-      });
-    } else {
-      this.getUserInfoFromFrame();
-    }
-  },
+
   methods: {
+    initGoogle() {
+      if (!window.google) {
+        loadScript("https://accounts.google.com/gsi/client").then(() => {
+          this.getUserInfoFromFrame();
+        });
+      } else {
+        this.getUserInfoFromFrame();
+      }
+    },
     getUserInfoFromFrame() {
       var self = this;
       function handleCredentialResponse(response) {
@@ -72,7 +85,7 @@ export default {
       console.log(" window.onload ! ", window.onload);
       const goo = () => {
         window.google.accounts.id.initialize({
-          client_id: rxGoogle.client_id,
+          client_id: this.configs_login_rx_vuejs.client_google_id,
           callback: handleCredentialResponse,
         });
         window.google.accounts.id.renderButton(

@@ -12,10 +12,13 @@ class itemsEntity {
     this.items = [];
     // en function de l'environement on doit ajouter les paramettres de bases.( notament baseUrl, TestDomain, les methodes surchargées ).
     if (config) {
-      utilities = {
-        ...utilities,
-        ...config,
-      };
+      // à ce state la surcharge total pose probleme, donc on doit surcharger par necessite.
+      // utilities = {
+      //   ...utilities,
+      //   ...config,
+      // };
+      if (config.TestDomain) utilities.TestDomain = config.TestDomain;
+      //utilities.get = config.get;
     }
   }
   /**

@@ -7,6 +7,6 @@
 // export { default as loginfacebook } from "./src/App/rx/facebook.js";
 // export { default as loginGoogle } from "./src/App/components/logingoogle.vue";
 // const loginRegister = new Promise((resolv) => {
-//   resolv(import("./src/App/components/loginRegister.vue"));
+//   resolv(import("./src/App/components/LoginRegister.vue"));
 // });
 // export { loginRegister };

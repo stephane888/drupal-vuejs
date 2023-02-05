@@ -4,7 +4,7 @@
     <a class="content-center__img" href="/">
       <img :src="urlLogo" alt="" />
     </a>
-    <div v-if="modelRegisterForm === 'default'">
+    <div v-if="modelRegisterFormResult === 'default'">
       <!-- Champs afficher le login. -->
       <h3 class="content-center__title">{{ messages.login }}</h3>
       <div class="form-group content-center__input">
@@ -22,8 +22,8 @@
       </h3>
       <div v-if="showPassword" class="form-group content-center__input">
         <input
-          v-if="form.password"
-          v-model="form.password[0].value"
+          v-if="form.pass"
+          v-model="form.pass[0].value"
           type="password"
           class="form-control"
           name="pass"
@@ -76,7 +76,7 @@
       </div>
       <hr />
     </div>
-    <div v-if="modelRegisterForm === 'generate_password'">
+    <div v-if="modelRegisterFormResult === 'generate_password'">
       <h4 class="title">Creation automatique du compte</h4>
       <p class="mb-4">
         Vos informations de connexion seront transferés à cette adresse.
@@ -118,6 +118,16 @@
         </div>
       </div>
     </div>
+    <b-alert
+      dismissible
+      variant="danger"
+      fade
+      :show="error.message ? true : false"
+      @dismissed="error.message = false"
+    >
+      {{ error.message }}
+    </b-alert>
+
     <a
       href="#"
       class="text-center d-block"
@@ -151,12 +161,16 @@ export default {
       type: Boolean,
       default: false,
     },
-    actionAfterLogin: {
+    actionAfterRegister: {
       type: String,
       required: true,
     },
     modelRegisterForm: {
-      type: String,
+      type: [String, Boolean],
+      required: true,
+    },
+    showModalSuccess: {
+      type: Boolean,
       required: true,
     },
   },
@@ -166,18 +180,39 @@ export default {
       messages: config.messages,
       waiting: "",
       templates: [],
+      /**
+       * Drupal >9.5 renvoit l'erreur dans {message}
+       */
+      error: {
+        message: false,
+      },
     };
   },
   computed: {
-    ...mapState(["form"]),
+    ...mapState(["form", "configs_login_rx_vuejs"]),
+    /**
+     * Resultat entre la config endur et celle en BD.
+     */
+    modelRegisterFormResult() {
+      if (this.modelRegisterForm) {
+        return this.modelRegisterForms;
+      } else if (
+        this.configs_login_rx_vuejs &&
+        this.configs_login_rx_vuejs.generate_user
+      ) {
+        return "generate_password";
+      } else {
+        return "default";
+      }
+    },
   },
   mounted() {
     if (this.showPassword) {
-      if (this.form.password === undefined) {
-        this.$set(this.form, "password", [{ value: "" }]);
+      if (this.form.pass === undefined) {
+        this.$set(this.form, "pass", [{ value: "" }]);
       }
-    } else if (this.form.password) {
-      delete this.form.password;
+    } else if (this.form.pass) {
+      delete this.form.pass;
     }
     this.getFields();
   },
@@ -192,7 +227,7 @@ export default {
           .then((resp) => {
             console.log("resp : ", resp);
             this.waiting = "";
-            config.AfterRedirect(this.actionAfterLogin, resp);
+            config.AfterRedirect(this.actionAfterRegister, null, resp);
           })
           .catch(() => {
             this.waiting = "";
@@ -213,22 +248,29 @@ export default {
         utilities
           .post(url, this.form)
           .then((resp) => {
-            console.log("resp : ", resp);
             this.waiting = "";
-            config
-              .modalSuccess(config.msgCreate([this.messages.devisCreateUser]), {
-                title: "Votre compte a été crré",
-                footerClass: "d-none",
-                headerBgVariant: "success",
-                headerTextVariant: "light",
-              })
-              .then(() => {
-                config.AfterRedirect(this.actionAfterLogin, resp);
-              });
+            if (this.showModalSuccess)
+              config
+                .modalSuccess(
+                  config.msgCreate([this.messages.devis_create_user]),
+                  {
+                    title: "Votre compte a été crré",
+                    footerClass: "d-none",
+                    headerBgVariant: "success",
+                    headerTextVariant: "light",
+                  }
+                )
+                .then(() => {
+                  config.AfterRedirect(this.actionAfterRegister, null, resp);
+                });
+            else config.AfterRedirect(this.actionAfterRegister, null, resp);
           })
           .catch((e) => {
             this.waiting = "";
-            // console.log("catch : ", e);
+            console.log("catch : ", e);
+            if (e.error.data && e.error.data.message) {
+              this.error.message = e.error.data.message;
+            }
             if (e.error && e.error.data && e.error.data.errors) {
               const errors = e.error.data.errors;
               // console.log(" this.$refs : ", this.$refs);

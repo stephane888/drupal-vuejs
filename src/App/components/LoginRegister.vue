@@ -1,6 +1,6 @@
 <template>
   <ValidationObserver ref="formValidate" tag="form">
-    <div class="login-page">
+    <div class="login-page" :facebook_app_is_define="facebook_app_is_define">
       <!-- -->
       <div
         v-if="alertDisplay"
@@ -26,6 +26,10 @@
             :formValidate="formValidate"
             :action-after-login="actionAfterLogin"
             :model-register-form="modelRegisterForm"
+            :show-password="showPassword"
+            :action-after-register="actionAfterRegister"
+            :show-modal-success="showModalSuccess"
+            :configs_login_rx_vuejs="configs_login_rx_vuejs"
             @select-stepe="selectStepe"
           ></component>
         </div>
@@ -33,13 +37,13 @@
     </div>
     <div class="politik-secur mx-auto text-center">
       <slot name="condition_utilisation">
-        <p class="text-white">
-          En vous inscrivant, vous acceptez nos
-          <a href="#"> Conditions d'utilisation </a>
-          , de recevoir des emails et des MAJ de LESROISDELARENO et vous
-          reconnaissez avoir lu notre
-          <a href="#"> Politique de confidentialité</a>
-        </p>
+        <div
+          v-if="
+            configs_login_rx_vuejs.texts &&
+            configs_login_rx_vuejs.texts.condition_utilisation
+          "
+          v-html="configs_login_rx_vuejs.texts.condition_utilisation.value"
+        ></div>
       </slot>
     </div>
   </ValidationObserver>
@@ -58,6 +62,7 @@ import rxFacebook from "../rx/facebook";
 import CheckStatus from "./CheckStatus.vue";
 import setPassword from "./SetPassword.vue";
 import register from "./RegisTer.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "LoginRegister",
@@ -67,9 +72,22 @@ export default {
       type: String,
       default: "default",
     },
-    modelRegisterForm: {
+    // see config_for_all.AfterRedirect for more informations.
+    actionAfterRegister: {
       type: String,
       default: "default",
+    },
+    modelRegisterForm: {
+      type: [String, Boolean],
+      default: false,
+    },
+    showPassword: {
+      type: Boolean,
+      default: true,
+    },
+    showModalSuccess: {
+      type: Boolean,
+      default: true,
     },
   },
 
@@ -91,16 +109,31 @@ export default {
       formValidate: {},
     };
   },
+  computed: {
+    ...mapState(["configs_login_rx_vuejs"]),
+    facebook_app_is_define() {
+      if (
+        this.configs_login_rx_vuejs &&
+        this.configs_login_rx_vuejs.facebook_app_id
+      ) {
+        this.initFacebook();
+        return true;
+      } else return "";
+    },
+  },
   /**
    * --
    */
   mounted() {
-    rxFacebook.appId = 889256191665205;
-    this.TryToLoginWithFacebook();
-    rxFacebook.chargement();
     this.formValidate = this.$refs.formValidate;
+    this.getConfigs();
   },
   methods: {
+    initFacebook() {
+      rxFacebook.appId = this.configs_login_rx_vuejs.facebook_app_id; //889256191665205;
+      this.TryToLoginWithFacebook();
+      rxFacebook.chargement();
+    },
     selectStepe(step) {
       switch (step) {
         case "checkstatus":
@@ -194,6 +227,25 @@ export default {
           ) {
             window.location.assign(resp.reponse.request.responseURL);
           }
+        });
+    },
+    /**
+     * Helper to login user.
+     * ( This function is used by modules that create accounts and then need to login the user. )
+     * @param {*} form
+     */
+    connexionUser(form) {
+      return config.connexionUser(form, this.actionAfterLogin);
+    },
+    getConfigs() {
+      var url = "/login-rx-vuejs/get-configs";
+      utilities
+        .post(url, this.form)
+        .then((resp) => {
+          this.$store.state.configs_login_rx_vuejs = resp.data;
+        })
+        .catch((e) => {
+          console.log(e);
         });
     },
   },

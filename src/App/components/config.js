@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { AjaxToastBootStrap } from "wbuutilities";
 import config_for_all from "./config_for_all";
+import utilities from "../utilities";
 const vm = new Vue();
 export default {
   ...config_for_all,
@@ -15,7 +16,7 @@ export default {
       register: "S'inscrire",
       final: "terminée",
     },
-    devisCreateUser:
+    devis_create_user:
       "Votre compte a été creer sur <a href='/'> lesroisdelareno.fr </a>. <br> <strong> Bien vouloir verifier votre boite mail afin de valider votre compte </strong>",
   },
   modalSuccess(body, conf) {
@@ -49,5 +50,23 @@ export default {
       );
     }
     return h("div", {}, [text]);
+  },
+  /**
+   * Essaie de connecter l'utilisateur
+   * @param {*} form
+   */
+  connexionUser(form, actionAfterLogin) {
+    return new Promise((resolv, reject) => {
+      let url = "/login-rx-vuejs/user-connexion";
+      utilities
+        .post(url, form)
+        .then((resp) => {
+          this.AfterRedirect(actionAfterLogin, null, resp);
+          resolv(resp);
+        })
+        .catch((er) => {
+          reject(er);
+        });
+    });
   },
 };

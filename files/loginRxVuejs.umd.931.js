@@ -1,7 +1,7 @@
 "use strict";
-((typeof self !== 'undefined' ? self : this)["webpackChunkloginRxVuejs"] = (typeof self !== 'undefined' ? self : this)["webpackChunkloginRxVuejs"] || []).push([[387],{
+((typeof self !== 'undefined' ? self : this)["webpackChunkloginRxVuejs"] = (typeof self !== 'undefined' ? self : this)["webpackChunkloginRxVuejs"] || []).push([[931],{
 
-/***/ 1387:
+/***/ 9931:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -12,7 +12,7 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ LoginRegister)
 });
 
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginRegister.vue?vue&type=template&id=506b41cf&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginRegister.vue?vue&type=template&id=535fcc02&
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
@@ -22,7 +22,10 @@ var render = function render() {
       "tag": "form"
     }
   }, [_c('div', {
-    staticClass: "login-page"
+    staticClass: "login-page",
+    attrs: {
+      "facebook_app_is_define": _vm.facebook_app_is_define
+    }
   }, [_vm.alertDisplay ? _c('div', {
     staticClass: "alert w-100",
     "class": _vm.alertType,
@@ -55,7 +58,11 @@ var render = function render() {
       "urlLogo": _vm.urlLogo,
       "formValidate": _vm.formValidate,
       "action-after-login": _vm.actionAfterLogin,
-      "model-register-form": _vm.modelRegisterForm
+      "model-register-form": _vm.modelRegisterForm,
+      "show-password": _vm.showPassword,
+      "action-after-register": _vm.actionAfterRegister,
+      "show-modal-success": _vm.showModalSuccess,
+      "configs_login_rx_vuejs": _vm.configs_login_rx_vuejs
     },
     on: {
       "select-stepe": _vm.selectStepe
@@ -63,17 +70,11 @@ var render = function render() {
   })], 1)])], 1), _c('div', {
     staticClass: "politik-secur mx-auto text-center"
   }, [_vm._t("condition_utilisation", function () {
-    return [_c('p', {
-      staticClass: "text-white"
-    }, [_vm._v(" En vous inscrivant, vous acceptez nos "), _c('a', {
-      attrs: {
-        "href": "#"
+    return [_vm.configs_login_rx_vuejs.texts && _vm.configs_login_rx_vuejs.texts.condition_utilisation ? _c('div', {
+      domProps: {
+        "innerHTML": _vm._s(_vm.configs_login_rx_vuejs.texts.condition_utilisation.value)
       }
-    }, [_vm._v(" Conditions d'utilisation ")]), _vm._v(" , de recevoir des emails et des MAJ de LESROISDELARENO et vous reconnaissez avoir lu notre "), _c('a', {
-      attrs: {
-        "href": "#"
-      }
-    }, [_vm._v(" Politique de confidentialité")])])];
+    }) : _vm._e()];
   })], 2)]);
 };
 var staticRenderFns = [];
@@ -86,6 +87,10 @@ var asyncToGenerator = __webpack_require__(505);
 var objectSpread2 = __webpack_require__(3553);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.push.js
 var es_array_push = __webpack_require__(7658);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
+var es_object_to_string = __webpack_require__(1539);
+// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.js
+var es_promise = __webpack_require__(8674);
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__(7203);
 var external_commonjs_vue_commonjs2_vue_root_Vue_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_vue_commonjs2_vue_root_Vue_);
@@ -274,9 +279,9 @@ var es_string_includes = __webpack_require__(2968);
 // EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.string.trim.js
 var es_string_trim = __webpack_require__(1048);
 // EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.object.to-string.js
-var es_object_to_string = __webpack_require__(7328);
+var modules_es_object_to_string = __webpack_require__(7328);
 // EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.promise.js
-var es_promise = __webpack_require__(1147);
+var modules_es_promise = __webpack_require__(1147);
 // EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.function.name.js
 var es_function_name = __webpack_require__(8613);
 // EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.json.stringify.js
@@ -608,7 +613,7 @@ var AjaxToastBootStrap = (0,objectSpread2/* default */.Z)((0,objectSpread2/* def
   },
   bPost: function bPost(url, datas, configs) {
     var _this2 = this;
-    var showNotification = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
+    var showNotification = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     return new Promise(function (resolv, reject) {
       _this2.post(url, datas, configs).then(function (reponse) {
         if (showNotification) {
@@ -847,6 +852,11 @@ if (typeof window !== "undefined" && window.Vue) {
       var event = new CustomEvent("login_rx_vuejs__user_is_login");
       document.dispatchEvent(event);
     }
+    // emits an event after creating an account
+    else if (action == "emit_even_register") {
+      var event = new CustomEvent("login_rx_vuejs__user_is_register");
+      document.dispatchEvent(event);
+    }
     // Comportement par defaut.
     else if (action == "default") {
       // --; Si l'utilisateur est redirigé vers une autre url.
@@ -865,58 +875,10 @@ if (typeof window !== "undefined" && window.Vue) {
     return stepe;
   }
 });
-;// CONCATENATED MODULE: ./src/App/components/config.js
-
-
-
-
-
-var config_vm = new (external_commonjs_vue_commonjs2_vue_root_Vue_default())();
-/* harmony default export */ const config = ((0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, config_for_all), {}, {
-  messages: {
-    log_email: "Email ou Nom d'utilisateur",
-    pass: "Mot de passe",
-    login: "Nom d'utilisateur",
-    mail: "Email",
-    submit: {
-      first: "Suivant",
-      connect: "Connexion",
-      register: "S'inscrire",
-      "final": "terminée"
-    },
-    devisCreateUser: "Votre compte a été creer sur <a href='/'> lesroisdelareno.fr </a>. <br> <strong> Bien vouloir verifier votre boite mail afin de valider votre compte </strong>"
-  },
-  modalSuccess: function modalSuccess(body, conf) {
-    return BootStrap.modalSuccess(body, conf);
-  },
-  /**
-   *
-   * @param {Array} text
-   * @returns
-   */
-  msgCreate: function msgCreate(texts) {
-    var h = config_vm.$createElement;
-    var text = [];
-    for (var i in texts) {
-      text.push(h("p", {
-        domProps: {
-          innerHTML: texts[i]
-        },
-        style: {
-          lineHeight: "25px",
-          fontSize: "17px",
-          padding: "15px 15px 0px",
-          margin: 0
-        }
-      }, []));
-    }
-    return h("div", {}, [text]);
-  }
-}));
 ;// CONCATENATED MODULE: ./src/config.js
 
 
-var config_config = (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, basic), {}, {
+var config = (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, basic), {}, {
   /**
    * Retoune un entier arleatoire entre [99-999]
    */
@@ -928,11 +890,7 @@ var config_config = (0,objectSpread2/* default */.Z)((0,objectSpread2/* default 
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 });
-/* harmony default export */ const src_config = (config_config);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.object.to-string.js
-var modules_es_object_to_string = __webpack_require__(1539);
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es.promise.js
-var modules_es_promise = __webpack_require__(8674);
+/* harmony default export */ const src_config = (config);
 ;// CONCATENATED MODULE: ./src/App/session.js
 
 
@@ -1043,6 +1001,73 @@ var utilities = (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z
   }
 });
 /* harmony default export */ const App_utilities = (utilities);
+;// CONCATENATED MODULE: ./src/App/components/config.js
+
+
+
+
+
+
+
+
+var config_vm = new (external_commonjs_vue_commonjs2_vue_root_Vue_default())();
+/* harmony default export */ const components_config = ((0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, config_for_all), {}, {
+  messages: {
+    log_email: "Email ou Nom d'utilisateur",
+    pass: "Mot de passe",
+    login: "Nom d'utilisateur",
+    mail: "Email",
+    submit: {
+      first: "Suivant",
+      connect: "Connexion",
+      register: "S'inscrire",
+      "final": "terminée"
+    },
+    devis_create_user: "Votre compte a été creer sur <a href='/'> lesroisdelareno.fr </a>. <br> <strong> Bien vouloir verifier votre boite mail afin de valider votre compte </strong>"
+  },
+  modalSuccess: function modalSuccess(body, conf) {
+    return BootStrap.modalSuccess(body, conf);
+  },
+  /**
+   *
+   * @param {Array} text
+   * @returns
+   */
+  msgCreate: function msgCreate(texts) {
+    var h = config_vm.$createElement;
+    var text = [];
+    for (var i in texts) {
+      text.push(h("p", {
+        domProps: {
+          innerHTML: texts[i]
+        },
+        style: {
+          lineHeight: "25px",
+          fontSize: "17px",
+          padding: "15px 15px 0px",
+          margin: 0
+        }
+      }, []));
+    }
+    return h("div", {}, [text]);
+  },
+  /**
+   * Essaie de connecter l'utilisateur
+   * @param {*} form
+   */
+  connexionUser: function connexionUser(form, actionAfterLogin) {
+    var _this = this;
+    return new Promise(function (resolv, reject) {
+      var url = "/login-rx-vuejs/user-connexion";
+      App_utilities.post(url, form).then(function (resp) {
+        _this.AfterRedirect(actionAfterLogin, null, resp);
+        resolv(resp);
+      })["catch"](function (er) {
+        reject(er);
+      });
+    });
+  }
+}));
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.timers.js
 var web_timers = __webpack_require__(2564);
 ;// CONCATENATED MODULE: ./src/App/rx/facebook.js
@@ -1260,19 +1285,20 @@ var es_array_iterator = __webpack_require__(6992);
 var es_string_iterator = __webpack_require__(8783);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.iterator.js
 var web_dom_collections_iterator = __webpack_require__(3948);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginGoogle.vue?vue&type=template&id=195466c7&
-var LoginGooglevue_type_template_id_195466c7_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginGoogle.vue?vue&type=template&id=8e59a1be&
+var LoginGooglevue_type_template_id_8e59a1be_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "buttton-google-aouth",
     "class": _vm.classRender,
     attrs: {
-      "id": _vm.idHtmlrender
+      "id": _vm.idHtmlrender,
+      "client_google_is_define": _vm.client_google_is_define
     }
   });
 };
-var LoginGooglevue_type_template_id_195466c7_staticRenderFns = [];
+var LoginGooglevue_type_template_id_8e59a1be_staticRenderFns = [];
 
 ;// CONCATENATED MODULE: ./src/App/rx/google.js
 //const gapi = window.gapi;
@@ -1281,6 +1307,8 @@ var LoginGooglevue_type_template_id_195466c7_staticRenderFns = [];
   //contient les informations renvoyés par google apres approbations.
   client_id: "513247959752-qapd9jb30pdtoh51m0h53070a2v8c4er.apps.googleusercontent.com"
 });
+// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__(629);
 ;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginGoogle.vue?vue&type=script&lang=js&
 
 
@@ -1296,6 +1324,7 @@ function loadScript(src) {
     document.head.appendChild(s);
   });
 }
+
 
 
 
@@ -1321,23 +1350,30 @@ function loadScript(src) {
       "default": "default"
     }
   },
-  computed: {
+  computed: (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, (0,vuex_esm/* mapState */.rn)(["configs_login_rx_vuejs"])), {}, {
     idHtmlrender: function idHtmlrender() {
       return "google-login-tab" + this.idHtml;
+    },
+    client_google_is_define: function client_google_is_define() {
+      if (this.configs_login_rx_vuejs && this.configs_login_rx_vuejs.client_google_id) {
+        this.initGoogle();
+        return true;
+      } else return "";
     }
-  },
-  mounted: function mounted() {
-    var _this = this;
-    if (!window.google) {
-      loadScript("https://accounts.google.com/gsi/client").then(function () {
-        _this.getUserInfoFromFrame();
-      });
-    } else {
-      this.getUserInfoFromFrame();
-    }
-  },
+  }),
   methods: {
+    initGoogle: function initGoogle() {
+      var _this = this;
+      if (!window.google) {
+        loadScript("https://accounts.google.com/gsi/client").then(function () {
+          _this.getUserInfoFromFrame();
+        });
+      } else {
+        this.getUserInfoFromFrame();
+      }
+    },
     getUserInfoFromFrame: function getUserInfoFromFrame() {
+      var _this2 = this;
       var self = this;
       function handleCredentialResponse(response) {
         console.log("Encoded JWT ID token: ", response);
@@ -1350,7 +1386,7 @@ function loadScript(src) {
       console.log(" window.onload ! ", window.onload);
       var goo = function goo() {
         window.google.accounts.id.initialize({
-          client_id: google.client_id,
+          client_id: _this2.configs_login_rx_vuejs.client_google_id,
           callback: handleCredentialResponse
         });
         window.google.accounts.id.renderButton(document.getElementById(self.idHtmlrender), {
@@ -1368,30 +1404,30 @@ function loadScript(src) {
      * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
      */
     TryToLoginWithGoogle: function TryToLoginWithGoogle() {
-      var _this2 = this;
+      var _this3 = this;
       // this.IsBusy();
       // this.getFields();
       return new Promise(function (resolv, reject) {
         App_utilities.post("/login-rx-vuejs/google-check", google.userAccess).then(function (resp) {
-          _this2.isBusy = false;
-          _this2.alertDisplay = true;
-          _this2.alertType = "alert-success";
-          _this2.alertText = "Connexion réussie";
-          _this2.$emit("ev_logingoogle", resp.data);
+          _this3.isBusy = false;
+          _this3.alertDisplay = true;
+          _this3.alertType = "alert-success";
+          _this3.alertText = "Connexion réussie";
+          _this3.$emit("ev_logingoogle", resp.data);
           // Si on souhaite juste obtenir les infos concernant l'utilisateur.
-          if (_this2.returnUidInfo) {
+          if (_this3.returnUidInfo) {
             resolv(resp);
             return;
           }
-          config_for_all.AfterRedirect(_this2.actionAfterLogin, null, resp);
+          config_for_all.AfterRedirect(_this3.actionAfterLogin, null, resp);
           resolv(resp);
         })["catch"](function (errors) {
-          _this2.isBusy = false;
-          _this2.alertDisplay = true;
-          _this2.alertType = "alert-danger";
-          _this2.alertText = "Google : Erreur de connexion";
+          _this3.isBusy = false;
+          _this3.alertDisplay = true;
+          _this3.alertType = "alert-danger";
+          _this3.alertText = "Google : Erreur de connexion";
           if (errors.error && errors.error.statusText && errors.error.statusText != "") {
-            _this2.alertText = errors.error.statusText;
+            _this3.alertText = errors.error.statusText;
           }
           console.log(" Error ajax ", errors.error);
           console.log(" Error ajax ", errors.code);
@@ -1404,10 +1440,10 @@ function loadScript(src) {
 });
 ;// CONCATENATED MODULE: ./src/App/components/LoginGoogle.vue?vue&type=script&lang=js&
  /* harmony default export */ const components_LoginGooglevue_type_script_lang_js_ = (LoginGooglevue_type_script_lang_js_); 
-;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-64.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-64.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-64.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-64.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginGoogle.vue?vue&type=style&index=0&id=195466c7&prod&lang=scss&
+;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-64.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-64.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-64.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-64.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginGoogle.vue?vue&type=style&index=0&id=8e59a1be&prod&lang=scss&
 // extracted by mini-css-extract-plugin
 
-;// CONCATENATED MODULE: ./src/App/components/LoginGoogle.vue?vue&type=style&index=0&id=195466c7&prod&lang=scss&
+;// CONCATENATED MODULE: ./src/App/components/LoginGoogle.vue?vue&type=style&index=0&id=8e59a1be&prod&lang=scss&
 
 ;// CONCATENATED MODULE: ./src/App/components/LoginGoogle.vue
 
@@ -1420,8 +1456,8 @@ function loadScript(src) {
 
 var LoginGoogle_component = (0,componentNormalizer/* default */.Z)(
   components_LoginGooglevue_type_script_lang_js_,
-  LoginGooglevue_type_template_id_195466c7_render,
-  LoginGooglevue_type_template_id_195466c7_staticRenderFns,
+  LoginGooglevue_type_template_id_8e59a1be_render,
+  LoginGooglevue_type_template_id_8e59a1be_staticRenderFns,
   false,
   null,
   null,
@@ -1430,8 +1466,6 @@ var LoginGoogle_component = (0,componentNormalizer/* default */.Z)(
 )
 
 /* harmony default export */ const LoginGoogle = (LoginGoogle_component.exports);
-// EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__(629);
 ;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/CheckStatus.vue?vue&type=script&lang=js&
 
 
@@ -1466,7 +1500,7 @@ var vuex_esm = __webpack_require__(629);
   },
   data: function data() {
     return {
-      messages: config.messages,
+      messages: components_config.messages,
       waiting: ""
     };
   },
@@ -1532,8 +1566,8 @@ var CheckStatus_component = (0,componentNormalizer/* default */.Z)(
 )
 
 /* harmony default export */ const CheckStatus = (CheckStatus_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/SetPassword.vue?vue&type=template&id=5bc6aa14&
-var SetPasswordvue_type_template_id_5bc6aa14_render = function render() {
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/SetPassword.vue?vue&type=template&id=32309206&
+var SetPasswordvue_type_template_id_32309206_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -1561,12 +1595,12 @@ var SetPasswordvue_type_template_id_5bc6aa14_render = function render() {
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(v) {
-        return [_vm.form.password ? _c('input', {
+        return [_vm.form.pass ? _c('input', {
           directives: [{
             name: "model",
             rawName: "v-model",
-            value: _vm.form.password[0].value,
-            expression: "form.password[0].value"
+            value: _vm.form.pass[0].value,
+            expression: "form.pass[0].value"
           }],
           staticClass: "form-control",
           attrs: {
@@ -1574,12 +1608,12 @@ var SetPasswordvue_type_template_id_5bc6aa14_render = function render() {
             "name": "pass"
           },
           domProps: {
-            "value": _vm.form.password[0].value
+            "value": _vm.form.pass[0].value
           },
           on: {
             "input": function input($event) {
               if ($event.target.composing) return;
-              _vm.$set(_vm.form.password[0], "value", $event.target.value);
+              _vm.$set(_vm.form.pass[0], "value", $event.target.value);
             }
           }
         }) : _vm._e(), _c('div', {
@@ -1618,10 +1652,9 @@ var SetPasswordvue_type_template_id_5bc6aa14_render = function render() {
     }
   }, [_vm._v(" Retour ")])]);
 };
-var SetPasswordvue_type_template_id_5bc6aa14_staticRenderFns = [];
+var SetPasswordvue_type_template_id_32309206_staticRenderFns = [];
 
 ;// CONCATENATED MODULE: ./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/SetPassword.vue?vue&type=script&lang=js&
-
 
 
 
@@ -1656,14 +1689,14 @@ var SetPasswordvue_type_template_id_5bc6aa14_staticRenderFns = [];
   },
   data: function data() {
     return {
-      messages: config.messages,
+      messages: components_config.messages,
       waiting: ""
     };
   },
   computed: (0,objectSpread2/* default */.Z)({}, (0,vuex_esm/* mapState */.rn)(["form"])),
   mounted: function mounted() {
-    if (this.form.password === undefined) {
-      this.$set(this.form, "password", [{
+    if (this.form.pass === undefined) {
+      this.$set(this.form, "pass", [{
         value: ""
       }]);
     }
@@ -1672,26 +1705,25 @@ var SetPasswordvue_type_template_id_5bc6aa14_staticRenderFns = [];
     Login: function Login() {
       var _this = this;
       return (0,asyncToGenerator/* default */.Z)( /*#__PURE__*/(0,regeneratorRuntime/* default */.Z)().mark(function _callee() {
-        var url, test;
+        var test;
         return (0,regeneratorRuntime/* default */.Z)().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _this.waiting = "wait";
-              url = "/login-rx-vuejs/user-connexion";
-              _context.next = 4;
+              _context.next = 3;
               return _this.formValidate.validate();
-            case 4:
+            case 3:
               test = _context.sent;
               setTimeout(function () {
-                if (test) App_utilities.post(url, _this.form).then(function (resp) {
+                if (test) components_config.connexionUser(_this.form, _this.actionAfterLogin).then(function () {
                   _this.waiting = "";
-                  config.AfterRedirect(_this.actionAfterLogin, null, resp);
                 })["catch"](function (e) {
+                  console.log("Login : ", e);
                   _this.$refs.refPass.setErrors([e.error.statusText]);
                   _this.waiting = "error";
                 });else _this.waiting = "";
               }, 3000);
-            case 6:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -1712,8 +1744,8 @@ var SetPasswordvue_type_template_id_5bc6aa14_staticRenderFns = [];
 ;
 var SetPassword_component = (0,componentNormalizer/* default */.Z)(
   components_SetPasswordvue_type_script_lang_js_,
-  SetPasswordvue_type_template_id_5bc6aa14_render,
-  SetPasswordvue_type_template_id_5bc6aa14_staticRenderFns,
+  SetPasswordvue_type_template_id_32309206_render,
+  SetPasswordvue_type_template_id_32309206_staticRenderFns,
   false,
   null,
   null,
@@ -1722,9 +1754,9 @@ var SetPassword_component = (0,componentNormalizer/* default */.Z)(
 )
 
 /* harmony default export */ const SetPassword = (SetPassword_component.exports);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/RegisTer.vue?vue&type=template&id=2be2efe3&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/RegisTer.vue?vue&type=template&id=56272a3a&
 
-var RegisTervue_type_template_id_2be2efe3_render = function render() {
+var RegisTervue_type_template_id_56272a3a_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -1739,7 +1771,7 @@ var RegisTervue_type_template_id_2be2efe3_render = function render() {
       "src": _vm.urlLogo,
       "alt": ""
     }
-  })]), _vm.modelRegisterForm === 'default' ? _c('div', [_c('h3', {
+  })]), _vm.modelRegisterFormResult === 'default' ? _c('div', [_c('h3', {
     staticClass: "content-center__title"
   }, [_vm._v(_vm._s(_vm.messages.login))]), _c('div', {
     staticClass: "form-group content-center__input"
@@ -1769,12 +1801,12 @@ var RegisTervue_type_template_id_2be2efe3_render = function render() {
     staticClass: "content-center__title"
   }, [_vm._v(" " + _vm._s(_vm.messages.pass) + " ")]) : _vm._e(), _vm.showPassword ? _c('div', {
     staticClass: "form-group content-center__input"
-  }, [_vm.form.password ? _c('input', {
+  }, [_vm.form.pass ? _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.password[0].value,
-      expression: "form.password[0].value"
+      value: _vm.form.pass[0].value,
+      expression: "form.pass[0].value"
     }],
     staticClass: "form-control",
     attrs: {
@@ -1782,12 +1814,12 @@ var RegisTervue_type_template_id_2be2efe3_render = function render() {
       "name": "pass"
     },
     domProps: {
-      "value": _vm.form.password[0].value
+      "value": _vm.form.pass[0].value
     },
     on: {
       "input": function input($event) {
         if ($event.target.composing) return;
-        _vm.$set(_vm.form.password[0], "value", $event.target.value);
+        _vm.$set(_vm.form.pass[0], "value", $event.target.value);
       }
     }
   }) : _vm._e()]) : _vm._e(), _c('h3', {
@@ -1866,7 +1898,7 @@ var RegisTervue_type_template_id_2be2efe3_render = function render() {
     }
   }, [_c('span', {
     staticClass: "btn-login__text"
-  }, [_vm._v(" " + _vm._s(_vm.messages.submit.register) + " ")]), _vm.waiting == 'wait' ? _c('svgWaiting') : _vm._e()], 1)]), _c('hr')], 2) : _vm._e(), _vm.modelRegisterForm === 'generate_password' ? _c('div', [_c('h4', {
+  }, [_vm._v(" " + _vm._s(_vm.messages.submit.register) + " ")]), _vm.waiting == 'wait' ? _c('svgWaiting') : _vm._e()], 1)]), _c('hr')], 2) : _vm._e(), _vm.modelRegisterFormResult === 'generate_password' ? _c('div', [_c('h4', {
     staticClass: "title"
   }, [_vm._v("Creation automatique du compte")]), _c('p', {
     staticClass: "mb-4"
@@ -1924,7 +1956,19 @@ var RegisTervue_type_template_id_2be2efe3_render = function render() {
     }
   }, [_c('span', {
     staticClass: "btn-login__text"
-  }, [_vm._v(" " + _vm._s(_vm.messages.submit.register) + " ")]), _vm.waiting == 'wait' ? _c('svgWaiting') : _vm._e()], 1)])]) : _vm._e(), _c('a', {
+  }, [_vm._v(" " + _vm._s(_vm.messages.submit.register) + " ")]), _vm.waiting == 'wait' ? _c('svgWaiting') : _vm._e()], 1)])]) : _vm._e(), _c('b-alert', {
+    attrs: {
+      "dismissible": "",
+      "variant": "danger",
+      "fade": "",
+      "show": _vm.error.message ? true : false
+    },
+    on: {
+      "dismissed": function dismissed($event) {
+        _vm.error.message = false;
+      }
+    }
+  }, [_vm._v(" " + _vm._s(_vm.error.message) + " ")]), _c('a', {
     staticClass: "text-center d-block",
     attrs: {
       "href": "#"
@@ -1934,11 +1978,11 @@ var RegisTervue_type_template_id_2be2efe3_render = function render() {
         return _vm.$emit('select-stepe', 'checkstatus');
       }
     }
-  }, [_vm._v(" Retour ")])]);
+  }, [_vm._v(" Retour ")])], 1);
 };
-var RegisTervue_type_template_id_2be2efe3_staticRenderFns = [];
+var RegisTervue_type_template_id_56272a3a_staticRenderFns = [];
 
-;// CONCATENATED MODULE: ./src/App/components/RegisTer.vue?vue&type=template&id=2be2efe3&
+;// CONCATENATED MODULE: ./src/App/components/RegisTer.vue?vue&type=template&id=56272a3a&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
 var es_array_for_each = __webpack_require__(9554);
@@ -2164,32 +2208,55 @@ var formatField = /*#__PURE__*/function () {
       type: Boolean,
       "default": false
     },
-    actionAfterLogin: {
+    actionAfterRegister: {
       type: String,
       required: true
     },
     modelRegisterForm: {
-      type: String,
+      type: [String, Boolean],
+      required: true
+    },
+    showModalSuccess: {
+      type: Boolean,
       required: true
     }
   },
   data: function data() {
     return {
-      messages: config.messages,
+      messages: components_config.messages,
       waiting: "",
-      templates: []
+      templates: [],
+      /**
+       * Drupal >9.5 renvoit l'erreur dans {message}
+       */
+      error: {
+        message: false
+      }
     };
   },
-  computed: (0,objectSpread2/* default */.Z)({}, (0,vuex_esm/* mapState */.rn)(["form"])),
+  computed: (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, (0,vuex_esm/* mapState */.rn)(["form", "configs_login_rx_vuejs"])), {}, {
+    /**
+     * Resultat entre la config endur et celle en BD.
+     */
+    modelRegisterFormResult: function modelRegisterFormResult() {
+      if (this.modelRegisterForm) {
+        return this.modelRegisterForms;
+      } else if (this.configs_login_rx_vuejs && this.configs_login_rx_vuejs.generate_user) {
+        return "generate_password";
+      } else {
+        return "default";
+      }
+    }
+  }),
   mounted: function mounted() {
     if (this.showPassword) {
-      if (this.form.password === undefined) {
-        this.$set(this.form, "password", [{
+      if (this.form.pass === undefined) {
+        this.$set(this.form, "pass", [{
           value: ""
         }]);
       }
-    } else if (this.form.password) {
-      delete this.form.password;
+    } else if (this.form.pass) {
+      delete this.form.pass;
     }
     this.getFields();
   },
@@ -2211,7 +2278,7 @@ var formatField = /*#__PURE__*/function () {
                 App_utilities.post(url, _this.form).then(function (resp) {
                   console.log("resp : ", resp);
                   _this.waiting = "";
-                  config.AfterRedirect(_this.actionAfterLogin, resp);
+                  components_config.AfterRedirect(_this.actionAfterRegister, null, resp);
                 })["catch"](function () {
                   _this.waiting = "";
                 });
@@ -2243,19 +2310,21 @@ var formatField = /*#__PURE__*/function () {
             case 4:
               test = _context2.sent;
               if (test) App_utilities.post(url, _this2.form).then(function (resp) {
-                console.log("resp : ", resp);
                 _this2.waiting = "";
-                config.modalSuccess(config.msgCreate([_this2.messages.devisCreateUser]), {
+                if (_this2.showModalSuccess) components_config.modalSuccess(components_config.msgCreate([_this2.messages.devis_create_user]), {
                   title: "Votre compte a été crré",
                   footerClass: "d-none",
                   headerBgVariant: "success",
                   headerTextVariant: "light"
                 }).then(function () {
-                  config.AfterRedirect(_this2.actionAfterLogin, resp);
-                });
+                  components_config.AfterRedirect(_this2.actionAfterRegister, null, resp);
+                });else components_config.AfterRedirect(_this2.actionAfterRegister, null, resp);
               })["catch"](function (e) {
                 _this2.waiting = "";
-                // console.log("catch : ", e);
+                console.log("catch : ", e);
+                if (e.error.data && e.error.data.message) {
+                  _this2.error.message = e.error.data.message;
+                }
                 if (e.error && e.error.data && e.error.data.errors) {
                   var errors = e.error.data.errors;
                   // console.log(" this.$refs : ", this.$refs);
@@ -2312,8 +2381,8 @@ var formatField = /*#__PURE__*/function () {
 ;
 var RegisTer_component = (0,componentNormalizer/* default */.Z)(
   components_RegisTervue_type_script_lang_js_,
-  RegisTervue_type_template_id_2be2efe3_render,
-  RegisTervue_type_template_id_2be2efe3_staticRenderFns,
+  RegisTervue_type_template_id_56272a3a_render,
+  RegisTervue_type_template_id_56272a3a_staticRenderFns,
   false,
   null,
   null,
@@ -2329,7 +2398,9 @@ var RegisTer_component = (0,componentNormalizer/* default */.Z)(
 
 
 
+
 //import { ValidationObserver } from "vee-validate";
+
 
 
 
@@ -2343,9 +2414,22 @@ var RegisTer_component = (0,componentNormalizer/* default */.Z)(
       type: String,
       "default": "default"
     },
-    modelRegisterForm: {
+    // see config_for_all.AfterRedirect for more informations.
+    actionAfterRegister: {
       type: String,
       "default": "default"
+    },
+    modelRegisterForm: {
+      type: [String, Boolean],
+      "default": false
+    },
+    showPassword: {
+      type: Boolean,
+      "default": true
+    },
+    showModalSuccess: {
+      type: Boolean,
+      "default": true
     }
   },
   /**
@@ -2353,7 +2437,7 @@ var RegisTer_component = (0,componentNormalizer/* default */.Z)(
    */
   data: function data() {
     return {
-      messages: config.messages,
+      messages: components_config.messages,
       waiting: "",
       stepe: CheckStatus,
       models: {},
@@ -2366,16 +2450,27 @@ var RegisTer_component = (0,componentNormalizer/* default */.Z)(
       formValidate: {}
     };
   },
+  computed: (0,objectSpread2/* default */.Z)((0,objectSpread2/* default */.Z)({}, (0,vuex_esm/* mapState */.rn)(["configs_login_rx_vuejs"])), {}, {
+    facebook_app_is_define: function facebook_app_is_define() {
+      if (this.configs_login_rx_vuejs && this.configs_login_rx_vuejs.facebook_app_id) {
+        this.initFacebook();
+        return true;
+      } else return "";
+    }
+  }),
   /**
    * --
    */
   mounted: function mounted() {
-    facebook.appId = 889256191665205;
-    this.TryToLoginWithFacebook();
-    facebook.chargement();
     this.formValidate = this.$refs.formValidate;
+    this.getConfigs();
   },
   methods: {
+    initFacebook: function initFacebook() {
+      facebook.appId = this.configs_login_rx_vuejs.facebook_app_id; //889256191665205;
+      this.TryToLoginWithFacebook();
+      facebook.chargement();
+    },
     selectStepe: function selectStepe(step) {
       switch (step) {
         case "checkstatus":
@@ -2470,15 +2565,32 @@ var RegisTer_component = (0,componentNormalizer/* default */.Z)(
           }
         }, _callee);
       }))();
+    },
+    /**
+     * Helper to login user.
+     * ( This function is used by modules that create accounts and then need to login the user. )
+     * @param {*} form
+     */
+    connexionUser: function connexionUser(form) {
+      return components_config.connexionUser(form, this.actionAfterLogin);
+    },
+    getConfigs: function getConfigs() {
+      var _this3 = this;
+      var url = "/login-rx-vuejs/get-configs";
+      App_utilities.post(url, this.form).then(function (resp) {
+        _this3.$store.state.configs_login_rx_vuejs = resp.data;
+      })["catch"](function (e) {
+        console.log(e);
+      });
     }
   }
 });
 ;// CONCATENATED MODULE: ./src/App/components/LoginRegister.vue?vue&type=script&lang=js&
  /* harmony default export */ const components_LoginRegistervue_type_script_lang_js_ = (LoginRegistervue_type_script_lang_js_); 
-;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-64.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-64.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-64.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-64.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginRegister.vue?vue&type=style&index=0&id=506b41cf&prod&lang=scss&
+;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-64.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-64.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-64.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-64.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/LoginRegister.vue?vue&type=style&index=0&id=535fcc02&prod&lang=scss&
 // extracted by mini-css-extract-plugin
 
-;// CONCATENATED MODULE: ./src/App/components/LoginRegister.vue?vue&type=style&index=0&id=506b41cf&prod&lang=scss&
+;// CONCATENATED MODULE: ./src/App/components/LoginRegister.vue?vue&type=style&index=0&id=535fcc02&prod&lang=scss&
 
 ;// CONCATENATED MODULE: ./src/App/components/LoginRegister.vue
 
@@ -2505,4 +2617,4 @@ var LoginRegister_component = (0,componentNormalizer/* default */.Z)(
 /***/ })
 
 }]);
-//# sourceMappingURL=loginRxVuejs.umd.387.js.map
+//# sourceMappingURL=loginRxVuejs.umd.931.js.map

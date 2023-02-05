@@ -7,8 +7,8 @@
     <div class="form-group content-center__input">
       <ValidationProvider v-slot="v" ref="refPass" name="pass" rules="required">
         <input
-          v-if="form.password"
-          v-model="form.password[0].value"
+          v-if="form.pass"
+          v-model="form.pass[0].value"
           type="password"
           class="form-control"
           name="pass"
@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import utilities from "../utilities";
 import config from "./config";
 import { mapState } from "vuex";
 
@@ -77,24 +76,23 @@ export default {
     ...mapState(["form"]),
   },
   mounted() {
-    if (this.form.password === undefined) {
-      this.$set(this.form, "password", [{ value: "" }]);
+    if (this.form.pass === undefined) {
+      this.$set(this.form, "pass", [{ value: "" }]);
     }
   },
   methods: {
     async Login() {
       this.waiting = "wait";
-      var url = "/login-rx-vuejs/user-connexion";
       const test = await this.formValidate.validate();
       setTimeout(() => {
         if (test)
-          utilities
-            .post(url, this.form)
-            .then((resp) => {
+          config
+            .connexionUser(this.form, this.actionAfterLogin)
+            .then(() => {
               this.waiting = "";
-              config.AfterRedirect(this.actionAfterLogin, null, resp);
             })
             .catch((e) => {
+              console.log("Login : ", e);
               this.$refs.refPass.setErrors([e.error.statusText]);
               this.waiting = "error";
             });

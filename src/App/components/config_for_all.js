@@ -25,6 +25,11 @@ export default {
       var event = new CustomEvent("login_rx_vuejs__user_is_login");
       document.dispatchEvent(event);
     }
+    // emits an event after creating an account
+    else if (action == "emit_even_register") {
+      var event = new CustomEvent("login_rx_vuejs__user_is_register");
+      document.dispatchEvent(event);
+    }
     // Comportement par defaut.
     else if (action == "default") {
       // --; Si l'utilisateur est redirigé vers une autre url.

@@ -5,7 +5,10 @@
     </a>
     <h4 class="title">Connectez vous avec</h4>
     <div class="content-center__btn-column">
-      <logingoogle idHtml="default"></logingoogle>
+      <logingoogle
+        idHtml="default"
+        :action-after-login="actionAfterLogin"
+      ></logingoogle>
       <div class="btn-login btn-login--facebook" @click="loginFacebook">
         <span class="btn-login__icon icon-facebook"></span>
         <i class="btn-login__text"> Facebook </i>
@@ -61,6 +64,10 @@ export default {
     },
     formValidate: {
       type: Object,
+      required: true,
+    },
+    actionAfterLogin: {
+      type: String,
       required: true,
     },
   },

@@ -42,7 +42,7 @@ export default {
     },
     actionAfterLogin: {
       type: String,
-      default: "default",
+      required: true,
     },
   },
   computed: {

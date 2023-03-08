@@ -39,6 +39,7 @@
       <slot name="condition_utilisation">
         <div
           v-if="
+            configs_login_rx_vuejs &&
             configs_login_rx_vuejs.texts &&
             configs_login_rx_vuejs.texts.condition_utilisation
           "

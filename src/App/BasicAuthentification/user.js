@@ -33,6 +33,7 @@ export default {
   },
   /**
    * On sauvegarde de maniere temporaire les identifications de connexion.
+   * Require https for securities.
    */
   saveTempCredential(values, resp) {
     localStorage.setItem(keyCren, JSON.stringify(values));

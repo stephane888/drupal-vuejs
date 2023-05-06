@@ -10,7 +10,8 @@ class itemsEntity {
     }
     this.url = Confs.baseURl + "/" + this.entity_type_id + "/" + bundle;
     this.items = [];
-    // en function de l'environement on doit ajouter les paramettres de bases.( notament baseUrl, TestDomain, les methodes surchargées ).
+    this.newConfig = config;
+    // En function de l'environement on doit ajouter les paramettres de bases.( notament baseUrl, TestDomain, les methodes surchargées ).
     if (config) {
       // à ce state la surcharge total pose probleme, donc on doit surcharger par necessite.
       // utilities = {
@@ -18,11 +19,11 @@ class itemsEntity {
       //   ...config,
       // };
       if (config.TestDomain) utilities.TestDomain = config.TestDomain;
-      //utilities.get = config.get;
     }
   }
   /**
-   * Recupere les items
+   * Recupere les items en passant par le token.
+   * ( ce cas de figure correspond à une application qui est sur le meme domaine ).
    */
   get() {
     return new Promise((resolv) => {
@@ -110,7 +111,15 @@ class itemsEntity {
     });
   }
   /**
+   * Les entities à joindre dans la requete.
+   * @param {Array} entities
+   */
+  addIncludesEntities(entities = []) {
+    //IE.url += "?include=executants,project_manager";
+  }
+  /**
    * Retourne les termes sous formes de liste d'otpions.
+   * NB: Pour recuperer certaines données l'utilisateur doit envoyer ses entites l'utilisateur doit s'authentifier.
    */
   getOptions() {
     const options = [];
@@ -118,7 +127,9 @@ class itemsEntity {
       const term = this.items.data[i];
       if (this.entity_type_id == "user") {
         options.push({
-          text: term.attributes.name,
+          text: term.attributes.name
+            ? term.attributes.name
+            : term.attributes.display_name,
           value: term.attributes.drupal_internal__uid,
         });
       } else if (term.attributes.name) {
@@ -134,6 +145,30 @@ class itemsEntity {
       }
     }
     return options;
+  }
+  /**
+   * On a deux cas interne et externe au domaine, et en function de l'environnement
+   * on doit utiliser token ou basic authentification.
+   * ## approche 1
+   * ( On ajoute cette variable en attendant la validation des autres modules de plus
+   * il faudra que dans "config" la methode dGet existe, ce qui n'est pas le cas pour certains environnement.
+   * gestion-projet-v2 => OK (--mode=dev), error (--mode=prod --> /projets/3248)
+   * edit-entity => ??
+   * Creation-cv => ??
+   * Creation de site web => ??
+   * ).
+   * ## approche 2
+   * faire une boucle.
+   */
+  remplaceConfig() {
+    // On vide l'objet afin d'eviter le bug : https://projets-old.habeuk.com/#/projets/3248
+    // utilities = {};
+    // console.log("utilities : ", utilities);
+    // console.log("newConfig : ", this.newConfig);
+    // utilities = this.newConfig;
+    for (const i in this.newConfig) {
+      utilities[i] = this.newConfig[i];
+    }
   }
 }
 export default itemsEntity;

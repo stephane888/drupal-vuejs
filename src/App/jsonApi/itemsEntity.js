@@ -103,7 +103,7 @@ class itemsEntity {
     filter.addFilter(fieldId, "=", id);
     return new Promise((resolv) => {
       utilities
-        .get(this.url + "?" + filter.query, Confs.headers)
+        .dGet(this.url + "?" + filter.query, Confs.headers)
         .then((resp) => {
           this.items = resp.data;
           resolv(resp.data);

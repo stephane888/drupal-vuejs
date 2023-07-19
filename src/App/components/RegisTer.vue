@@ -77,12 +77,10 @@
       <hr />
     </div>
     <div v-if="modelRegisterFormResult === 'generate_password'">
-      <h4 class="title">Creation automatique du compte</h4>
-      <p class="mb-4">
-        Vos informations de connexion seront transferés à cette adresse.
-      </p>
+      <h4 class="title mb-5">Creation automatique du compte</h4>
       <!-- On verifie si le name contient un email -->
       <div v-if="validEmail(form.name[0].value)" class="mb-5">
+        <p>Vos informations de connexion seront transferés à cette adresse.</p>
         <strong> {{ form.name[0].value }} </strong>
         {{ set_email() }}
       </div>
@@ -95,12 +93,18 @@
           class="d-block w-100"
         >
           <div class="form-group content-center__input">
+            <label class="mb-0 pb-0"> Votre adresse email </label>
             <input
               v-model="form.mail[0].value"
               type="mail"
               class="form-control"
               name="mail"
             />
+            <div>
+              <small>
+                Vos informations de connexion seront transferés à cette adresse.
+              </small>
+            </div>
           </div>
           <div class="text-danger text-small">
             <small v-for="(error, ii) in v.errors" :key="ii" class="d-block">
@@ -194,8 +198,11 @@ export default {
      * Resultat entre la config endur et celle en BD.
      */
     modelRegisterFormResult() {
-      if (this.modelRegisterForm) {
-        return this.modelRegisterForms;
+      if (
+        this.modelRegisterForm == "generate_password" ||
+        this.modelRegisterForm == "default"
+      ) {
+        return this.modelRegisterForm;
       } else if (
         this.configs_login_rx_vuejs &&
         this.configs_login_rx_vuejs.generate_user

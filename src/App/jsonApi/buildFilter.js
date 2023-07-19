@@ -1,4 +1,7 @@
 import config from "../../config";
+/**
+ * @see https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/filtering
+ */
 class filters {
   constructor(query = "") {
     this.query = query;

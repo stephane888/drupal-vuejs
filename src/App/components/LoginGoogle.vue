@@ -57,7 +57,12 @@ export default {
       ) {
         this.initGoogle();
         return true;
-      } else return "";
+      } else {
+        console.log(
+          "Error de configuration de google, veillez denifir la clée 'client_google_id'"
+        );
+        return "";
+      }
     },
   },
 
@@ -74,7 +79,6 @@ export default {
     getUserInfoFromFrame() {
       var self = this;
       function handleCredentialResponse(response) {
-        console.log("Encoded JWT ID token: ", response);
         rxGoogle.userAccess = {
           ...response,
           client_id: response.clientId,
@@ -82,9 +86,9 @@ export default {
         self.TryToLoginWithGoogle();
         window.rxGoogle = rxGoogle;
       }
-      console.log(" window.onload ! ", window.onload);
       const goo = () => {
         window.google.accounts.id.initialize({
+          // example => 51324xxxx-xxxxxxxxxxxxxxxxx8c4er.apps.googleusercontent.com
           client_id: this.configs_login_rx_vuejs.client_google_id,
           callback: handleCredentialResponse,
         });

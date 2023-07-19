@@ -20,21 +20,32 @@ class itemsEntity {
       // };
       if (config.TestDomain) utilities.TestDomain = config.TestDomain;
     }
+    /**
+     * Permet de joindre les multiples filtres.
+     */
+    this.filterQuery = "";
   }
   /**
    * Recupere les items en passant par le token.
-   * ( ce cas de figure correspond à une application qui est sur le meme domaine ).
    */
   get() {
     return new Promise((resolv) => {
-      utilities.dGet(this.url, Confs.headers).then((resp) => {
-        this.items = resp.data;
-        resolv(resp.data);
-      });
+      if (this.filterQuery) {
+        this.filterQuery = this.url.includes("?")
+          ? "&" + this.filterQuery
+          : "?" + this.filterQuery;
+      }
+      utilities
+        .dGet(this.url + this.filterQuery, Confs.headers)
+        .then((resp) => {
+          this.items = resp.data;
+          resolv(resp.data);
+        });
     });
   }
   /**
    * Recupere les items
+   * ( on doit pouvoir faire un search avec d'autres filtre )
    */
   getSearch(search) {
     const filter = new buildFilter();
@@ -90,13 +101,19 @@ class itemsEntity {
    */
   getValueById(id) {
     const filter = new buildFilter();
-    let fieldId = "id";
+    let fieldId = "drupal_internal__id";
     switch (this.entity_type_id) {
       case "user":
         fieldId = "uid";
         break;
-      case "domain":
-        fieldId = "drupal_internal__id";
+      // case "domain":
+      //   fieldId = "drupal_internal__id";
+      //   break;
+      case "node":
+        fieldId = "drupal_internal__nid";
+        break;
+      case "taxonomy_term":
+        fieldId = "tid";
         break;
     }
 
@@ -109,6 +126,18 @@ class itemsEntity {
           resolv(resp.data);
         });
     });
+  }
+
+  /**
+   * @see https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/filtering
+   * @param {*} field_name
+   * @param {*} operator
+   * @param {*} value
+   */
+  filter(field_name, operator, value) {
+    const filter = new buildFilter();
+    filter.addFilter(field_name, operator, value);
+    if (filter.query) this.filterQuery += filter.query;
   }
   /**
    * Les entities à joindre dans la requete.

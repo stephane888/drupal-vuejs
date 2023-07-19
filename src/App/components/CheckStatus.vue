@@ -41,6 +41,13 @@
         <svgWaiting v-if="waiting === 'wait'"></svgWaiting>
       </div>
     </div>
+    <div v-if="showRegisterLink">
+      <hr class="diviseur" />
+      <small> Vous n'avez pas de compte ? </small>
+      <a hre="#" class="text-center d-block cursor" @click.prevent="register">
+        S'inscrire
+      </a>
+    </div>
   </div>
 </template>
 
@@ -70,6 +77,10 @@ export default {
       type: String,
       required: true,
     },
+    showRegisterLink: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   data() {
@@ -88,6 +99,9 @@ export default {
     },
     logOutFacebook() {
       rxFacebook.logOut();
+    },
+    register() {
+      this.$emit("go-register");
     },
     /**
      * Verifie si l'utilisateur existe deja.
@@ -109,3 +123,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.cursor {
+  cursor: pointer;
+}
+</style>

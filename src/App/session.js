@@ -1,4 +1,4 @@
-import config from "../config";
+import config from "../rootConfig";
 export default {
   ...config,
   url_session: "/session/token",

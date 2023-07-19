@@ -30,7 +30,10 @@
             :action-after-register="actionAfterRegister"
             :show-modal-success="showModalSuccess"
             :configs_login_rx_vuejs="configs_login_rx_vuejs"
+            :show-register-link="showRegisterLink"
+            :readonly-name="readonlyName"
             @select-stepe="selectStepe"
+            @go-register="goRegister"
           ></component>
         </div>
       </transition>
@@ -54,7 +57,7 @@
 
 <script>
 import config from "./config";
-import configGlobal from "../../config.js";
+import configGlobal from "../../rootConfig.js";
 import utilities from "../utilities";
 
 //import { ValidationObserver } from "vee-validate";
@@ -90,6 +93,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    showRegisterLink: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   /**
@@ -108,6 +115,7 @@ export default {
       alertText: "",
       urlLogo: window.location.origin + "" + window.logo_current_theme,
       formValidate: {},
+      readonlyName: true,
     };
   },
   computed: {
@@ -136,6 +144,10 @@ export default {
       rxFacebook.chargement();
     },
     selectStepe(step) {
+      /**
+       * Dans la messure ou le changement se fait de maniere automatique on ne change pas la valeur de name.
+       */
+      this.readonlyName = true;
       switch (step) {
         case "checkstatus":
           this.stepe = CheckStatus;
@@ -147,6 +159,13 @@ export default {
           this.stepe = register;
           break;
       }
+    },
+    goRegister() {
+      /**
+       * Dans la messure l'user click sur s'inscrire il peut editer le name.
+       */
+      this.readonlyName = false;
+      this.stepe = register;
     },
     /**
      * Ecoute un evenement afin de determiner si l'utilisateur a clique sur le bonton de connexion et que le processus soit terminé.
@@ -275,3 +294,4 @@ export default {
   max-width: 400px;
 }
 </style>
+../../rootConfig.js

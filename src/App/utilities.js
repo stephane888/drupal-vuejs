@@ -1,5 +1,5 @@
 import session from "./session";
-import config from "../config";
+import config from "../rootConfig";
 
 const utilities = {
   ...session,

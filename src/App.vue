@@ -2,7 +2,7 @@
   <b-container>
     <h1>Login drupal</h1>
     <loginRegister
-      urlLogo="http://lesroisdelareno.kksa/themes/custom/gater/logo.png?v=1"
+      urlLogo="https://habeuk.com/sites/default/files/styles/medium/public/2022-07/untitled-42_4x-v2.png"
     >
     </loginRegister>
     <div v-for="(template, i) in templates" :key="i" class="list-template">
@@ -24,8 +24,6 @@ function loadScript(src) {
     document.head.appendChild(s);
   });
 }
-//import loginRegister from "./App/components/loginRegister.vue";
-import drupalFormFields from "./App/formatFields/formatFieldsBootstrap.js";
 export default {
   name: "App",
   components: {
@@ -48,24 +46,15 @@ export default {
     };
   },
   mounted() {
-    this.getFields();
+    //
   },
-  methods: {
-    getFields() {
-      const F = new drupalFormFields("user", "user");
-      F.format().then((temp) => {
-        console.log(temp);
-        this.templates = temp.templates;
-        this.models = temp.models;
-      });
-    },
-    b_form_click() {
-      alert("b_form_click");
-    },
-  },
+  methods: {},
 };
 </script>
 
 <style lang="scss">
 //@import "~@/assets/scss/vendors/bootstrap-vue/index";
+body {
+  background: #233f59;
+}
 </style>

@@ -8,26 +8,40 @@
       <!-- Champs afficher le login. -->
       <h3 class="content-center__title">{{ messages.login }}</h3>
       <div class="form-group content-center__input">
-        <input
-          v-model="form.name[0].value"
-          type="text"
-          readonly="true"
-          class="form-control"
-          name="name"
-        />
+        <ValidationProvider v-slot="v" name="name" rules="required">
+          <input
+            v-model="form.name[0].value"
+            type="text"
+            :readonly="readonlyName"
+            class="form-control"
+            name="name"
+          />
+          <div class="text-danger text-small">
+            <small v-for="(err, ii) in v.errors" :key="ii" class="d-block">
+              {{ err }}
+            </small>
+          </div>
+        </ValidationProvider>
       </div>
       <!-- Champs pour afficher le pass -->
       <h3 v-if="showPassword" class="content-center__title">
         {{ messages.pass }}
       </h3>
       <div v-if="showPassword" class="form-group content-center__input">
-        <input
-          v-if="form.pass"
-          v-model="form.pass[0].value"
-          type="password"
-          class="form-control"
-          name="pass"
-        />
+        <ValidationProvider v-slot="v" name="pass" rules="required">
+          <input
+            v-if="form.pass"
+            v-model="form.pass[0].value"
+            type="password"
+            class="form-control"
+            name="pass"
+          />
+          <div class="text-danger text-small">
+            <small v-for="(err, ii) in v.errors" :key="ii" class="d-block">
+              {{ err }}
+            </small>
+          </div>
+        </ValidationProvider>
       </div>
       <!-- Champs pour afficher le mail -->
       <h3 class="content-center__title">{{ messages.mail }}</h3>
@@ -35,7 +49,7 @@
         v-slot="v"
         ref="mail"
         name="mail"
-        rules="required"
+        rules="required|email"
         class="d-block w-100"
       >
         <div class="form-group content-center__input">
@@ -47,12 +61,13 @@
           />
         </div>
         <div class="text-danger text-small">
-          <small v-for="(error, ii) in v.errors" :key="ii" class="d-block">
-            {{ error }}
+          <small v-for="(err, ii) in v.errors" :key="ii" class="d-block">
+            {{ err }}
           </small>
         </div>
       </ValidationProvider>
-      <ValidationProvider
+      <!-- on ajoutera les champs supplementaires plus tard. -->
+      <!-- <ValidationProvider
         v-for="(temp, i) in templates"
         v-slot="v"
         :ref="temp.ref"
@@ -65,7 +80,7 @@
             {{ error }}
           </small>
         </div>
-      </ValidationProvider>
+      </ValidationProvider> -->
       <div class="content-center__btn">
         <div class="btn-login btn-login--connexion" @click="RegisterDefault">
           <span class="btn-login__text">
@@ -145,7 +160,6 @@
 import utilities from "../utilities";
 import config from "./config";
 import { mapState } from "vuex";
-import drupalFormFields from "../formatFields/formatFieldsBootstrap";
 
 export default {
   name: "RegisTer",
@@ -177,13 +191,16 @@ export default {
       type: Boolean,
       required: true,
     },
+    readonlyName: {
+      type: Boolean,
+      default: true,
+    },
   },
 
   data() {
     return {
       messages: config.messages,
       waiting: "",
-      templates: [],
       /**
        * Drupal >9.5 renvoit l'erreur dans {message}
        */
@@ -221,7 +238,6 @@ export default {
     } else if (this.form.pass) {
       delete this.form.pass;
     }
-    this.getFields();
   },
   methods: {
     async generatePassword() {
@@ -293,20 +309,6 @@ export default {
             }
           });
       else this.waiting = "";
-    },
-
-    /**
-     * --
-     */
-    getFields() {
-      const fds = new drupalFormFields("user", "user");
-      fds.format().then((resp) => {
-        this.templates = resp.templates;
-        for (const fieldName in resp.models) {
-          this.$set(this.form, fieldName, resp.models[fieldName]);
-        }
-        console.log("resp : ", resp);
-      });
     },
     validEmail(email) {
       var re = /\S+@\S+\.\S+/;

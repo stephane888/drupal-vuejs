@@ -1,5 +1,9 @@
 import utilities from "../utilities";
 import InputBootstrap from "./InputBootstrap";
+console.log(
+  "%c Code is depreciate, don't use it : /siteweb/AppVuejs/drupal-vuejs/src/App/formatFields/formatFieldsBootstrap.js ",
+  "background: #222; color: #F00"
+);
 /**
  * Permet de formater les champs drupal avec les equivalence bootstrap vuejs.
  */

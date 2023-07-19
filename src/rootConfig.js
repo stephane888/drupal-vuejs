@@ -1,6 +1,7 @@
 import { AjaxBasic } from "wbuutilities";
 const config = {
   ...AjaxBasic,
+  TestDomain: "http://habeuk.kksa",
   /**
    * Retoune un entier arleatoire entre [99-999]
    */

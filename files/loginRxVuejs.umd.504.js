@@ -1,7 +1,7 @@
 "use strict";
-((typeof self !== 'undefined' ? self : this)["webpackChunkloginRxVuejs"] = (typeof self !== 'undefined' ? self : this)["webpackChunkloginRxVuejs"] || []).push([[701],{
+((typeof self !== 'undefined' ? self : this)["webpackChunkloginRxVuejs"] = (typeof self !== 'undefined' ? self : this)["webpackChunkloginRxVuejs"] || []).push([[504],{
 
-/***/ 8701:
+/***/ 3504:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 // ESM COMPAT FLAG
@@ -275,6 +275,8 @@ var web_dom_exception_constructor = __webpack_require__(7714);
 var web_dom_exception_stack = __webpack_require__(2801);
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-exception.to-string-tag.js
 var web_dom_exception_to_string_tag = __webpack_require__(1174);
+// EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.object.keys.js
+var es_object_keys = __webpack_require__(135);
 // EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.array.includes.js
 var es_array_includes = __webpack_require__(3916);
 // EXTERNAL MODULE: ../wbuutilities/node_modules/core-js/modules/es.string.includes.js
@@ -295,6 +297,7 @@ var es_array_join = __webpack_require__(1826);
 var axios = __webpack_require__(8882);
 var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 ;// CONCATENATED MODULE: ../wbuutilities/src/Ajax/basic.js
+
 
 
 
@@ -552,8 +555,8 @@ var basicRequest = {
 /* harmony default export */ const basic = (basicRequest);
 // EXTERNAL MODULE: ../wbuutilities/node_modules/bootstrap-vue/esm/components/toast/helpers/bv-toast.js + 3 modules
 var bv_toast = __webpack_require__(7707);
-// EXTERNAL MODULE: ../wbuutilities/node_modules/bootstrap-vue/esm/components/modal/index.js + 12 modules
-var modal = __webpack_require__(742);
+// EXTERNAL MODULE: ../wbuutilities/node_modules/bootstrap-vue/esm/components/modal/index.js + 13 modules
+var modal = __webpack_require__(4869);
 ;// CONCATENATED MODULE: ../wbuutilities/src/Toasts/BootStrap.js
 
 
@@ -716,11 +719,11 @@ var createSuper = __webpack_require__(6875);
 
 
 var baseUrl = "/jsonapi";
-var entityFormat = /*#__PURE__*/function () {
+var entityFormat_entityFormat = /*#__PURE__*/(/* unused pure expression or super */ null && (function () {
   function entityFormat() {
-    (0,classCallCheck/* default */.Z)(this, entityFormat);
+    _classCallCheck(this, entityFormat);
   }
-  (0,createClass/* default */.Z)(entityFormat, [{
+  _createClass(entityFormat, [{
     key: "buildLink",
     value: function buildLink(entityType, bundle) {
       return baseUrl + "/" + entityType + "/" + bundle;
@@ -737,7 +740,7 @@ var entityFormat = /*#__PURE__*/function () {
     }
   }]);
   return entityFormat;
-}();
+}()));
 
 ;// CONCATENATED MODULE: ../wbuutilities/src/DrupalJsonApi/entityLoad.js
 
@@ -753,12 +756,12 @@ var entityFormat = /*#__PURE__*/function () {
  */
 
 
-var entityLoad = /*#__PURE__*/function (_entityFormat) {
-  (0,inherits/* default */.Z)(entityLoad, _entityFormat);
-  var _super = (0,createSuper/* default */.Z)(entityLoad);
+var entityLoad = /*#__PURE__*/(/* unused pure expression or super */ null && (function (_entityFormat) {
+  _inherits(entityLoad, _entityFormat);
+  var _super = _createSuper(entityLoad);
   function entityLoad(entityType, bundle) {
     var _this;
-    (0,classCallCheck/* default */.Z)(this, entityLoad);
+    _classCallCheck(this, entityLoad);
     /**
      * Le mot clé 'super' est utilisé afin d'appeler ou d'accéder à des fonctions définies sur l'objet parent
      */
@@ -776,7 +779,7 @@ var entityLoad = /*#__PURE__*/function (_entityFormat) {
     /**
      * Permettra de surcharger ajax avec la configuration de l'App.
      */
-    _this.ajax = basic;
+    _this.ajax = ajax;
     /**
      * Données brutes provenanat de drupal.
      */
@@ -787,12 +790,12 @@ var entityLoad = /*#__PURE__*/function (_entityFormat) {
   /**
    * Charge les données.
    */
-  (0,createClass/* default */.Z)(entityLoad, [{
+  _createClass(entityLoad, [{
     key: "load",
     value: function load() {
       var _this2 = this;
       return new Promise(function (resolv, reject) {
-        _this2.ajax.get((0,get/* default */.Z)((0,getPrototypeOf/* default */.Z)(entityLoad.prototype), "buildLink", _this2).call(_this2, _this2.entityType, _this2.bundle)).then(function (res) {
+        _this2.ajax.get(_get(_getPrototypeOf(entityLoad.prototype), "buildLink", _this2).call(_this2, _this2.entityType, _this2.bundle)).then(function (res) {
           if (res.data && res.data.data) {
             _this2.rawDatas = res.data.data;
             resolv(_this2.rawDatas);
@@ -813,7 +816,7 @@ var entityLoad = /*#__PURE__*/function (_entityFormat) {
     }
   }]);
   return entityLoad;
-}(entityFormat);
+}(entityFormat)));
 /* harmony default export */ const DrupalJsonApi_entityLoad = ((/* unused pure expression or super */ null && (entityLoad)));
 ;// CONCATENATED MODULE: ../wbuutilities/index.js
 //import Vue from "vue";
@@ -1200,9 +1203,9 @@ window.fbAsyncInit = function () {
 /**/
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.function.name.js
 var modules_es_function_name = __webpack_require__(8309);
-;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/CheckStatus.vue?vue&type=template&id=30ff0345&
+;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??clonedRuleSet-82.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/templateLoader.js??ruleSet[1].rules[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/CheckStatus.vue?vue&type=template&id=6a089e66&
 
-var CheckStatusvue_type_template_id_30ff0345_render = function render() {
+var CheckStatusvue_type_template_id_6a089e66_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -1305,11 +1308,19 @@ var CheckStatusvue_type_template_id_30ff0345_render = function render() {
         return _vm.register.apply(null, arguments);
       }
     }
-  }, [_vm._v(" S'inscrire ")])]) : _vm._e()]);
+  }, [_vm._v(" S'inscrire ")]), _vm._m(0)]) : _vm._e()]);
 };
-var CheckStatusvue_type_template_id_30ff0345_staticRenderFns = [];
+var CheckStatusvue_type_template_id_6a089e66_staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', [_c('small', [_c('a', {
+    attrs: {
+      "href": "/user/password"
+    }
+  }, [_vm._v("Mot de passe oublié")])])]);
+}];
 
-;// CONCATENATED MODULE: ./src/App/components/CheckStatus.vue?vue&type=template&id=30ff0345&
+;// CONCATENATED MODULE: ./src/App/components/CheckStatus.vue?vue&type=template&id=6a089e66&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.iterator.js
 var es_array_iterator = __webpack_require__(6992);
@@ -1591,10 +1602,10 @@ var LoginGoogle_component = (0,componentNormalizer/* default */.Z)(
 });
 ;// CONCATENATED MODULE: ./src/App/components/CheckStatus.vue?vue&type=script&lang=js&
  /* harmony default export */ const components_CheckStatusvue_type_script_lang_js_ = (CheckStatusvue_type_script_lang_js_); 
-;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-64.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-64.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-64.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-64.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/CheckStatus.vue?vue&type=style&index=0&id=30ff0345&prod&lang=scss&
+;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js??clonedRuleSet-64.use[0]!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-64.use[1]!./node_modules/@vue/vue-loader-v15/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-64.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-64.use[3]!./node_modules/@vue/vue-loader-v15/lib/index.js??vue-loader-options!./src/App/components/CheckStatus.vue?vue&type=style&index=0&id=6a089e66&prod&lang=scss&
 // extracted by mini-css-extract-plugin
 
-;// CONCATENATED MODULE: ./src/App/components/CheckStatus.vue?vue&type=style&index=0&id=30ff0345&prod&lang=scss&
+;// CONCATENATED MODULE: ./src/App/components/CheckStatus.vue?vue&type=style&index=0&id=6a089e66&prod&lang=scss&
 
 ;// CONCATENATED MODULE: ./src/App/components/CheckStatus.vue
 
@@ -1607,8 +1618,8 @@ var LoginGoogle_component = (0,componentNormalizer/* default */.Z)(
 
 var CheckStatus_component = (0,componentNormalizer/* default */.Z)(
   components_CheckStatusvue_type_script_lang_js_,
-  CheckStatusvue_type_template_id_30ff0345_render,
-  CheckStatusvue_type_template_id_30ff0345_staticRenderFns,
+  CheckStatusvue_type_template_id_6a089e66_render,
+  CheckStatusvue_type_template_id_6a089e66_staticRenderFns,
   false,
   null,
   null,
@@ -2507,4 +2518,4 @@ var LoginRegister_component = (0,componentNormalizer/* default */.Z)(
 /***/ })
 
 }]);
-//# sourceMappingURL=loginRxVuejs.umd.701.js.map
+//# sourceMappingURL=loginRxVuejs.umd.504.js.map

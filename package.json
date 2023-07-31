@@ -18,6 +18,7 @@
     "src"
   ],
   "dependencies": {
+    "@vue/cli": "^5.0.8",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",

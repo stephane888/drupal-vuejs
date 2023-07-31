@@ -47,6 +47,9 @@
       <a hre="#" class="text-center d-block cursor" @click.prevent="register">
         S'inscrire
       </a>
+      <div>
+        <small><a href="/user/password">Mot de passe oublié</a></small>
+      </div>
     </div>
   </div>
 </template>

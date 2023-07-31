@@ -1,4 +1,4 @@
-import config from "../../config";
+import config from "../../rootConfig.js";
 /**
  * @see https://www.drupal.org/docs/core-modules-and-themes/core-modules/jsonapi-module/filtering
  */

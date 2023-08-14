@@ -1,4 +1,3 @@
-import { AjaxToastBootStrap } from "wbuutilities";
 import user from "./user";
 import drupalUtile from "../drupal-utilities";
 var formatBasicAuth = function (userName, password) {
@@ -7,7 +6,6 @@ var formatBasicAuth = function (userName, password) {
   return "Basic " + bace64;
 };
 export default {
-  ...AjaxToastBootStrap,
   ...user,
   ...drupalUtile,
   /**
@@ -19,6 +17,7 @@ export default {
       "Content-Type": "application/json",
     };
     if (userLogin) {
+      console.log("userLogin : ", userLogin);
       configs["Authorization"] = formatBasicAuth(
         userLogin.name,
         userLogin.pass
@@ -27,7 +26,7 @@ export default {
     if (configCustom) {
       configs = this.mergeHeaders(configCustom, configs);
     }
-    return this.bGet(
+    return this.get(
       url,
       {
         headers: configs,
@@ -52,7 +51,7 @@ export default {
     if (configCustom) {
       configs = this.mergeHeaders(configCustom, configs);
     }
-    return this.bPost(
+    return this.post(
       url,
       datas,
       {

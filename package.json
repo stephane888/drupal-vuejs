@@ -1,52 +1,27 @@
 {
   "name": "drupal-vuejs",
   "version": "1.0.2",
-  "description": "permet de gerer les connexion avec drupal ",
+  "description": "Permet de gerer les connexion avec drupal ",
   "author": "stephane888",
   "scripts": {
-    "serve": "vue-cli-service serve --open",
-    "lint": "vue-cli-service lint",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "Dev": "vue-cli-service build --watch --mode development  --dest files --target lib --name loginRxVuejs 'src/LoginRegister.js'",
-    "Prod": "vue-cli-service build --mode production  --dest files --target lib --name loginRxVuejs 'src/LoginRegister.js'",
-    "DevSmall": "vue-cli-service build --mode development  --dest files-small --target lib --name loginRxVuejs 'src/loginRegisterSmall.js'",
-    "ProdSmall": "vue-cli-service build --mode production  --dest files-small --target lib --name loginRxVuejs 'src/loginRegisterSmall.js'",
-    "DevSmallOneFile": "vue-cli-service build --mode development  --dest files-small-one-file --target lib --name loginRxVuejs 'src/loginRegisterSmallOneFile.js'"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
   },
-  "main": "index.js",
-  "files": [
-    "src"
-  ],
   "dependencies": {
-    "@vue/cli": "^5.0.8",
-    "bootstrap": "^4.6.0",
-    "bootstrap-vue": "^2.21.2",
-    "core-js": "^3.6.5",
-    "install": "^0.13.0",
-    "popper.js": "^1.16.1",
-    "portal-vue": "^2.1.7",
-    "query-string": "^4.3.4",
-    "vee-validate": "^3.4.11",
-    "vue": "^2.6.14",
-    "vuex": "^3.4.0",
+    "vue": "^3.3.4",
     "wbuutilities": "file:../wbuutilities"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.16",
-    "@babel/eslint-parser": "^7.12.16",
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-plugin-router": "~5.0.0",
-    "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier-vue": "^4.2.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "sass": "^1.56.1",
-    "sass-loader": "^13.2.0",
-    "vue-loader": "^17.0.1",
-    "vue-template-compiler": "^2.7.14"
+    "@rushstack/eslint-patch": "^1.3.2",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/eslint-config-prettier": "^8.0.0",
+    "eslint": "^8.45.0",
+    "eslint-plugin-vue": "^9.15.1",
+    "prettier": "^3.0.0",
+    "vite": "^4.4.6"
   },
   "license": "MIT"
 }

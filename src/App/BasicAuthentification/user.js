@@ -1,10 +1,11 @@
-import { AjaxBasic } from "wbuutilities";
+import AjaxBasic from "wbuutilities/src/Ajax/basic";
 /**
  * Ce fichier a pour role de gerer laa connexion des utilisateur.
  * Logique :
  * 1 : les paramettres de connexion sont verfiées.
  * 2 : Si ok, on sauvegarde dans local storage.
  * 3 : on initialise la
+ * il faut ajouter d'autre moyen d'authentification plus sur pour les requetes: https://plugins.miniorange.com/drupal-api-authentication#basic-authentication
  */
 const keyCren = "drupal-vuejs-credential";
 const valCren = "drupal-vuejs-cre-val";
@@ -51,7 +52,7 @@ export default {
   checkCurrentUserIsLogin() {
     const cre = localStorage.getItem(valCren);
     const cre1 = localStorage.getItem(keyCren);
-    if (cre && cre1) {
+    if (cre !== undefined && cre1 !== undefined && cre) {
       return JSON.parse(cre);
     } else false;
   },

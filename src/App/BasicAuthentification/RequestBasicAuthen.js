@@ -19,10 +19,7 @@ export default {
       "Content-Type": "application/json",
     };
     if (userLogin) {
-      configs["Authorization"] = formatBasicAuth(
-        userLogin.name,
-        userLogin.pass
-      );
+      configs["Authorization"] = formatBasicAuth(userLogin.name, userLogin.pass);
     }
     if (configCustom) {
       configs = this.mergeHeaders(configCustom, configs);
@@ -44,10 +41,7 @@ export default {
       "Content-Type": "application/json",
     };
     if (userLogin) {
-      configs["Authorization"] = formatBasicAuth(
-        userLogin.name,
-        userLogin.pass
-      );
+      configs["Authorization"] = formatBasicAuth(userLogin.name, userLogin.pass);
     }
     if (configCustom) {
       configs = this.mergeHeaders(configCustom, configs);

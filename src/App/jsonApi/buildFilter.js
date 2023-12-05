@@ -10,7 +10,7 @@ class filters {
   addFilter(fieldName, operator, value) {
     var key = "fil-" + config.getRandomIntInclusive();
     this.addParam(key, "path", fieldName);
-    this.addParam(key, "operator", operator);
+    this.addParam(key, "operator", encodeURIComponent(operator));
     this.addParam(key, "value", value);
     return this.query;
   }

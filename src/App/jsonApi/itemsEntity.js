@@ -39,13 +39,22 @@ class itemsEntity {
       });
     });
   }
+  getColumnName() {
+    switch (this.entity_type_id) {
+      case 'webform':
+        return "title"
+
+      default:
+        return "name"
+    }
+  }
   /**
    * Recupere les items
    * ( on doit pouvoir faire un search avec d'autres filtre )
    */
   getSearch(search) {
     const filter = new buildFilter();
-    filter.addFilter("name", "CONTAINS", search);
+    filter.addFilter(this.getColumnName(), "CONTAINS", search);
     return new Promise((resolv) => {
       utilities.dGet(this.url + "?" + filter.query, Confs.headers).then((resp) => {
         this.items = resp.data;
@@ -59,7 +68,7 @@ class itemsEntity {
    */
   getValue(term) {
     const filter = new buildFilter();
-    filter.addFilter("name", "=", term);
+    filter.addFilter(this.getColumnName(), "=", term);
     return new Promise((resolv) => {
       utilities.dGet(this.url + "?" + filter.query, Confs.headers).then((resp) => {
         this.items = resp.data;
@@ -154,7 +163,14 @@ class itemsEntity {
           text: term.attributes.name ? term.attributes.name : term.attributes.display_name,
           value: term.attributes.drupal_internal__uid,
         });
-      } else if (term.attributes.name) {
+      }
+      else if (term.attributes.title) {
+        options.push({
+          text: term.attributes.title,
+          value: term.attributes.drupal_internal__id,
+        })
+      }
+      else if (term.attributes.name) {
         options.push({
           text: term.attributes.name,
           value: term.attributes.drupal_internal__id,

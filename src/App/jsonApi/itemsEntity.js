@@ -31,16 +31,12 @@ class itemsEntity {
   get() {
     return new Promise((resolv) => {
       if (this.filterQuery) {
-        this.filterQuery = this.url.includes("?")
-          ? "&" + this.filterQuery
-          : "?" + this.filterQuery;
+        this.filterQuery = this.url.includes("?") ? "&" + this.filterQuery : "?" + this.filterQuery;
       }
-      utilities
-        .dGet(this.url + this.filterQuery, Confs.headers)
-        .then((resp) => {
-          this.items = resp.data;
-          resolv(resp.data);
-        });
+      utilities.dGet(this.url + this.filterQuery, Confs.headers).then((resp) => {
+        this.items = resp.data;
+        resolv(resp.data);
+      });
     });
   }
   /**
@@ -51,12 +47,10 @@ class itemsEntity {
     const filter = new buildFilter();
     filter.addFilter("name", "CONTAINS", search);
     return new Promise((resolv) => {
-      utilities
-        .dGet(this.url + "?" + filter.query, Confs.headers)
-        .then((resp) => {
-          this.items = resp.data;
-          resolv(resp.data);
-        });
+      utilities.dGet(this.url + "?" + filter.query, Confs.headers).then((resp) => {
+        this.items = resp.data;
+        resolv(resp.data);
+      });
     });
   }
   /**
@@ -67,12 +61,10 @@ class itemsEntity {
     const filter = new buildFilter();
     filter.addFilter("name", "=", term);
     return new Promise((resolv) => {
-      utilities
-        .dGet(this.url + "?" + filter.query, Confs.headers)
-        .then((resp) => {
-          this.items = resp.data;
-          resolv(resp.data);
-        });
+      utilities.dGet(this.url + "?" + filter.query, Confs.headers).then((resp) => {
+        this.items = resp.data;
+        resolv(resp.data);
+      });
     });
   }
   /**
@@ -119,12 +111,10 @@ class itemsEntity {
 
     filter.addFilter(fieldId, "=", id);
     return new Promise((resolv) => {
-      utilities
-        .dGet(this.url + "?" + filter.query, Confs.headers)
-        .then((resp) => {
-          this.items = resp.data;
-          resolv(resp.data);
-        });
+      utilities.dGet(this.url + "?" + filter.query, Confs.headers).then((resp) => {
+        this.items = resp.data;
+        resolv(resp.data);
+      });
     });
   }
 
@@ -137,7 +127,12 @@ class itemsEntity {
   filter(field_name, operator, value) {
     const filter = new buildFilter();
     filter.addFilter(field_name, operator, value);
-    if (filter.query) this.filterQuery += filter.query;
+    if (filter.query) {
+      if (!this.filterQuery) this.filterQuery += filter.query;
+      else {
+        this.filterQuery += "&" + filter.query;
+      }
+    }
   }
   /**
    * Les entities à joindre dans la requete.
@@ -156,9 +151,7 @@ class itemsEntity {
       const term = this.items.data[i];
       if (this.entity_type_id == "user") {
         options.push({
-          text: term.attributes.name
-            ? term.attributes.name
-            : term.attributes.display_name,
+          text: term.attributes.name ? term.attributes.name : term.attributes.display_name,
           value: term.attributes.drupal_internal__uid,
         });
       } else if (term.attributes.name) {

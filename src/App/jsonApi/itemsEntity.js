@@ -29,23 +29,28 @@ class itemsEntity {
    * Recupere les items en passant par le token.
    */
   get() {
-    return new Promise((resolv) => {
+    return new Promise((resolv, reject) => {
       if (this.filterQuery) {
         this.filterQuery = this.url.includes("?") ? "&" + this.filterQuery : "?" + this.filterQuery;
       }
-      utilities.dGet(this.url + this.filterQuery, Confs.headers).then((resp) => {
-        this.items = resp.data;
-        resolv(resp.data);
-      });
+      utilities
+        .dGet(this.url + this.filterQuery, Confs.headers)
+        .then((resp) => {
+          this.items = resp.data;
+          resolv(resp.data);
+        })
+        .catch((er) => {
+          reject(er);
+        });
     });
   }
   getColumnName() {
     switch (this.entity_type_id) {
-      case 'webform':
-        return "title"
+      case "webform":
+        return "title";
 
       default:
-        return "name"
+        return "name";
     }
   }
   /**
@@ -55,11 +60,16 @@ class itemsEntity {
   getSearch(search) {
     const filter = new buildFilter();
     filter.addFilter(this.getColumnName(), "CONTAINS", search);
-    return new Promise((resolv) => {
-      utilities.dGet(this.url + "?" + filter.query, Confs.headers).then((resp) => {
-        this.items = resp.data;
-        resolv(resp.data);
-      });
+    return new Promise((resolv, reject) => {
+      utilities
+        .dGet(this.url + "?" + filter.query, Confs.headers)
+        .then((resp) => {
+          this.items = resp.data;
+          resolv(resp.data);
+        })
+        .catch((er) => {
+          reject(er);
+        });
     });
   }
   /**
@@ -69,11 +79,16 @@ class itemsEntity {
   getValue(term) {
     const filter = new buildFilter();
     filter.addFilter(this.getColumnName(), "=", term);
-    return new Promise((resolv) => {
-      utilities.dGet(this.url + "?" + filter.query, Confs.headers).then((resp) => {
-        this.items = resp.data;
-        resolv(resp.data);
-      });
+    return new Promise((resolv, reject) => {
+      utilities
+        .dGet(this.url + "?" + filter.query, Confs.headers)
+        .then((resp) => {
+          this.items = resp.data;
+          resolv(resp.data);
+        })
+        .catch((er) => {
+          reject(er);
+        });
     });
   }
   /**
@@ -163,14 +178,12 @@ class itemsEntity {
           text: term.attributes.name ? term.attributes.name : term.attributes.display_name,
           value: term.attributes.drupal_internal__uid,
         });
-      }
-      else if (term.attributes.title) {
+      } else if (term.attributes.title) {
         options.push({
           text: term.attributes.title,
           value: term.attributes.drupal_internal__id,
-        })
-      }
-      else if (term.attributes.name) {
+        });
+      } else if (term.attributes.name) {
         options.push({
           text: term.attributes.name,
           value: term.attributes.drupal_internal__id,

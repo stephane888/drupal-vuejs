@@ -4,9 +4,9 @@ import buildFilter from "./buildFilter.js";
 class itemsEntity {
   constructor(entity_type_id, bundle = null, config = null) {
     this.entity_type_id = entity_type_id;
-    //
+    this.bundle = bundle;
     if (!bundle) {
-      bundle = entity_type_id;
+      this.bundle = entity_type_id;
     }
     this.url = Confs.baseURl + "/" + this.entity_type_id + "/" + bundle;
     this.items = [];
@@ -24,6 +24,10 @@ class itemsEntity {
      * Permet de joindre les multiples filtres.
      */
     this.filterQuery = "";
+    /**
+     * Liste de champs à afficher dans le flux, si vide tous les champs seront affichés.
+     */
+    this.fields = [];
   }
   /**
    * Recupere les items en passant par le token.
@@ -34,7 +38,7 @@ class itemsEntity {
         this.filterQuery = this.url.includes("?") ? "&" + this.filterQuery : "?" + this.filterQuery;
       }
       utilities
-        .dGet(this.url + this.filterQuery, Confs.headers)
+        .dGet(this.url + this.filterQuery + this.addFieldsToQuery(), Confs.headers)
         .then((resp) => {
           this.items = resp.data;
           resolv(resp.data);
@@ -196,6 +200,23 @@ class itemsEntity {
       }
     }
     return options;
+  }
+  /**
+   * -- https://www.drupal.org/node/2806623#s-get-article-media-entity-reference-field-image-url-uri-by-including-references
+   */
+  addFieldsToQuery() {
+    var string = "";
+    if (this.fields.length > 0) {
+      string += "&fields[" + this.entity_type_id + "--" + this.bundle + "]";
+      string += "=" + this.fields.toString();
+    }
+    return string;
+  }
+  /**
+   * Permet d'ajouter uniquement les champs necessaires.
+   */
+  setFields(fields) {
+    this.fields = fields;
   }
   /**
    * On a deux cas interne et externe au domaine, et en function de l'environnement

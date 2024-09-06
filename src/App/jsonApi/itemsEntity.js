@@ -178,10 +178,12 @@ class itemsEntity {
     for (const i in this.items.data) {
       const term = this.items.data[i];
       if (this.entity_type_id == "user") {
-        options.push({
-          text: term.attributes.name ? term.attributes.name : term.attributes.display_name,
-          value: term.attributes.drupal_internal__uid,
-        });
+        console.log("termUser : ", term);
+        if (term.attributes.drupal_internal__uid)
+          options.push({
+            text: term.attributes.name ? term.attributes.name : term.attributes.display_name,
+            value: term.attributes.drupal_internal__uid,
+          });
       } else if (term.attributes.title) {
         options.push({
           text: term.attributes.title,

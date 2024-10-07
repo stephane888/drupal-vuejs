@@ -162,6 +162,18 @@ class itemsEntity {
       }
     }
   }
+
+  pagination(pagination) {
+    if (pagination.limit) {
+      if (!this.filterQuery) this.filterQuery += "page[limit]=" + pagination.limit;
+      else {
+        this.filterQuery += "&" + "page[limit]=" + pagination.limit;
+      }
+      if (pagination.offset) {
+        this.filterQuery += "&" + "page[offset]=" + pagination.offset;
+      }
+    }
+  }
   /**
    * Les entities à joindre dans la requete.
    * @param {Array} entities

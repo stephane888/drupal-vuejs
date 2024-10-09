@@ -2,20 +2,9 @@
   <ValidationObserver ref="formValidate" tag="form">
     <div class="login-page" :facebook_app_is_define="facebook_app_is_define">
       <!-- -->
-      <div
-        v-if="alertDisplay"
-        class="alert w-100"
-        :class="alertType"
-        role="alert"
-        v-html="alertText"
-      ></div>
+      <div v-if="alertDisplay" class="alert w-100" :class="alertType" role="alert" v-html="alertText"></div>
       <!-- le loader -->
-      <div
-        v-if="isBusy"
-        class="spinner-grow text-primary"
-        role="status"
-        style="width: 3rem; height: 3rem"
-      >
+      <div v-if="isBusy" class="spinner-grow text-primary" role="status" style="width: 3rem; height: 3rem">
         <span class="sr-only">Chargement ...</span>
       </div>
       <transition name="customslide">
@@ -41,11 +30,7 @@
     <div class="politik-secur mx-auto text-center">
       <slot name="condition_utilisation">
         <div
-          v-if="
-            configs_login_rx_vuejs &&
-            configs_login_rx_vuejs.texts &&
-            configs_login_rx_vuejs.texts.condition_utilisation
-          "
+          v-if="configs_login_rx_vuejs && configs_login_rx_vuejs.texts && configs_login_rx_vuejs.texts.condition_utilisation"
           v-html="configs_login_rx_vuejs.texts.condition_utilisation.value"
         ></div>
       </slot>
@@ -121,10 +106,7 @@ export default {
   computed: {
     ...mapState(["configs_login_rx_vuejs"]),
     facebook_app_is_define() {
-      if (
-        this.configs_login_rx_vuejs &&
-        this.configs_login_rx_vuejs.facebook_app_id
-      ) {
+      if (this.configs_login_rx_vuejs && this.configs_login_rx_vuejs.facebook_app_id) {
         this.initFacebook();
         return true;
       } else return "";
@@ -183,10 +165,7 @@ export default {
               this.alertDisplay = true;
               this.alertType = "alert-success";
               this.alertText = " Connexion réussie  ";
-              if (
-                resp.reponse &&
-                resp.reponse.config.url !== resp.reponse.request.responseURL
-              ) {
+              if (resp.reponse && resp.reponse.config.url !== resp.reponse.request.responseURL) {
                 window.location.assign(resp.reponse.request.responseURL);
               }
               // il faut s'assurer que les données sont ok.
@@ -241,10 +220,7 @@ export default {
         utilities.post(url, params).then((resp) => {
           console.log(resp);
           this.waiting = "";
-          if (
-            resp.reponse &&
-            resp.reponse.config.url !== resp.reponse.request.responseURL
-          ) {
+          if (resp.reponse && resp.reponse.config.url !== resp.reponse.request.responseURL) {
             window.location.assign(resp.reponse.request.responseURL);
           }
         });
@@ -294,4 +270,4 @@ export default {
   max-width: 400px;
 }
 </style>
-../../rootConfig.js
+//../../rootConfig.js

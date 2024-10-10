@@ -1,10 +1,5 @@
 <template>
-  <div
-    :id="idHtmlrender"
-    class="buttton-google-aouth"
-    :class="classRender"
-    :client_google_is_define="client_google_is_define"
-  ></div>
+  <div :id="idHtmlrender" class="buttton-google-aouth" :class="classRender" :client_google_is_define="client_google_is_define"></div>
 </template>
 
 <script>
@@ -51,16 +46,11 @@ export default {
       return "google-login-tab" + this.idHtml;
     },
     client_google_is_define() {
-      if (
-        this.configs_login_rx_vuejs &&
-        this.configs_login_rx_vuejs.client_google_id
-      ) {
+      if (this.configs_login_rx_vuejs && this.configs_login_rx_vuejs.client_google_id) {
         this.initGoogle();
         return true;
       } else {
-        console.log(
-          "Error de configuration de google, veillez denifir la clée 'client_google_id'"
-        );
+        console.log("Error de configuration de google, veillez denifir la clée 'client_google_id'");
         return "";
       }
     },
@@ -87,15 +77,18 @@ export default {
         window.rxGoogle = rxGoogle;
       }
       const goo = () => {
-        window.google.accounts.id.initialize({
+        const config = {
           // example => 51324xxxx-xxxxxxxxxxxxxxxxx8c4er.apps.googleusercontent.com
           client_id: this.configs_login_rx_vuejs.client_google_id,
           callback: handleCredentialResponse,
-        });
-        window.google.accounts.id.renderButton(
-          document.getElementById(self.idHtmlrender),
-          { theme: "outline", size: "large" } // customization attributes
-        );
+        };
+        const btn_config = { theme: "outline", size: "large", shape: "rectangular" };
+        if (utilities.languageId) {
+          config.locale = utilities.languageId;
+          btn_config.locale = utilities.languageId;
+        }
+        window.google.accounts.id.initialize(config);
+        window.google.accounts.id.renderButton(document.getElementById(self.idHtmlrender), btn_config);
         window.google.accounts.id.prompt(); // also display the One Tap dialog
       };
       goo();
@@ -128,11 +121,7 @@ export default {
             this.alertDisplay = true;
             this.alertType = "alert-danger";
             this.alertText = "Google : Erreur de connexion";
-            if (
-              errors.error &&
-              errors.error.statusText &&
-              errors.error.statusText != ""
-            ) {
+            if (errors.error && errors.error.statusText && errors.error.statusText != "") {
               this.alertText = errors.error.statusText;
             }
             console.log(" Error ajax ", errors.error);

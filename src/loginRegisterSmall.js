@@ -5,7 +5,7 @@ import Vue from "vue";
 const tag = "#appLoginRegister";
 
 const loginRegister = () =>
-  import("./App/components/logingoogle.vue").then((component) => {
+  import("./App/components/LoginGoogle.vue").then((component) => {
     return new Promise((resolv) => {
       const callback = () => {
         resolv(component);

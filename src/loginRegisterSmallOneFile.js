@@ -2,7 +2,7 @@
 
 import Vue from "vue";
 import "./plugins/bootstrap-vue";
-import App from "./App/components/logingoogle.vue";
+import App from "./App/components/LoginGoogle.vue";
 import store from "./store";
 
 Vue.config.productionTip = false;

@@ -3,12 +3,9 @@
     <a class="content-center__img" href="/">
       <img :src="urlLogo" alt="" class="img-fluid" />
     </a>
-    <h4 class="title">Connectez vous avec</h4>
+    <h4 class="title">{{ messages.title_login }}</h4>
     <div class="content-center__btn-column">
-      <logingoogle
-        idHtml="default"
-        :action-after-login="actionAfterLogin"
-      ></logingoogle>
+      <logingoogle idHtml="default" :action-after-login="actionAfterLogin"></logingoogle>
       <div class="btn-login btn-login--facebook" @click="loginFacebook">
         <span class="btn-login__icon icon-facebook"></span>
         <i class="btn-login__text"> Facebook </i>
@@ -20,12 +17,7 @@
     <h3 class="content-center__title">{{ messages.log_email }}</h3>
     <div class="form-group content-center__input">
       <ValidationProvider v-slot="v" name="name" rules="required">
-        <input
-          v-model="form.name[0].value"
-          type="text"
-          class="form-control"
-          name="name"
-        />
+        <input v-model="form.name[0].value" type="text" class="form-control" name="name" />
         <div class="text-danger text-small">
           <small v-for="(error, ii) in v.errors" :key="ii" class="d-block">
             {{ error }}
@@ -43,12 +35,12 @@
     </div>
     <div v-if="showRegisterLink">
       <hr class="diviseur" />
-      <small> Vous n'avez pas de compte ? </small>
-      <a hre="#" class="text-center d-block cursor" @click.prevent="register">
-        S'inscrire
-      </a>
+      <small> {{ messages.title_end }} </small>
+      <a hre="#" class="text-center d-block cursor" @click.prevent="register"> {{ messages.create_compte }} </a>
       <div>
-        <small><a href="/user/password">Mot de passe oublié</a></small>
+        <small>
+          <a href="/user/password"> {{ messages.forget_pass }} </a>
+        </small>
       </div>
     </div>
   </div>
@@ -88,12 +80,16 @@ export default {
 
   data() {
     return {
-      messages: config.messages,
       waiting: "",
     };
   },
   computed: {
-    ...mapState(["form"]),
+    ...mapState(["form", "configs_login_rx_vuejs"]),
+    messages() {
+      if (this.configs_login_rx_vuejs && this.configs_login_rx_vuejs.texts) {
+        return this.configs_login_rx_vuejs.texts;
+      } else return config.messages;
+    },
   },
   methods: {
     loginFacebook() {

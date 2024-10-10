@@ -238,6 +238,7 @@ export default {
       utilities
         .post(url, this.form)
         .then((resp) => {
+          console.log(' resp.data : ', resp.data);
           this.$store.state.configs_login_rx_vuejs = resp.data;
         })
         .catch((e) => {

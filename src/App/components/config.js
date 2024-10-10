@@ -6,16 +6,25 @@ const vm = new Vue();
 export default {
   ...config_for_all,
   messages: {
+    title_login: "Connect with",
     log_email: "Email ou Nom d'utilisateur",
+    email: "Your email address",
     pass: "Mot de passe",
     login: "Nom d'utilisateur",
     mail: "Email",
+    title_end: "Don't have an account?",
+    create_compte: "Register",
+    forget_pass: "Forgotten password",
     submit: {
       first: "Suivant",
       connect: "Connexion",
       register: "S'inscrire",
       final: "terminée",
     },
+    back: "Back",
+    info_about_register: "Your login information will be transferred to this address",
+    title_register_auto: "Automatic account creation",
+    titre_create_compte: "Your account has been created",
     devis_create_user:
       "Votre compte a été creer sur <a href='/'> lesroisdelareno.fr </a>. <br> <strong> Bien vouloir verifier votre boite mail afin de valider votre compte </strong>",
   },

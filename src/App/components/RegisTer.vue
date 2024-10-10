@@ -9,13 +9,7 @@
       <h3 class="content-center__title">{{ messages.login }}</h3>
       <div class="form-group content-center__input">
         <ValidationProvider v-slot="v" name="name" rules="required">
-          <input
-            v-model="form.name[0].value"
-            type="text"
-            :readonly="readonlyName"
-            class="form-control"
-            name="name"
-          />
+          <input v-model="form.name[0].value" type="text" :readonly="readonlyName" class="form-control" name="name" />
           <div class="text-danger text-small">
             <small v-for="(err, ii) in v.errors" :key="ii" class="d-block">
               {{ err }}
@@ -29,13 +23,7 @@
       </h3>
       <div v-if="showPassword" class="form-group content-center__input">
         <ValidationProvider v-slot="v" name="pass" rules="required">
-          <input
-            v-if="form.pass"
-            v-model="form.pass[0].value"
-            type="password"
-            class="form-control"
-            name="pass"
-          />
+          <input v-if="form.pass" v-model="form.pass[0].value" type="password" class="form-control" name="pass" />
           <div class="text-danger text-small">
             <small v-for="(err, ii) in v.errors" :key="ii" class="d-block">
               {{ err }}
@@ -45,20 +33,9 @@
       </div>
       <!-- Champs pour afficher le mail -->
       <h3 class="content-center__title">{{ messages.mail }}</h3>
-      <ValidationProvider
-        v-slot="v"
-        ref="mail"
-        name="mail"
-        rules="required|email"
-        class="d-block w-100"
-      >
+      <ValidationProvider v-slot="v" ref="mail" name="mail" rules="required|email" class="d-block w-100">
         <div class="form-group content-center__input">
-          <input
-            v-model="form.mail[0].value"
-            type="mail"
-            class="form-control"
-            name="mail"
-          />
+          <input v-model="form.mail[0].value" type="mail" class="form-control" name="mail" />
         </div>
         <div class="text-danger text-small">
           <small v-for="(err, ii) in v.errors" :key="ii" class="d-block">
@@ -92,33 +69,20 @@
       <hr />
     </div>
     <div v-if="modelRegisterFormResult === 'generate_password'">
-      <h4 class="title mb-5">Creation automatique du compte</h4>
+      <h4 class="title mb-5">{{ messages.title_register_auto }}</h4>
       <!-- On verifie si le name contient un email -->
       <div v-if="validEmail(form.name[0].value)" class="mb-5">
-        <p>Vos informations de connexion seront transferés à cette adresse.</p>
+        <p>{{ messages.info_about_register }}</p>
         <strong> {{ form.name[0].value }} </strong>
         {{ set_email() }}
       </div>
       <div v-if="!validEmail(form.name[0].value)">
-        <ValidationProvider
-          v-slot="v"
-          ref="mail"
-          name="mail"
-          rules="required"
-          class="d-block w-100"
-        >
+        <ValidationProvider v-slot="v" ref="mail" name="mail" rules="required" class="d-block w-100">
           <div class="form-group content-center__input">
-            <label class="mb-0 pb-0"> Votre adresse email </label>
-            <input
-              v-model="form.mail[0].value"
-              type="mail"
-              class="form-control"
-              name="mail"
-            />
+            <label class="mb-0 pb-0"> {{ messages.email }} </label>
+            <input v-model="form.mail[0].value" type="mail" class="form-control" name="mail" />
             <div>
-              <small>
-                Vos informations de connexion seront transferés à cette adresse.
-              </small>
+              <small> {{ messages.info_about_register }} </small>
             </div>
           </div>
           <div class="text-danger text-small">
@@ -137,23 +101,11 @@
         </div>
       </div>
     </div>
-    <b-alert
-      dismissible
-      variant="danger"
-      fade
-      :show="error.message ? true : false"
-      @dismissed="error.message = false"
-    >
+    <b-alert dismissible variant="danger" fade :show="error.message ? true : false" @dismissed="error.message = false">
       {{ error.message }}
     </b-alert>
 
-    <a
-      href="#"
-      class="text-center d-block"
-      @click="$emit('select-stepe', 'checkstatus')"
-    >
-      Retour
-    </a>
+    <a href="#" class="text-center d-block" @click="$emit('select-stepe', 'checkstatus')"> {{ messages.back }} </a>
   </div>
 </template>
 <script>
@@ -199,7 +151,6 @@ export default {
 
   data() {
     return {
-      messages: config.messages,
       waiting: "",
       /**
        * Drupal >9.5 renvoit l'erreur dans {message}
@@ -211,19 +162,19 @@ export default {
   },
   computed: {
     ...mapState(["form", "configs_login_rx_vuejs"]),
+    //
+    messages() {
+      if (this.configs_login_rx_vuejs && this.configs_login_rx_vuejs.texts) {
+        return this.configs_login_rx_vuejs.texts;
+      } else return config.messages;
+    },
     /**
      * Resultat entre la config endur et celle en BD.
      */
     modelRegisterFormResult() {
-      if (
-        this.modelRegisterForm == "generate_password" ||
-        this.modelRegisterForm == "default"
-      ) {
+      if (this.modelRegisterForm == "generate_password" || this.modelRegisterForm == "default") {
         return this.modelRegisterForm;
-      } else if (
-        this.configs_login_rx_vuejs &&
-        this.configs_login_rx_vuejs.generate_user
-      ) {
+      } else if (this.configs_login_rx_vuejs && this.configs_login_rx_vuejs.generate_user) {
         return "generate_password";
       } else {
         return "default";
@@ -274,15 +225,12 @@ export default {
             this.waiting = "";
             if (this.showModalSuccess)
               config
-                .modalSuccess(
-                  config.msgCreate([this.messages.devis_create_user]),
-                  {
-                    title: "Votre compte a été crré",
-                    footerClass: "d-none",
-                    headerBgVariant: "success",
-                    headerTextVariant: "light",
-                  }
-                )
+                .modalSuccess(config.msgCreate([this.messages.devis_create_user.value ? this.messages.devis_create_user.value : this.messages.devis_create_user]), {
+                  title: this.messages.titre_create_compte,
+                  footerClass: "d-none",
+                  headerBgVariant: "success",
+                  headerTextVariant: "light",
+                })
                 .then(() => {
                   config.AfterRedirect(this.actionAfterRegister, null, resp);
                 });

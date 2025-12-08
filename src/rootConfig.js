@@ -1,7 +1,11 @@
 import { AjaxBasic } from "wbuutilities";
+var languageId = null;
+if (window.drupalSettings && window.drupalSettings.path && window.drupalSettings.path.pathPrefix != "") {
+  languageId = window.drupalSettings.path.pathPrefix.replace("/", "");
+}
 const config = {
   ...AjaxBasic,
-  languageId: window.drupalSettings && window.drupalSettings.path && window.drupalSettings.path.currentLanguage ? window.drupalSettings.path.currentLanguage : null,
+  languageId: languageId,
   // on ne laisse la valeur par defaut, pour permttre au domaine local de pouvoir se connecter.
   TestDomain: window.location.host.includes("localhost") ? "http://habeuk.kksa" : window.location.protocol + "//" + window.location.host,
   /**
